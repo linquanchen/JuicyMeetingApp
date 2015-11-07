@@ -5,4 +5,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="create_event">Create Event</string>
+    <string name="notes_agenda">Notes/Agenda:</string>
+    <string name="group_chat">Group Chat</string>
+    <string name="event_main_page">Event Main Page</string>
 </resources>

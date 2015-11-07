@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -68,6 +69,12 @@ public class MainPageActivity extends AppCompatActivity
 //        ArrayAdapter<String> adapter;
 
 
+    }
+
+    public void createEvent(View view) {
+        //intent Viewer to show result
+        Intent intent = new Intent(this, CreateEventActivity.class);
+        startActivity(intent);
     }
 
     public void createGroup(View view) {
