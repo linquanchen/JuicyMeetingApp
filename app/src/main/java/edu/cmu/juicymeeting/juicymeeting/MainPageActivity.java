@@ -1,5 +1,6 @@
 package edu.cmu.juicymeeting.juicymeeting;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,11 +21,15 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import edu.cmu.juicymeeting.model.SampleFragmentPagerAdapter;
 
 public class MainPageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int CREATE_GROUP_ACTIVITY = 0;
+    private static final int JOIN_GROUP_ACTIVITY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +85,7 @@ public class MainPageActivity extends AppCompatActivity
     public void createGroup(View view) {
         //intent Viewer to show result
         Intent intent = new Intent(this, CreateGroupActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, CREATE_GROUP_ACTIVITY);
     }
 
     public void joinGroup(View view) {
@@ -88,6 +93,36 @@ public class MainPageActivity extends AppCompatActivity
         Intent intent = new Intent(this, JoinGroupActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ListView listView = (ListView) findViewById(R.id.groupList);
+        switch(requestCode) {
+            case (CREATE_GROUP_ACTIVITY) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    String number = data.getStringExtra(CreateGroupActivity.PASS);
+                    ArrayList<String> list = new ArrayList<String>(Arrays.asList(number));
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                            android.R.layout.simple_list_item_1, android.R.id.text1, list);
+                    listView.setAdapter(adapter);
+                }
+                break;
+            }
+            case (JOIN_GROUP_ACTIVITY) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    String number = data.getStringExtra(JoinGroupActivity.PASS);
+                    ArrayList<String> list = new ArrayList<String>(Arrays.asList(number));
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                            android.R.layout.simple_list_item_1, android.R.id.text1, list);
+                    listView.setAdapter(adapter);
+                }
+                break;
+            }
+        }
+    }
+
+
 
     @Override
     public void onBackPressed() {

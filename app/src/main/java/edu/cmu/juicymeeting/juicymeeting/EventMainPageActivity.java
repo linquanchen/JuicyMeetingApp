@@ -12,7 +12,7 @@ public class EventMainPageActivity extends AppCompatActivity {
     private EditText locationEditText;
     private EditText notesEditText;
 
-    public static final String EVETN_ID = "eventID";
+    public static final String EVENT_ID = "eventID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

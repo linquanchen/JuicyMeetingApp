@@ -1,11 +1,19 @@
 package edu.cmu.juicymeeting.juicymeeting;
-
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import edu.cmu.juicymeeting.juicymeeting.R;
 
 public class CreateGroupActivity extends AppCompatActivity {
+    public static final String PASS = "PASS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,5 +41,22 @@ public class CreateGroupActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void createGroupOk(View view) {
+        EditText editText = (EditText) findViewById(R.id.createGroupPass);
+        Editable editable = editText.getText();
+        String number = editable.toString();
+        TextView textView = (TextView) findViewById(R.id.createGroupHint);
+        if(number.length() != 4) {
+            textView.setText("Must be exactly 4 digits!");
+        }
+        else {
+            textView.setText("");
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra(PASS, number);
+            setResult(Activity.RESULT_OK, resultIntent);
+            finish();
+        }
     }
 }
