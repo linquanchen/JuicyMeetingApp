@@ -43,7 +43,6 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         // Generate title based on item position
         //return tabTitles[position];
-
         Drawable image = ContextCompat.getDrawable(context, imageResId[position]);
         image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
         SpannableString sb = new SpannableString(" ");

@@ -17,31 +17,33 @@ public class EventMainPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_main_page);
 
-        eventNameEditText = (EditText) findViewById(R.id.eventNameEditText);
-        dateTimeEditText = (EditText) findViewById(R.id.dateTimeEditText);
-        locationEditText = (EditText) findViewById(R.id.locationEditText);
-        notesEditText = (EditText) findViewById(R.id.notesEditText);
+        //setContentView(R.layout.activity_event_main_page);
+        setContentView(R.layout.event_detail);
 
-        eventNameEditText.setEnabled(false);
-        dateTimeEditText.setEnabled(false);
-        locationEditText.setEnabled(false);
-        notesEditText.setEnabled(false);
-
-        // flate tabs
-        TabHost tabHost = (TabHost)findViewById(R.id.eventMainTabHost);
-
-        tabHost.setup();
-
-        TabHost.TabSpec tabSpec = tabHost.newTabSpec("eventInfo");
-        tabSpec.setContent(R.id.mainEventInfoTab);
-        tabSpec.setIndicator("Info");
-        tabHost.addTab(tabSpec);
-
-        tabSpec = tabHost.newTabSpec("eventChat");
-        tabSpec.setContent(R.id.mainEventChatTab);
-        tabSpec.setIndicator("Chat");
-        tabHost.addTab(tabSpec);
+//        eventNameEditText = (EditText) findViewById(R.id.eventNameEditText);
+//        dateTimeEditText = (EditText) findViewById(R.id.dateTimeEditText);
+//        locationEditText = (EditText) findViewById(R.id.locationEditText);
+//        notesEditText = (EditText) findViewById(R.id.notesEditText);
+//
+//        eventNameEditText.setEnabled(false);
+//        dateTimeEditText.setEnabled(false);
+//        locationEditText.setEnabled(false);
+//        notesEditText.setEnabled(false);
+//
+//        // flate tabs
+//        TabHost tabHost = (TabHost)findViewById(R.id.eventMainTabHost);
+//
+//        tabHost.setup();
+//
+//        TabHost.TabSpec tabSpec = tabHost.newTabSpec("eventInfo");
+//        tabSpec.setContent(R.id.mainEventInfoTab);
+//        tabSpec.setIndicator("Info");
+//        tabHost.addTab(tabSpec);
+//
+//        tabSpec = tabHost.newTabSpec("eventChat");
+//        tabSpec.setContent(R.id.mainEventChatTab);
+//        tabSpec.setIndicator("Chat");
+//        tabHost.addTab(tabSpec);
     }
 }

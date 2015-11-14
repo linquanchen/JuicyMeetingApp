@@ -23,4 +23,7 @@
     <dimen name="txt_16sp">16sp</dimen>
     <dimen name="txt_18sp">18sp</dimen>
     <dimen name="txt_20sp">20sp</dimen>
+
+    <dimen name="event_list_card_height">80dp</dimen>
+    <dimen name="event_list_card_elevation">1dp</dimen>
 </resources>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+        <TableRow>
+            <TextView
+                android:text="Name:"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                />
+            <EditText
+                android:id="@+id/create_events_name"
+                android:layout_marginLeft="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+
+                android:textSize="30dp"
+                android:inputType="text"
+                android:maxLength="20"
+                android:hint="ex:Majed"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey"
+                />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+
+                android:text="Date:"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                />
+            <Button
+                android:id="@+id/create_events_date"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+
+                android:text="Pick date"
+                android:onClick="showDatePickerDialog" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+
+                android:text="Location:"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                />
+            <EditText
+                android:id="@+id/create_events_location"
+                android:layout_marginLeft="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+
+                android:textSize="30dp"
+                android:inputType="text"
+                android:maxLength="100"
+                android:textColor="@color/black"
+                />
+        </TableRow>
+
+
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <ImageView
+                android:id="@+id/create_events_image"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/create_events_image"
+                android:background="@color/white"/>
+
+            <ImageView
+                android:id="@+id/create_events_description"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/create_events_description"
+                android:background="@color/white"/>
+        </TableRow>
+    </TableLayout>
+
+
+</LinearLayout>
