@@ -1,2 +1,2 @@
 # JuicyMeetingApp
-First Commit
+Build the framework of the APP
