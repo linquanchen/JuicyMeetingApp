@@ -43,10 +43,10 @@ public class JoinGroupActivity extends AppCompatActivity {
     }
 
     public void joinGroupOk(View view) {
-        EditText editText = (EditText) findViewById(R.id.joinGroupPass);
+        EditText editText = (EditText) findViewById(R.id.join_group_password);
         Editable editable = editText.getText();
         String number = editable.toString();
-        TextView textView = (TextView) findViewById(R.id.joinGroupHint);
+        TextView textView = (TextView) findViewById(R.id.join_group_hint);
         if(number.length() != 4) {
             textView.setText("Must be exactly 4 digits!");
         }

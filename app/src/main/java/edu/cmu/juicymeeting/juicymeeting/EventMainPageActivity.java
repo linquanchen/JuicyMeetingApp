@@ -18,7 +18,7 @@ public class EventMainPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //setContentView(R.layout.activity_event_main_page);
-        setContentView(R.layout.e_list_card);
+        setContentView(R.layout.event_detail);
 
 //        eventNameEditText = (EditText) findViewById(R.id.eventNameEditText);
 //        dateTimeEditText = (EditText) findViewById(R.id.dateTimeEditText);

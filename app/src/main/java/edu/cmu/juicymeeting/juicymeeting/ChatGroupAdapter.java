@@ -15,6 +15,7 @@ import edu.cmu.juicymeeting.database.model.ChatGroup;
 public class ChatGroupAdapter extends RecyclerView.Adapter<ChatGroupAdapter.ViewHolder>  {
 
     public ChatGroup[] chatGroups;
+    public OnItemClickListener mItemClickListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public ChatGroupAdapter(ChatGroup[] chatGroups) {
@@ -47,7 +48,7 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<ChatGroupAdapter.View
     }
 
     // inner class to hold a reference to each item of RecyclerView
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView groupImage;
         public TextView groupName;
@@ -59,7 +60,20 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<ChatGroupAdapter.View
             groupImage = (ImageView)itemLayoutView.findViewById(R.id.group_image);
             groupName = (TextView)itemLayoutView.findViewById(R.id.group_name);
             groupDescription = (TextView)itemLayoutView.findViewById(R.id.group_description);
+
+            itemLayoutView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(v, getLayoutPosition());
+            }
+        }
+    }
+
+    public void setmItemClickListener(final OnItemClickListener onItemClickListener) {
+        this.mItemClickListener = onItemClickListener;
     }
 }
 
