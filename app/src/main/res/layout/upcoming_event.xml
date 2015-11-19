@@ -1,149 +1,46 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+group create button: group_create
+event list: event_list
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainPage"
-    android:orientation="vertical"
-    >
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainPage"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_marginTop="20dp"
-        android:id="@+id/intro"
-        android:layout_width="300dp"
+        android:id="@+id/group_create"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-
-        android:text="Boring? Try create event and make impact!"
-        android:fontFamily="sans-serif"
-        android:gravity="center_horizontal"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        />
-
-    <Button
-        android:id="@+id/createEventButton"
+        android:gravity="center"
         android:layout_marginTop="20dp"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
 
-        android:text="Create Event"
+        android:text="Create"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:background="#F12345"
-        android:fontFamily="sans-serif"
-
+        android:textColor="@color/black"
+        android:background="@color/transparent"
         android:onClick="createEvent"
         />
 
     <View
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
 
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-
-        android:text="Upcoming Events"
-        android:fontFamily="sans-serif"
-        android:gravity="center_horizontal"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        />
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/upcoming_event_list"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/event_list_card_height"
-        card_view:cardBackgroundColor="@color/white"
-        card_view:cardCornerRadius="0dp"
-        card_view:cardElevation="@dimen/event_list_card_elevation"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:id="@+id/cardViewEvent">
-
-        <!-- Main Content View -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="10dp"
-            android:paddingRight="20dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical"
-                android:layout_marginTop="5dp">
-                <TextView
-                    android:id="@+id/event_list_card_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:gravity="center_vertical"
-
-                    android:text="First meeting"
-                    android:textSize="30dp"
-                    android:fontFamily="sans-serif"
-                    android:typeface="monospace"
-                    android:textStyle="bold"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/event_list_card_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_toRightOf="@id/event_list_card_image"
-                    android:gravity="center_vertical"
-
-                    android:text="Moffett Blvd"
-                    android:textSize="15dp"
-                    android:fontFamily="sans-serif"
-                    android:typeface="monospace"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:id="@+id/event_list_card_month_year"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:text="07/2015"
-                    android:textSize="15dp"
-                    android:textColor="@color/black"
-                    android:textAlignment="textEnd"
-                    tools:ignore="RtlCompat,UnusedAttribute" />
-
-                <TextView
-                    android:id="@+id/event_list_card_day"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:text="28"
-                    android:textSize="35dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textAlignment="textEnd"
-                    tools:ignore="RtlCompat,UnusedAttribute" />
-                />
-            </LinearLayout>
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-    <ListView
-        android:id="@+id/upcomingEventList"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:scrollbars="vertical" />
 </LinearLayout>

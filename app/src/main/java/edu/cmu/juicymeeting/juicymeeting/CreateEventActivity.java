@@ -60,7 +60,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 imgDecodableString = cursor.getString(columnIndex);
                 cursor.close();
-                ImageView imgView = (ImageView) findViewById(R.id.create_events_image);
+                ImageView imgView = (ImageView) findViewById(R.id.create_event_image);
                 // Set the Image in ImageView after decoding the String
                 // Get the directory for the user's public pictures directory.
                 imgView.setImageBitmap(BitmapFactory
@@ -108,7 +108,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
         verifyStoragePermissions(this);
 
-        createEventsButton = (ImageView)findViewById(R.id.create_events_image);
+        createEventsButton = (ImageView)findViewById(R.id.create_event_image);
         createEventsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

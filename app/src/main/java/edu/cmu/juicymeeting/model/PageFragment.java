@@ -3,10 +3,17 @@ package edu.cmu.juicymeeting.model;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
+import edu.cmu.juicymeeting.database.model.ChatGroup;
+import edu.cmu.juicymeeting.database.model.Event;
+import edu.cmu.juicymeeting.juicymeeting.CardViewDataAdapter;
+import edu.cmu.juicymeeting.juicymeeting.ChatGroupAdapter;
 import edu.cmu.juicymeeting.juicymeeting.EventMainChatActivity;
 import edu.cmu.juicymeeting.juicymeeting.EventMainPageActivity;
 import edu.cmu.juicymeeting.juicymeeting.GroupChatActivity;
@@ -17,6 +24,18 @@ public class PageFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
 
     private int mPage;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    private RecyclerView exploreRecyclerView;
+    private RecyclerView.Adapter exploreAdapter;
+    private RecyclerView.LayoutManager exploreLayoutManager;
+
+    private RecyclerView groupRecyclerView;
+    private RecyclerView.Adapter groupAdapter;
+    private RecyclerView.LayoutManager groupLayoutManager;
 
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -39,41 +58,67 @@ public class PageFragment extends Fragment {
         switch(mPage) {
             case 0: //create event page
                 view = inflater.inflate(R.layout.upcoming_event, container, false);
-                android.support.v7.widget.CardView cardViewEvent = (android.support.v7.widget.CardView)
-                        view.findViewById(R.id.cardViewEvent);
-                cardViewEvent.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
-                        startActivity(intent);
-                    }
-                });
+
+                mRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_event_list);
+                // use this setting to improve performance if you know that changes
+                // in content do not change the layout size of the RecyclerView
+
+                //mRecyclerView.setHasFixedSize(true);
+
+                // use a linear layout manager
+                mLayoutManager = new LinearLayoutManager(getActivity());
+                mRecyclerView.setLayoutManager(mLayoutManager);
+                Event[] events = new Event[4];
+                events[0] = new Event("First Meeting", "Mountain View", "07/2016");
+                events[1] = new Event("Third Meeting", "San Francisco", "08/2016");
+                events[2] = new Event("Sixth Meeting", "New York", "09/2016");
+                events[3] = new Event("Eight Meeting", "Boston", "10/2016");
+                // specify an adapter (see also next example)
+                mAdapter = new CardViewDataAdapter(events);
+                mRecyclerView.setAdapter(mAdapter);
+
                 break;
             case 2:
                 view = inflater.inflate(R.layout.group_chat, container, false);
-                android.support.v7.widget.CardView cardView = (android.support.v7.widget.CardView)
-                        view.findViewById(R.id.cardView);
-                cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), GroupChatActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                groupRecyclerView = (RecyclerView) view.findViewById(R.id.group_list);
+                // use this setting to improve performance if you know that changes
+                // in content do not change the layout size of the RecyclerView
+
+                //mRecyclerView.setHasFixedSize(true);
+
+                // use a linear layout manager
+                groupLayoutManager = new LinearLayoutManager(getActivity());
+                groupRecyclerView.setLayoutManager(groupLayoutManager);
+                ChatGroup[] chatGroups = new ChatGroup[4];
+                chatGroups[0] = new ChatGroup("First Meeting", "Mountain View", 1);
+                chatGroups[1] = new ChatGroup("Third Meeting", "San Francisco", 2);
+                chatGroups[2] = new ChatGroup("Sixth Meeting", "New York", 2);
+                chatGroups[3] = new ChatGroup("Eight Meeting", "Boston", 2);
+                // specify an adapter (see also next example)
+                groupAdapter = new ChatGroupAdapter(chatGroups);
+                groupRecyclerView.setAdapter(groupAdapter);
+
                 break;
             case 1:
             default:
                 view = inflater.inflate(R.layout.explore, container, false);
-                android.support.v7.widget.CardView cardViewEvent1 = (android.support.v7.widget.CardView)
-                        view.findViewById(R.id.cardViewNearby);
-                cardViewEvent1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                exploreRecyclerView = (RecyclerView) view.findViewById(R.id.exploreList);
+                // use this setting to improve performance if you know that changes
+                // in content do not change the layout size of the RecyclerView
 
+                //mRecyclerView.setHasFixedSize(true);
+
+                // use a linear layout manager
+                exploreLayoutManager = new LinearLayoutManager(getActivity());
+                exploreRecyclerView.setLayoutManager(exploreLayoutManager);
+                Event[] exploreEvents = new Event[3];
+                exploreEvents[0] = new Event("Third Meeting", "Mountain View", "07/2016");
+                exploreEvents[1] = new Event("Four Meeting", "San Francisco", "08/2016");
+                exploreEvents[2] = new Event("Nine Meeting", "New York", "09/2016");
+
+                // specify an adapter (see also next example)
+                exploreAdapter = new CardViewDataAdapter(exploreEvents);
+                exploreRecyclerView.setAdapter(exploreAdapter);
                 break;
         }
 
