@@ -104,7 +104,7 @@ public class CreateEventActivity extends AppCompatActivity {
         // just for viewing the correctness of the ui
 
         //setContentView(R.layout.activity_create_event);
-        setContentView(R.layout.create_events);
+        setContentView(R.layout.create_event);
 
         verifyStoragePermissions(this);
 

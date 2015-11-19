@@ -14,14 +14,16 @@ import edu.cmu.juicymeeting.juicymeeting.R;
 
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
-    //private String tabTitles[] = new String[] { "Tab1", "Tab2", "Tab3" };
+    private String tabTitles[] = new String[] { "upcoming", "explore", "chat" };
     private Context context;
 
+    /*
     private int[] imageResId = {
             R.drawable.pic1,
             R.drawable.pic2,
             R.drawable.pic3
     };
+    */
 
 
     public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {
@@ -42,12 +44,14 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         // Generate title based on item position
-        //return tabTitles[position];
+        return tabTitles[position];
+        /*
         Drawable image = ContextCompat.getDrawable(context, imageResId[position]);
         image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
         SpannableString sb = new SpannableString(" ");
         ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
         sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return sb;
+        */
     }
 }

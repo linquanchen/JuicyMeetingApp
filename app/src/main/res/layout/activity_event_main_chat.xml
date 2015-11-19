@@ -48,7 +48,7 @@
                 style="@style/btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_send" />
+                android:background="@drawable/ic_send"/>
 
         </LinearLayout>
     </LinearLayout>

@@ -15,7 +15,6 @@ join group button: group_join
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
@@ -25,10 +24,10 @@ join group button: group_join
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingRight="10dp"
+            android:paddingRight="@dimen/medium_padding"
 
             android:text="Create"
-            android:textSize="20sp"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:background="@color/transparent"
@@ -46,10 +45,10 @@ join group button: group_join
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingLeft="10dp"
+            android:paddingLeft="@dimen/medium_padding"
 
             android:text="Join"
-            android:textSize="20sp"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:background="@color/transparent"
@@ -58,8 +57,8 @@ join group button: group_join
     </LinearLayout>
 
     <View
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="@dimen/medium_padding"
+        android:layout_marginBottom="@dimen/medium_padding"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
