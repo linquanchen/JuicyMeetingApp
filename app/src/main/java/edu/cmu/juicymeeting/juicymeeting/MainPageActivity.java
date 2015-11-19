@@ -88,7 +88,7 @@ public class MainPageActivity extends AppCompatActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ListView listView = (ListView) findViewById(R.id.groupList);
+        ListView listView = (ListView) findViewById(R.id.group_list);
         switch(requestCode) {
             case (CREATE_GROUP_ACTIVITY) : {
                 if (resultCode == Activity.RESULT_OK) {

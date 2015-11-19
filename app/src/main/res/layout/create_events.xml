@@ -1,110 +1,190 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--
+create image button: create_event_image
+create event name: create_event_name
+create event description: create_event_description
 
-    <TableLayout
+-->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainPage"
+    android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-        <TableRow>
-            <TextView
-                android:text="Name:"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                />
-            <EditText
-                android:id="@+id/create_events_name"
-                android:layout_marginLeft="20dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-
-                android:textSize="30dp"
-                android:inputType="text"
-                android:maxLength="20"
-                android:hint="ex:Majed"
-                android:textColor="@color/black"
-                android:textColorHint="@color/grey"
-                />
-        </TableRow>
-
-        <TableRow>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-
-                android:text="Date:"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                />
-            <Button
-                android:id="@+id/create_events_date"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-
-                android:text="Pick date"
-                android:onClick="showDatePickerDialog" />
-        </TableRow>
-
-        <TableRow>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-
-                android:text="Location:"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                />
-            <EditText
-                android:id="@+id/create_events_location"
-                android:layout_marginLeft="20dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-
-                android:textSize="30dp"
-                android:inputType="text"
-                android:maxLength="100"
-                android:textColor="@color/black"
-                />
-        </TableRow>
-
-
-
-        <TableRow
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
-            <ImageView
-                android:id="@+id/create_events_image"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/create_event_cancel"
                 android:layout_width="0dp"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/create_events_image"
-                android:background="@color/white"/>
+                android:gravity="center"
+                android:paddingRight="10dp"
 
-            <ImageView
-                android:id="@+id/create_events_description"
+                android:text="Cancel"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:background="@color/transparent"
+                />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black"/>
+
+            <TextView
+                android:id="@+id/create_event_publish"
                 android:layout_width="0dp"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/create_events_description"
-                android:background="@color/white"/>
-        </TableRow>
-    </TableLayout>
+                android:gravity="center"
+                android:paddingLeft="10dp"
+
+                android:text="Publish"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:background="@color/transparent"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                android:id="@+id/create_event_image"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/photo"
+                android:background="@color/transparent"
+                android:scaleType="center"
+                android:adjustViewBounds="false"
+                android:elevation="3dp"/>
+
+                <LinearLayout
+                    android:id="@+id/create_event_main_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/create_event_image"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/create_event_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:elevation="4dp"
+
+                        android:textColor="@color/black"
+                        android:hint="Event Name"
+                        android:textStyle="bold"
+                        android:fontFamily="monospace"
+                        android:textSize="@dimen/event_list_card_text_size"/>
+
+                    <TextView
+                        android:id="@+id/create_event_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textColor="@color/black"
+                        android:fontFamily="monospace"
+                        android:textSize="@dimen/event_list_card_text_size"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/create_event_main_edit"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:layout_height="wrap_content"
+
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:text="Location"/>
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:layout_height="wrap_content"
+
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:text="Time"/>
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:layout_height="wrap_content"
+
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:text="Description"/>
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+        </FrameLayout>
+    </LinearLayout>
 
 
-</LinearLayout>
+</ScrollView>

@@ -3,7 +3,6 @@ package edu.cmu.juicymeeting.juicymeeting;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
-import android.widget.TabHost;
 
 @SuppressWarnings("deprecation")
 public class EventMainPageActivity extends AppCompatActivity {
@@ -19,7 +18,7 @@ public class EventMainPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //setContentView(R.layout.activity_event_main_page);
-        setContentView(R.layout.event_detail);
+        setContentView(R.layout.e_list_card);
 
 //        eventNameEditText = (EditText) findViewById(R.id.eventNameEditText);
 //        dateTimeEditText = (EditText) findViewById(R.id.dateTimeEditText);
