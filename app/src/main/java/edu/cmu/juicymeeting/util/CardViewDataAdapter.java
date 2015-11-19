@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.juicymeeting;
+package edu.cmu.juicymeeting.util;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.cmu.juicymeeting.database.model.Event;
+import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
+import edu.cmu.juicymeeting.juicymeeting.R;
 
 /**
  * Created by chenlinquan on 11/18/15.

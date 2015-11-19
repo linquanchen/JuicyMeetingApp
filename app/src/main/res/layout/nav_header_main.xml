@@ -9,7 +9,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark" android:orientation="vertical"
     android:gravity="bottom">
 
-    <edu.cmu.juicymeeting.model.RoundedImageView
+    <edu.cmu.juicymeeting.util.RoundedImageView
         android:layout_width="65dp" android:layout_height="65dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@mipmap/profile" android:id="@+id/imageView" />

@@ -47,7 +47,7 @@ group description: group_description
                 android:textSize="10sp"
                 android:text="Juicy Meeting"/>
 
-            <edu.cmu.juicymeeting.model.RImageView
+            <edu.cmu.juicymeeting.util.RImageView
                 android:id="@+id/group_image"
                 android:layout_width="20dp"
                 android:layout_height="20dp"

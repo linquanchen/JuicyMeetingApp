@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import edu.cmu.juicymeeting.exception.JuicyException;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
 public class CreateGroupActivity extends AppCompatActivity {
@@ -49,7 +50,12 @@ public class CreateGroupActivity extends AppCompatActivity {
         String number = editable.toString();
         TextView textView = (TextView) findViewById(R.id.create_group_hint);
         if(number.length() != 4) {
-            textView.setText("Must be exactly 4 digits!");
+            try {
+                throw new JuicyException(0);
+            } catch (JuicyException e) {
+                textView.setText("Must be exactly 4 digits!");
+                e.printStackTrace();
+            }
         }
         else {
             textView.setText("");
