@@ -1,3 +1,8 @@
+<!--
+join group 4 digit password: join_group_password
+input exception hint: join_group_hint
+ok button: join_group_ok_button
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -5,62 +10,59 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainPage"
     android:orientation="vertical"
+    android:background="@color/dark_grey"
     >
 
     <TextView
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
 
-        android:text="Enter group password here"
+        android:text="join group using 4 digits"
         android:fontFamily="sans-serif"
         android:gravity="center_horizontal"
         android:textSize="20dp"
+        android:textColor="@color/grey"
         android:textStyle="bold"
         />
 
     <EditText
-        android:id="@+id/joinGroupPass"
+        android:id="@+id/join_group_password"
         android:layout_marginTop="20dp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
 
         android:inputType="number"
-        android:maxLength="4"
         android:textAlignment="center"
+        android:maxLength="4"
         android:hint="ex:1234"
-        android:textSize="50dp"
+        android:textSize="20sp"
         />
 
     <TextView
-        android:id="@+id/joinGroupHint"
+        android:id="@+id/join_group_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="must be exactly 4 digits"/>
+
+    <Button
+        android:id="@+id/join_group_ok_button"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:textSize="20dp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:textColor="#FF0000"
-        />
-
-    <Button
-        android:layout_marginTop="20dp"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
+        android:background="@drawable/rectangle"
 
         android:text="OK"
+        android:textColor="@color/white"
         android:textStyle="bold"
-        android:background="#F12345"
-        android:fontFamily="sans-serif"
-
         android:onClick="joinGroupOk"
         />
-
 </LinearLayout>

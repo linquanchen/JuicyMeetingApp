@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+user portrait: event_detail_portrait
+user name: event_detail_user_name
+join or leave group switch button: event_detail_join_leave_switch
+main background image: event_detail_image
+event name: event_detail_event_name
+event location: event_detail_location
+event time: event_detail_date
+event map: event_detail_map
+event description: event_detail_description
+-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/dark_grey">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,31 +26,55 @@
         android:paddingRight="15dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
-            <edu.cmu.juicymeeting.model.RoundedImageView
-                android:id="@+id/event_list_card_portrait"
-                android:layout_width="@dimen/event_list_card_portrait_size"
-                android:layout_height="@dimen/event_list_card_portrait_size"
-                android:scaleType="centerCrop"
-                android:src="@drawable/coffee_portrait"/>
-
-            <TextView
-                android:id="@+id/event_list_card_user_name"
-                android:layout_width="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.8"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:layout_gravity="center"
+                android:paddingRight="10dp"
+                android:gravity="right">
+                <edu.cmu.juicymeeting.model.RImageView
+                    android:id="@+id/event_detail_portrait"
+                    android:layout_width="@dimen/event_list_card_portrait_size"
+                    android:layout_height="@dimen/event_list_card_portrait_size"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/coffee_portrait"/>
 
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/grey"
-                android:text="Good Coffee"/>
+                <TextView
+                    android:id="@+id/event_detail_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:layout_gravity="center"
+
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/grey"
+                    android:text="Good Coffee"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/event_detail_join_leave_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:text="Join Group"/>
+            </LinearLayout>
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/event_list_card_image"
+            android:id="@+id/event_detail_image"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:src="@drawable/coffee"
@@ -58,18 +94,19 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/event_detail_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:textSize="20sp"
                 android:text="Coffee"
-                android:textColor="@color/black"/>
+                android:textColor="@color/white"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/event_detail_date"
+                    android:id="@+id/event_detail_location"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -78,6 +115,7 @@
                     android:textColor="@color/grey"
                     />
                 <TextView
+                    android:id="@+id/event_detail_date"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -89,6 +127,7 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/event_detail_map"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="20dp"
@@ -110,7 +149,7 @@
 
                 android:text="Some description"
                 android:textSize="20dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/white"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

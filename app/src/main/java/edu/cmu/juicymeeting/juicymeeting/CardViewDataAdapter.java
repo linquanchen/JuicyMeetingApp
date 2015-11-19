@@ -40,7 +40,7 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
         holder.eventListCardName.setText(eventSet[position].getEventName());
         holder.eventListCardLocation.setText(eventSet[position].getLocation());
         holder.eventListCardMonthYear.setText(eventSet[position].getDate());
-        holder.eventListCardDay.setText("27");
+        //holder.eventListCardDay.setText("27");
     }
 
     @Override
@@ -60,10 +60,10 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             eventListCardImage = (ImageView)itemLayoutView.findViewById(R.id.event_list_card_image);
-            eventListCardName = (TextView)itemLayoutView.findViewById(R.id.event_list_card_name);
+            eventListCardName = (TextView)itemLayoutView.findViewById(R.id.event_list_card_user_name);
             eventListCardLocation = (TextView)itemLayoutView.findViewById(R.id.event_list_card_location);
-            eventListCardMonthYear = (TextView)itemLayoutView.findViewById(R.id.event_list_card_month_year);
-            eventListCardDay = (TextView)itemLayoutView.findViewById(R.id.event_list_card_day);
+            eventListCardMonthYear = (TextView)itemLayoutView.findViewById(R.id.event_list_card_time);
+            //eventListCardDay = (TextView)itemLayoutView.findViewById(R.id.event_list_card_day);
 
             itemLayoutView.setOnClickListener(this);
         }

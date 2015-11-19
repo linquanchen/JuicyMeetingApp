@@ -44,10 +44,10 @@ public class CreateGroupActivity extends AppCompatActivity {
     }
 
     public void createGroupOk(View view) {
-        EditText editText = (EditText) findViewById(R.id.createGroupPass);
+        EditText editText = (EditText) findViewById(R.id.create_group_password);
         Editable editable = editText.getText();
         String number = editable.toString();
-        TextView textView = (TextView) findViewById(R.id.createGroupHint);
+        TextView textView = (TextView) findViewById(R.id.create_group_hint);
         if(number.length() != 4) {
             textView.setText("Must be exactly 4 digits!");
         }
