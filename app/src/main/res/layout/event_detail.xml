@@ -35,7 +35,7 @@ event description: event_detail_description
                 android:layout_height="wrap_content"
                 android:paddingRight="10dp"
                 android:gravity="right">
-                <edu.cmu.juicymeeting.model.RImageView
+                <edu.cmu.juicymeeting.util.RImageView
                     android:id="@+id/event_detail_portrait"
                     android:layout_width="@dimen/event_list_card_portrait_size"
                     android:layout_height="@dimen/event_list_card_portrait_size"

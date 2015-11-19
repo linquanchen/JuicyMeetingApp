@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.model;
+package edu.cmu.juicymeeting.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;

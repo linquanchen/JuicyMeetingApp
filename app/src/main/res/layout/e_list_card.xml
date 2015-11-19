@@ -75,7 +75,7 @@ event time: id: event_list_card_time
                 android:orientation="horizontal"
                 android:layout_gravity="center_vertical">
 
-                <edu.cmu.juicymeeting.model.MLRoundedImageView
+                <edu.cmu.juicymeeting.util.MLRoundedImageView
                     android:id="@+id/event_list_card_portrait"
                     android:layout_width="@dimen/event_list_card_portrait_size"
                     android:layout_height="@dimen/event_list_card_portrait_size"

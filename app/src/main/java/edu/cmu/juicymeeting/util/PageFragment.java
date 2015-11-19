@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.model;
+package edu.cmu.juicymeeting.util;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,19 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
-import edu.cmu.juicymeeting.juicymeeting.CardViewDataAdapter;
-import edu.cmu.juicymeeting.juicymeeting.ChatGroupAdapter;
-import edu.cmu.juicymeeting.juicymeeting.EventMainChatActivity;
 import edu.cmu.juicymeeting.juicymeeting.EventMainPageActivity;
-import edu.cmu.juicymeeting.juicymeeting.GroupChatActivity;
 import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
@@ -136,11 +129,13 @@ public class PageFragment extends Fragment {
                 // use a linear layout manager
                 exploreLayoutManager = new LinearLayoutManager(getActivity());
                 exploreRecyclerView.setLayoutManager(exploreLayoutManager);
-                Event[] exploreEvents = new Event[3];
+                Event[] exploreEvents = new Event[6];
                 exploreEvents[0] = new Event("Third Meeting", "Mountain View", "07/2016");
                 exploreEvents[1] = new Event("Four Meeting", "San Francisco", "08/2016");
                 exploreEvents[2] = new Event("Nine Meeting", "New York", "09/2016");
-
+                exploreEvents[3] = new Event("Third Meeting", "Mountain View", "07/2016");
+                exploreEvents[4] = new Event("Four Meeting", "San Francisco", "08/2016");
+                exploreEvents[5] = new Event("Nine Meeting", "New York", "09/2016");
                 // specify an adapter (see also next example)
                 exploreAdapter = new CardViewDataAdapter(exploreEvents);
                 exploreRecyclerView.setAdapter(exploreAdapter);

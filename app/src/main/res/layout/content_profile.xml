@@ -15,7 +15,7 @@ profile name: profile_name
     android:layout_marginTop="50dp"
     android:background="@color/dark_grey">
 
-    <edu.cmu.juicymeeting.model.RImageView
+    <edu.cmu.juicymeeting.util.RImageView
         android:id="@+id/profile_portrait"
         android:layout_width="@dimen/profile_portrait_size"
         android:layout_height="@dimen/profile_portrait_size"
