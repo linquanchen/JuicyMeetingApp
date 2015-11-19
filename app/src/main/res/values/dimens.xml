@@ -33,4 +33,10 @@
 
     <dimen name="profile_portrait_size">100dp</dimen>
 
+    <dimen name="small_padding">5dp</dimen>
+    <dimen name="medium_padding">10dp</dimen>
+    <dimen name="large_padding">20dp</dimen>
+
+    <dimen name="button_text_size">15sp</dimen>
+
 </resources>
