@@ -1,93 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/event_list_card_height"
-    card_view:cardBackgroundColor="@color/white"
-    card_view:cardCornerRadius="0dp"
-    card_view:cardElevation="@dimen/event_list_card_elevation"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+<!--
+main background image: id: event_list_card_image
+event name: id: event_list_card_name
+event description: id: event_list_card_description
+user portrait: id: event_list_card_portrait
+user name: id: event_list_card_user_name
+event follow info: id: event_list_card_follow_info
+event location: id: event_list_card_location
+event time: id: event_list_card_time
 
-    <!-- Main Content View -->
-    <LinearLayout
+<dimen name="event_list_card_height">80dp</dimen>
+<dimen name="event_list_card_elevation">1dp</dimen>
+<dimen name="event_list_card_text_size">30dp</dimen>
+<dimen name="event_list_card_padding">15dp</dimen>
+<dimen name="event_list_card_portrait_size">40dp</dimen>
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="10dp"
-        android:paddingRight="20dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
         <ImageView
             android:id="@+id/event_list_card_image"
-            android:layout_width="@dimen/event_list_card_height"
-            android:layout_height="@dimen/event_list_card_height"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/test_event_list_card"/>
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/coffee"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="false"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/event_list_card_background"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical"
-            android:layout_marginTop="5dp">
+            android:layout_alignBottom="@id/event_list_card_image"
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/event_list_card_name"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/event_list_card_padding"
 
-                android:text="First meeting"
-                android:textSize="30dp"
-                android:fontFamily="sans-serif"
-                android:typeface="monospace"
+                android:textColor="@color/white"
+                android:text="Coffee"
                 android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:fontFamily="monospace"
+                android:textSize="@dimen/event_list_card_text_size"/>
 
             <TextView
-                android:id="@+id/event_list_card_location"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_toRightOf="@id/event_list_card_image"
-                android:gravity="center_vertical"
+                android:id="@+id/event_list_card_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/event_list_card_padding"
 
-                android:text="Moffett Blvd"
-                android:textSize="15dp"
-                android:fontFamily="sans-serif"
-                android:typeface="monospace"
-                android:textColor="@color/black" />
+                android:textColor="@color/white"
+                android:text="new coffee"
+                android:fontFamily="monospace"
+                android:textSize="@dimen/event_list_card_text_size"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:id="@+id/event_list_card_month_year"
+            android:layout_below="@id/event_list_card_background"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
 
-                android:text="07/2015"
-                android:textSize="15dp"
-                android:textColor="@color/black"
-                android:textAlignment="textEnd"
-                tools:ignore="RtlCompat,UnusedAttribute" />
+                <edu.cmu.juicymeeting.model.MLRoundedImageView
+                    android:id="@+id/event_list_card_portrait"
+                    android:layout_width="@dimen/event_list_card_portrait_size"
+                    android:layout_height="@dimen/event_list_card_portrait_size"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/coffee_portrait"/>
 
-            <TextView
-                android:id="@+id/event_list_card_day"
+                <TextView
+                    android:id="@+id/event_list_card_user_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:layout_gravity="center_vertical"
+
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:text="Good Coffee"/>
+
+                <TextView
+                    android:id="@+id/event_list_card_follow_info"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+
+                    android:gravity="right"
+                    android:textColor="@color/grey"
+                    android:text="Followed by 33 pll"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/event_list_card_background">
 
-                android:text="28"
-                android:textSize="35dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textAlignment="textEnd"
-                tools:ignore="RtlCompat,UnusedAttribute" />
-            />
+                <TextView
+                    android:id="@+id/event_list_card_location"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+
+                    android:textColor="@color/grey"
+                    android:text="Mountain View"/>
+
+                <TextView
+                    android:id="@+id/event_list_card_time"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="right"
+                    android:textColor="@color/grey"
+                    android:text="2015/11/12"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-</android.support.v7.widget.CardView>
+    </RelativeLayout>
+</FrameLayout>
