@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
@@ -17,6 +20,7 @@ import edu.cmu.juicymeeting.juicymeeting.ChatGroupAdapter;
 import edu.cmu.juicymeeting.juicymeeting.EventMainChatActivity;
 import edu.cmu.juicymeeting.juicymeeting.EventMainPageActivity;
 import edu.cmu.juicymeeting.juicymeeting.GroupChatActivity;
+import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
 // In this case, the fragment displays simple text based on the page
@@ -26,7 +30,7 @@ public class PageFragment extends Fragment {
     private int mPage;
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private CardViewDataAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private RecyclerView exploreRecyclerView;
@@ -34,7 +38,7 @@ public class PageFragment extends Fragment {
     private RecyclerView.LayoutManager exploreLayoutManager;
 
     private RecyclerView groupRecyclerView;
-    private RecyclerView.Adapter groupAdapter;
+    private ChatGroupAdapter groupAdapter;
     private RecyclerView.LayoutManager groupLayoutManager;
 
     public static PageFragment newInstance(int page) {
@@ -50,6 +54,7 @@ public class PageFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,6 +82,16 @@ public class PageFragment extends Fragment {
                 mAdapter = new CardViewDataAdapter(events);
                 mRecyclerView.setAdapter(mAdapter);
 
+                mAdapter.setmItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Log.v("LISTENER", "Position:" + position);
+                        Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+
                 break;
             case 2:
                 view = inflater.inflate(R.layout.group_chat, container, false);
@@ -97,6 +112,16 @@ public class PageFragment extends Fragment {
                 // specify an adapter (see also next example)
                 groupAdapter = new ChatGroupAdapter(chatGroups);
                 groupRecyclerView.setAdapter(groupAdapter);
+                groupAdapter.setmItemClickListener(new OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        //Toast.makeText(getActivity(), position, Toast.LENGTH_LONG);
+                        Log.v("LISTENER", "Position:" + position);
+                        Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
+                        startActivity(intent);
+                    }
+                });
 
                 break;
             case 1:

@@ -15,6 +15,7 @@ import edu.cmu.juicymeeting.database.model.Event;
 public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapter.ViewHolder>  {
 
     public Event[] eventSet;
+    public OnItemClickListener mItemClickListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public CardViewDataAdapter(Event[] eventSet) {
@@ -48,7 +49,7 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
     }
 
     // inner class to hold a reference to each item of RecyclerView
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         //public TextView tvtinfo_text;
         public ImageView eventListCardImage;
         public TextView eventListCardName;
@@ -63,6 +64,19 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
             eventListCardLocation = (TextView)itemLayoutView.findViewById(R.id.event_list_card_location);
             eventListCardMonthYear = (TextView)itemLayoutView.findViewById(R.id.event_list_card_month_year);
             eventListCardDay = (TextView)itemLayoutView.findViewById(R.id.event_list_card_day);
+
+            itemLayoutView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(v, getLayoutPosition());
+            }
+        }
+    }
+
+    public void setmItemClickListener(final OnItemClickListener onItemClickListener) {
+        this.mItemClickListener = onItemClickListener;
     }
 }
