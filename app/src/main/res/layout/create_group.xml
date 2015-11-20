@@ -48,8 +48,7 @@ ok button: create_group_ok_button
         android:layout_height="wrap_content"
 
         android:gravity="center"
-        android:textColor="@color/white"
-        android:text="must be exactly 4 digits"/>
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/create_group_ok_button"

@@ -105,6 +105,7 @@ public class PageFragment extends Fragment {
                 // specify an adapter (see also next example)
                 groupAdapter = new ChatGroupAdapter(chatGroups);
                 groupRecyclerView.setAdapter(groupAdapter);
+
                 groupAdapter.setmItemClickListener(new OnItemClickListener() {
 
                     @Override
