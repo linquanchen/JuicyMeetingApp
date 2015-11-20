@@ -33,7 +33,7 @@ event description: event_detail_description
                 android:layout_width="0dp"
                 android:layout_weight="0.8"
                 android:layout_height="wrap_content"
-                android:paddingRight="10dp"
+                android:paddingRight="@dimen/medium_padding"
                 android:gravity="right">
                 <edu.cmu.juicymeeting.util.RImageView
                     android:id="@+id/event_detail_portrait"
@@ -46,7 +46,7 @@ event description: event_detail_description
                     android:id="@+id/event_detail_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="@dimen/small_padding"
                     android:layout_gravity="center"
 
                     android:singleLine="true"
@@ -59,31 +59,41 @@ event description: event_detail_description
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
                 <TextView
                     android:id="@+id/event_detail_join_leave_switch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectangle"
 
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:text="Join Group"/>
+                    android:text="    Join Group    "/>
             </LinearLayout>
         </LinearLayout>
+
+        <View
+            android:layout_marginTop="@dimen/medium_padding"
+            android:layout_marginBottom="@dimen/medium_padding"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
 
         <ImageView
             android:id="@+id/event_detail_image"
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:src="@drawable/coffee"
             android:scaleType="centerCrop"
             android:adjustViewBounds="false"/>
 
         <View
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="@dimen/medium_padding"
+            android:layout_marginBottom="@dimen/medium_padding"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
@@ -98,7 +108,7 @@ event description: event_detail_description
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:textSize="20sp"
+                android:textSize="@dimen/event_detail_name_text_size"
                 android:text="Coffee"
                 android:textColor="@color/white"/>
 
@@ -129,15 +139,15 @@ event description: event_detail_description
             <ImageView
                 android:id="@+id/event_detail_map"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="@dimen/event_detail_map_height"
+                android:layout_marginTop="@dimen/medium_padding"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/event_detail_location"/>
 
             <View
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="@dimen/medium_padding"
+                android:layout_marginBottom="@dimen/medium_padding"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"/>
@@ -148,7 +158,7 @@ event description: event_detail_description
                 android:layout_width="wrap_content"
 
                 android:text="Some description"
-                android:textSize="20dp"
+                android:textSize="@dimen/event_detail_description_text_size"
                 android:textColor="@color/white"/>
         </LinearLayout>
     </LinearLayout>
