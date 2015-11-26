@@ -61,7 +61,7 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            eventListCardImage = (ImageView)itemLayoutView.findViewById(R.id.event_list_card_image);
+            //eventListCardImage = (ImageView)itemLayoutView.findViewById(R.id.event_list_card_image);
             eventListCardName = (TextView)itemLayoutView.findViewById(R.id.event_list_card_user_name);
             eventListCardLocation = (TextView)itemLayoutView.findViewById(R.id.event_list_card_location);
             eventListCardMonthYear = (TextView)itemLayoutView.findViewById(R.id.event_list_card_time);

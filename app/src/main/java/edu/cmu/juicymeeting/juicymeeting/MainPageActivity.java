@@ -85,26 +85,27 @@ public class MainPageActivity extends AppCompatActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ListView listView = (ListView) findViewById(R.id.group_list);
+        android.support.v7.widget.RecyclerView listView =
+                (android.support.v7.widget.RecyclerView) findViewById(R.id.group_list);
         switch(requestCode) {
             case (CREATE_GROUP_ACTIVITY) : {
-                if (resultCode == Activity.RESULT_OK) {
-                    String number = data.getStringExtra(CreateGroupActivity.PASS);
-                    ArrayList<String> list = new ArrayList<String>(Arrays.asList(number));
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                            android.R.layout.simple_list_item_1, android.R.id.text1, list);
-                    listView.setAdapter(adapter);
-                }
+//                if (resultCode == Activity.RESULT_OK) {
+//                    String number = data.getStringExtra(CreateGroupActivity.PASS);
+//                    ArrayList<String> list = new ArrayList<String>(Arrays.asList(number));
+//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                            android.R.layout.simple_list_item_1, android.R.id.text1, list);
+//                    listView.setAdapter(adapter);
+//                }
                 break;
             }
             case (JOIN_GROUP_ACTIVITY) : {
-                if (resultCode == Activity.RESULT_OK) {
-                    String number = data.getStringExtra(JoinGroupActivity.PASS);
-                    ArrayList<String> list = new ArrayList<String>(Arrays.asList(number));
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                            android.R.layout.simple_list_item_1, android.R.id.text1, list);
-                    listView.setAdapter(adapter);
-                }
+//                if (resultCode == Activity.RESULT_OK) {
+//                    String number = data.getStringExtra(JoinGroupActivity.PASS);
+//                    ArrayList<String> list = new ArrayList<String>(Arrays.asList(number));
+//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                            android.R.layout.simple_list_item_1, android.R.id.text1, list);
+//                    listView.setAdapter(adapter);
+//                }
                 break;
             }
         }
