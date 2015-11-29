@@ -4,7 +4,8 @@ input exception hint: create_group_hint
 ok button: create_group_ok_button
 cencel: create_group_cancel_button
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -91,7 +92,9 @@ cencel: create_group_cancel_button
         android:textAlignment="center"
         android:maxLength="4"
         android:hint="ex:1234"
+        android:textColorHint="@color/grey"
         android:textSize="@dimen/large_text_size"
+        android:textColor="@color/white"
         />
 
     <TextView

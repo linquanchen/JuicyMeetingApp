@@ -1,13 +1,15 @@
 package edu.cmu.juicymeeting.juicymeeting;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -28,9 +31,11 @@ public class MainPageActivity extends AppCompatActivity
     private static final int CREATE_GROUP_ACTIVITY = 0;
     private static final int JOIN_GROUP_ACTIVITY = 1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_mainpage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,30 +60,15 @@ public class MainPageActivity extends AppCompatActivity
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         TabLayout.Tab tab = tabLayout.getTabAt(1);//second tab as default
         tab.select();
-
-        //stub
-        ListView listView;
-        ArrayList<String> list;
-        ArrayAdapter<String> adapter;
-
-
-    }
-
-    public void createEvent(View view) {
-        //intent Viewer to show result
-        Intent intent = new Intent(this, CreateEventActivity.class);
-        startActivity(intent);
     }
 
     public void createGroup(View view) {
-        //intent Viewer to show result
         Intent intent = new Intent(this, CreateGroupActivity.class);
         startActivityForResult(intent, CREATE_GROUP_ACTIVITY);
     }
 
     public void joinGroup(View view) {
-        //intent Viewer to show result
-        Intent intent = new Intent(this, JoinGroupActivity.class);
+        Intent intent = new Intent(MainPageActivity.this, JoinGroupActivity.class);
         startActivity(intent);
     }
 

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -29,6 +30,8 @@ public class CreateEventActivity extends AppCompatActivity {
     private EditText notesEditText;
 
     private ImageView createEventsButton;
+    private TextView cancelButton;
+    private TextView publishButton;
     private static int RESULT_LOAD_IMG = 1;
     private String imgDecodableString;
 
@@ -120,28 +123,26 @@ public class CreateEventActivity extends AppCompatActivity {
             }
         });
 
-//        // get all the resources for reading input
-//        confirmButton = (ImageButton) findViewById(R.id.confirm_btn);
-//        toEditText = (EditText) findViewById(R.id.toEditText);
-//        eventNameEditText = (EditText) findViewById(R.id.eventNameEditText);
-//        dateTimeEditText = (EditText) findViewById(R.id.dateTimeEditText);
-//        locationEditText = (EditText) findViewById(R.id.locationEditText);
-//        notesEditText = (EditText) findViewById(R.id.notesEditText);
-//
-//        // read the contents
-//        String toWho = toEditText.getText().toString();
-//        String eventName = eventNameEditText.getText().toString();
-//        String date = dateTimeEditText.getText().toString();
-//        String location = locationEditText.getText().toString();
-//        String notes = notesEditText.getText().toString();
-//
-//        ImageButton backBtn = (ImageButton) findViewById(R.id.back_btn);
-//        backBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent seeView = new Intent(CreateEventActivity.this, MainPageActivity.class);
-//                startActivity(seeView);
-//            }
-//        });
+        cancelButton = (TextView)findViewById(R.id.create_event_cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        publishButton = (TextView)findViewById(R.id.create_event_publish);
+        publishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(CreateEventActivity.this, "Successfully create event!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

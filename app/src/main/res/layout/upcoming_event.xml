@@ -15,18 +15,29 @@ event list: event_list
     android:background="@color/dark_grey"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/group_create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/event_create"
         android:layout_gravity="center"
         android:padding="@dimen/small_padding"
         android:gravity="center"
-
-        android:text="Create"
-        android:textSize="@dimen/button_text_size"
-        android:textStyle="bold"
-        android:textColor="@color/white"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/create"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:gravity="center"
+            android:text="Create"
+            android:textSize="@dimen/button_text_size"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+    </LinearLayout>
 
     <View
         android:layout_marginTop="@dimen/medium_padding"
@@ -40,5 +51,5 @@ event list: event_list
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"/>
 </LinearLayout>

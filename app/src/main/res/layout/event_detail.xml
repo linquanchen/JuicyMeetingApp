@@ -14,7 +14,8 @@ event description: event_detail_description
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_grey">
+    android:background="@color/dark_grey"
+    android:theme="@style/AppTheme">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,17 +62,21 @@ event description: event_detail_description
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:gravity="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/create"/>
                 <TextView
                     android:id="@+id/event_detail_join_leave_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="@drawable/rectangle"
 
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:text="    Join Group    "/>
+                    android:text="Join Group"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -136,14 +141,20 @@ event description: event_detail_description
                     />
             </LinearLayout>
 
-            <ImageView
+
+            <!--<fragment-->
+                <!--android:id="@+id/event_detail_map"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/event_detail_map_height"-->
+                <!--android:layout_marginTop="@dimen/medium_padding"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@drawable/event_detail_location"/>-->
+            <fragment
                 android:id="@+id/event_detail_map"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/event_detail_map_height"
-                android:layout_marginTop="@dimen/medium_padding"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/event_detail_location"/>
+                class="com.google.android.gms.maps.SupportMapFragment" />
 
             <View
                 android:layout_marginTop="@dimen/medium_padding"
