@@ -136,14 +136,20 @@ event description: event_detail_description
                     />
             </LinearLayout>
 
-            <ImageView
+
+            <!--<fragment-->
+                <!--android:id="@+id/event_detail_map"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/event_detail_map_height"-->
+                <!--android:layout_marginTop="@dimen/medium_padding"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@drawable/event_detail_location"/>-->
+            <fragment
                 android:id="@+id/event_detail_map"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/event_detail_map_height"
-                android:layout_marginTop="@dimen/medium_padding"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/event_detail_location"/>
+                class="com.google.android.gms.maps.SupportMapFragment" />
 
             <View
                 android:layout_marginTop="@dimen/medium_padding"

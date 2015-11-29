@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.Serializable;
+
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
 import edu.cmu.juicymeeting.juicymeeting.EventMainPageActivity;
@@ -27,7 +29,7 @@ public class PageFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
 
     private RecyclerView exploreRecyclerView;
-    private RecyclerView.Adapter exploreAdapter;
+    private CardViewDataAdapter exploreAdapter;
     private RecyclerView.LayoutManager exploreLayoutManager;
 
     private RecyclerView groupRecyclerView;
@@ -66,12 +68,13 @@ public class PageFragment extends Fragment {
                 // use a linear layout manager
                 mLayoutManager = new LinearLayoutManager(getActivity());
                 mRecyclerView.setLayoutManager(mLayoutManager);
-                Event[] events = new Event[4];
-                events[0] = new Event("First Meeting", "Mountain View", "07/2016");
-                events[1] = new Event("Third Meeting", "San Francisco", "08/2016");
-                events[2] = new Event("Sixth Meeting", "New York", "09/2016");
-                events[3] = new Event("Eight Meeting", "Boston", "10/2016");
-                // specify an adapter (see also next example)
+                final Event[] events = new Event[4];
+                events[0] = new Event("First Meeting", "Mountain View", "2015/07/12");
+                events[1] = new Event("Third Meeting", "San Francisco", "2015/08/15");
+                events[2] = new Event("Sixth Meeting", "New York", "2016/01/01");
+                events[3] = new Event("Eight Meeting", "Boston", "2016/01/04");
+
+                // specify an adapter
                 mAdapter = new CardViewDataAdapter(events);
                 mRecyclerView.setAdapter(mAdapter);
 
@@ -80,10 +83,10 @@ public class PageFragment extends Fragment {
                     public void onItemClick(View view, int position) {
                         Log.v("LISTENER", "Position:" + position);
                         Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
+                        intent.putExtra("Event", events[position]);
                         startActivity(intent);
                     }
                 });
-
 
                 break;
             case 2:
@@ -130,16 +133,27 @@ public class PageFragment extends Fragment {
                 // use a linear layout manager
                 exploreLayoutManager = new LinearLayoutManager(getActivity());
                 exploreRecyclerView.setLayoutManager(exploreLayoutManager);
-                Event[] exploreEvents = new Event[6];
-                exploreEvents[0] = new Event("Third Meeting", "Mountain View", "07/2016");
-                exploreEvents[1] = new Event("Four Meeting", "San Francisco", "08/2016");
-                exploreEvents[2] = new Event("Nine Meeting", "New York", "09/2016");
-                exploreEvents[3] = new Event("Third Meeting", "Mountain View", "07/2016");
-                exploreEvents[4] = new Event("Four Meeting", "San Francisco", "08/2016");
-                exploreEvents[5] = new Event("Nine Meeting", "New York", "09/2016");
+                final Event[] exploreEvents = new Event[6];
+                exploreEvents[0] = new Event("Third Meeting", "Mountain View", "2015/07/10");
+                exploreEvents[1] = new Event("Four Meeting", "San Francisco", "2015/08/15");
+                exploreEvents[2] = new Event("Nine Meeting", "New York", "2015/08/22");
+                exploreEvents[3] = new Event("Third Meeting", "Mountain View", "2015/09/12");
+                exploreEvents[4] = new Event("Four Meeting", "San Francisco", "2015/12/12");
+                exploreEvents[5] = new Event("Nine Meeting", "New York", "2016/01/12");
                 // specify an adapter (see also next example)
                 exploreAdapter = new CardViewDataAdapter(exploreEvents);
                 exploreRecyclerView.setAdapter(exploreAdapter);
+
+
+                exploreAdapter.setmItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Log.v("LISTENER", "Position:" + position);
+                        Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
+                        intent.putExtra("Event", exploreEvents[position]);
+                        startActivity(intent);
+                    }
+                });
                 break;
         }
 
