@@ -15,7 +15,8 @@ event time: id: event_list_card_time
 <dimen name="event_list_card_padding">15dp</dimen>
 <dimen name="event_list_card_portrait_size">40dp</dimen>
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/medium_padding"

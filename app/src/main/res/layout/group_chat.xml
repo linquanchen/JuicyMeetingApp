@@ -3,7 +3,8 @@ event list: event_list
 create group button: group_create
 join group button: group_join
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -14,6 +15,7 @@ join group button: group_join
     android:background="@color/dark_grey">
 
     <LinearLayout
+        android:id="@+id/group_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -24,8 +26,12 @@ join group button: group_join
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@drawable/create"/>
             <TextView
-                android:id="@+id/group_create"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -48,12 +54,17 @@ join group button: group_join
             android:background="@color/grey"/>
 
         <LinearLayout
+            android:id="@+id/group_join"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@drawable/join"/>
             <TextView
-                android:id="@+id/group_join"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/small_padding"
