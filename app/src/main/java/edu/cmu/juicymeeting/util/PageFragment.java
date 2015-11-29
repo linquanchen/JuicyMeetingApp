@@ -9,18 +9,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.io.Serializable;
 
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
+import edu.cmu.juicymeeting.juicymeeting.CreateEventActivity;
+import edu.cmu.juicymeeting.juicymeeting.CreateGroupActivity;
 import edu.cmu.juicymeeting.juicymeeting.EventMainPageActivity;
+import edu.cmu.juicymeeting.juicymeeting.JoinGroupActivity;
 import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
 // In this case, the fragment displays simple text based on the page
 public class PageFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
+
+    private static final int CREATE_GROUP_ACTIVITY = 0;
+    private static final int JOIN_GROUP_ACTIVITY = 1;
 
     private int mPage;
 
@@ -35,6 +42,9 @@ public class PageFragment extends Fragment {
     private RecyclerView groupRecyclerView;
     private ChatGroupAdapter groupAdapter;
     private RecyclerView.LayoutManager groupLayoutManager;
+
+    private LinearLayout createEvent;
+
 
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -84,6 +94,15 @@ public class PageFragment extends Fragment {
                         Log.v("LISTENER", "Position:" + position);
                         Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
                         intent.putExtra("Event", events[position]);
+                        startActivity(intent);
+                    }
+                });
+
+                createEvent = (LinearLayout)view.findViewById(R.id.event_create);
+                createEvent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), CreateEventActivity.class);
                         startActivity(intent);
                     }
                 });

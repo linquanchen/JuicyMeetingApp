@@ -16,7 +16,7 @@ event list: event_list
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/group_create"
+        android:id="@+id/event_create"
         android:layout_gravity="center"
         android:padding="@dimen/small_padding"
         android:gravity="center"
