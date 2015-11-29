@@ -51,7 +51,7 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         // get data from your itemsData at this position
         holder.eventListCardImage.setImageBitmap(
-                decodeSampledBitmapFromResource(context.getResources(), R.drawable.coffee, 100, 100));
+                decodeSampledBitmapFromResource(context.getResources(), R.drawable.coffee, 300, 300));
 //        holder.eventListCardImage.setImageBitmap(R.drawable.coffee_portrait);
                 holder.eventListCardName.setText(eventSet[position].getEventName());
         holder.eventListCardLocation.setText(eventSet[position].getLocation());
