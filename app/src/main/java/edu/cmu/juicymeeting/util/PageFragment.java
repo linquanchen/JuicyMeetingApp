@@ -85,7 +85,7 @@ public class PageFragment extends Fragment {
                 events[3] = new Event("Eight Meeting", "Boston", "2016/01/04");
 
                 // specify an adapter
-                mAdapter = new CardViewDataAdapter(events);
+                mAdapter = new CardViewDataAdapter(events, getContext());
                 mRecyclerView.setAdapter(mAdapter);
 
                 mAdapter.setmItemClickListener(new OnItemClickListener() {
@@ -160,7 +160,7 @@ public class PageFragment extends Fragment {
                 exploreEvents[4] = new Event("Four Meeting", "San Francisco", "2015/12/12");
                 exploreEvents[5] = new Event("Nine Meeting", "New York", "2016/01/12");
                 // specify an adapter (see also next example)
-                exploreAdapter = new CardViewDataAdapter(exploreEvents);
+                exploreAdapter = new CardViewDataAdapter(exploreEvents, getContext());
                 exploreRecyclerView.setAdapter(exploreAdapter);
 
 
