@@ -6,6 +6,7 @@
     android:layout_height="match_parent" android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
+
     <android.support.design.widget.AppBarLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
@@ -20,11 +21,81 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_profile" />
 
-    <!--<android.support.design.widget.FloatingActionButton android:id="@+id/fab"-->
-        <!--android:layout_width="wrap_content" android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"-->
-        <!--android:src="@android:drawable/ic_dialog_email" />-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="70dp"
+        android:background="@color/dark_grey">
+
+        <edu.cmu.juicymeeting.util.RImageView
+            android:id="@+id/profile_portrait"
+            android:layout_width="@dimen/profile_portrait_size"
+            android:layout_height="@dimen/profile_portrait_size"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/koji"/>
+
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="otnt"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="right"
+                android:text="0 Followers"/>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/grey"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="left"
+                android:text="0 Following"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey"/>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

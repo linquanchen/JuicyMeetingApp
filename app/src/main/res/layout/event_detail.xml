@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+the whole thing: event_detail_wrapper
 user portrait: event_detail_portrait
 user name: event_detail_user_name
 join or leave group switch button: event_detail_join_leave_switch
@@ -12,6 +13,7 @@ event description: event_detail_description
 -->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/event_detail_wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_grey">

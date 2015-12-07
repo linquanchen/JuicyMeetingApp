@@ -23,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import edu.cmu.juicymeeting.database.model.Event;
 import edu.cmu.juicymeeting.database.model.User;
 import edu.cmu.juicymeeting.util.JuicyFont;
+import edu.cmu.juicymeeting.util.OnSwipeTouchListener;
 import edu.cmu.juicymeeting.util.PermissionUtils;
 import edu.cmu.juicymeeting.util.RImageView;
 

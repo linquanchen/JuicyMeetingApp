@@ -3,10 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/main_color_gray</item>
-        <item name="colorPrimaryDark">@color/main_color_gray_dk</item>
+        <item name="colorPrimaryDark">@color/half_transparent_dark_grey</item>
         <item name="android:colorAccent" tools:ignore="NewApi">@color/sexy_pink</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/dark_grey</item>
         <item name="android:navigationBarColor" tools:ignore="NewApi">@color/black</item>
         <item name="android:windowActionBar">true</item>
         <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
@@ -20,11 +20,13 @@
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorPrimary">@color/white</item>
         <item name="tabIndicatorHeight">1dp</item>
         <item name="tabPaddingStart">12dp</item>
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabTextAppearance">@android:style/TextAppearance.Medium</item>
-        <item name="android:gravity">center_horizontal</item>
+        <!--<item name="android:gravity">center_horizontal</item>-->
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
