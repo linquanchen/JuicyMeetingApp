@@ -21,7 +21,7 @@ event list: event_list
         android:padding="@dimen/small_padding"
         android:gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/app_top_button_height"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
@@ -46,10 +46,18 @@ event list: event_list
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/upcoming_event_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:scrollbars="vertical"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/upcoming_event_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:scrollbars="vertical"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
