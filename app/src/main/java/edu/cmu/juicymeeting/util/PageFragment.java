@@ -19,6 +19,7 @@ import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
 import edu.cmu.juicymeeting.juicymeeting.CreateEventActivity;
 import edu.cmu.juicymeeting.juicymeeting.EventMainPageActivity;
+import edu.cmu.juicymeeting.chat.GroupChatActivity;
 import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
@@ -152,7 +153,7 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     public void onItemClick(View view, int position) {
                         //Toast.makeText(getActivity(), position, Toast.LENGTH_LONG);
                         Log.v("LISTENER", "Position:" + position);
-                        Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
+                        Intent intent = new Intent(getActivity(), GroupChatActivity.class);
                         startActivity(intent);
                     }
                 });

@@ -52,7 +52,7 @@
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".GroupChatActivity"
+            android:name="edu.cmu.juicymeeting.chat.GroupChatActivity"
             android:label="@string/app_name">
         </activity>
     </application>
