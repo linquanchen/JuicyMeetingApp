@@ -17,7 +17,8 @@ cencel: create_group_cancel_button
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/app_top_button_height"
+        android:gravity="center"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"

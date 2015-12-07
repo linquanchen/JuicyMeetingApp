@@ -1,12 +1,14 @@
 package edu.cmu.juicymeeting.juicymeeting;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,6 +22,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 import edu.cmu.juicymeeting.database.model.Event;
 import edu.cmu.juicymeeting.database.model.User;
+import edu.cmu.juicymeeting.util.JuicyFont;
 import edu.cmu.juicymeeting.util.PermissionUtils;
 import edu.cmu.juicymeeting.util.RImageView;
 
@@ -85,9 +88,11 @@ public class EventMainPageActivity extends AppCompatActivity
 
         //image
         name.setText(event.getEventName());
+        JuicyFont.getInstance().setFont(name, JuicyFont.OPEN_SANS_REGULAR);
         location.setText(event.getLocation());
         date.setText(event.getDate());
         description.setText(event.getDescription());
+        JuicyFont.getInstance().setFont(description, JuicyFont.OPEN_SANS_REGULAR);
 
         joinLeave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +105,18 @@ public class EventMainPageActivity extends AppCompatActivity
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.event_detail_map);
         mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            //necessary for transition animation
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -167,5 +184,13 @@ public class EventMainPageActivity extends AppCompatActivity
     private void showMissingPermissionError() {
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        //necessary for transition animation
+        this.supportFinishAfterTransition();
     }
 }

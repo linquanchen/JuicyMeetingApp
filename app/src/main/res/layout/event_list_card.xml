@@ -19,8 +19,8 @@ event time: id: event_list_card_time
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/medium_padding"
-    android:paddingBottom="@dimen/medium_padding"
+    android:paddingTop="@dimen/large_padding"
+    android:paddingBottom="@dimen/large_padding"
     android:background="@color/dark_grey">
 
     <RelativeLayout
@@ -29,7 +29,8 @@ event time: id: event_list_card_time
         <ImageView
             android:id="@+id/event_list_card_image"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="@dimen/event_list_image_height"
+            android:transitionName="event_list_card_image_transition"
             android:src="@drawable/coffee"
             android:scaleType="centerCrop"
             android:adjustViewBounds="false"/>
@@ -38,6 +39,7 @@ event time: id: event_list_card_time
             android:id="@+id/event_list_card_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/large_padding"
             android:layout_alignBottom="@id/event_list_card_image"
             android:orientation="vertical">
             <TextView
@@ -69,6 +71,7 @@ event time: id: event_list_card_time
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/event_list_card_background"
+            android:paddingTop="@dimen/medium_padding"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
