@@ -23,6 +23,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import edu.cmu.juicymeeting.util.JuicyFont;
 import edu.cmu.juicymeeting.util.SampleFragmentPagerAdapter;
 
 public class MainPageActivity extends AppCompatActivity
@@ -36,7 +37,12 @@ public class MainPageActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //initial font setter
+        JuicyFont.initialize(getApplicationContext());
+
         setContentView(R.layout.activity_mainpage);
+
+        //toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,7 +63,7 @@ public class MainPageActivity extends AppCompatActivity
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        //tabLayout.setTabMode(TabLayout.MODE_FIXED);
         TabLayout.Tab tab = tabLayout.getTabAt(1);//second tab as default
         tab.select();
     }

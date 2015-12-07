@@ -12,7 +12,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -30,6 +32,7 @@ public class CreateEventActivity extends AppCompatActivity {
     private EditText notesEditText;
 
     private ImageView createEventsButton;
+    private View createEventSelectButton;
     private TextView cancelButton;
     private TextView publishButton;
     private static int RESULT_LOAD_IMG = 1;
@@ -104,15 +107,24 @@ public class CreateEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // just for viewing the correctness of the ui
-
-        //setContentView(R.layout.activity_create_event);
         setContentView(R.layout.create_event);
+//        getActionBar().show();
 
         verifyStoragePermissions(this);
 
-        createEventsButton = (ImageView)findViewById(R.id.create_event_image);
-        createEventsButton.setOnClickListener(new View.OnClickListener() {
+        //createEventsButton = (ImageView)findViewById(R.id.create_event_image);
+        createEventSelectButton = (View)findViewById(R.id.create_event_select);
+//        createEventsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Create intent to Open Image applications like Gallery, Google Photos
+//                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                // Start the Intent
+//                startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+//            }
+//        });
+        createEventSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Create intent to Open Image applications like Gallery, Google Photos

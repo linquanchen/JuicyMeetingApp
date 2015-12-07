@@ -14,8 +14,7 @@ event description: event_detail_description
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_grey"
-    android:theme="@style/AppTheme">
+    android:background="@color/dark_grey">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +27,8 @@ event description: event_detail_description
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/app_top_button_height"
+            android:gravity="center"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="0dp"
@@ -92,6 +92,7 @@ event description: event_detail_description
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:transitionName="event_list_card_image_transition"
             android:src="@drawable/coffee"
             android:scaleType="centerCrop"
             android:adjustViewBounds="false"/>

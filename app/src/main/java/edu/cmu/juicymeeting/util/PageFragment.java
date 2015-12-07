@@ -1,29 +1,29 @@
 package edu.cmu.juicymeeting.util;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import java.io.Serializable;
-
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
 import edu.cmu.juicymeeting.juicymeeting.CreateEventActivity;
-import edu.cmu.juicymeeting.juicymeeting.CreateGroupActivity;
 import edu.cmu.juicymeeting.juicymeeting.EventMainPageActivity;
-import edu.cmu.juicymeeting.juicymeeting.JoinGroupActivity;
 import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
 // In this case, the fragment displays simple text based on the page
-public class PageFragment extends Fragment {
+public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     public static final String ARG_PAGE = "ARG_PAGE";
 
     private static final int CREATE_GROUP_ACTIVITY = 0;
@@ -34,6 +34,8 @@ public class PageFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private CardViewDataAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private SwipeRefreshLayout swipeContainer;
 
     private RecyclerView exploreRecyclerView;
     private CardViewDataAdapter exploreAdapter;
@@ -94,7 +96,10 @@ public class PageFragment extends Fragment {
                         Log.v("LISTENER", "Position:" + position);
                         Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
                         intent.putExtra("Event", events[position]);
-                        startActivity(intent);
+                        //transition animation
+                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                getActivity(), view.findViewById(R.id.event_list_card_image), "event_list_card_image_transition");
+                        getActivity().startActivity(intent, options.toBundle());
                     }
                 });
 
@@ -106,6 +111,18 @@ public class PageFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
+
+                //setup refresh action
+                swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+                // Setup refresh listener which triggers new data loading
+                swipeContainer.setOnRefreshListener(this);
+                // Configure the refreshing colors
+                swipeContainer.setColorSchemeResources(
+                        android.R.color.holo_blue_bright,
+                        android.R.color.holo_green_light,
+                        android.R.color.holo_orange_light,
+                        android.R.color.holo_red_light);
+
 
                 break;
             case 2:
@@ -130,6 +147,7 @@ public class PageFragment extends Fragment {
 
                 groupAdapter.setmItemClickListener(new OnItemClickListener() {
 
+                    @SuppressLint("NewApi")
                     @Override
                     public void onItemClick(View view, int position) {
                         //Toast.makeText(getActivity(), position, Toast.LENGTH_LONG);
@@ -165,17 +183,41 @@ public class PageFragment extends Fragment {
 
 
                 exploreAdapter.setmItemClickListener(new OnItemClickListener() {
+                    @SuppressLint("NewApi")
                     @Override
                     public void onItemClick(View view, int position) {
                         Log.v("LISTENER", "Position:" + position);
                         Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
                         intent.putExtra("Event", exploreEvents[position]);
-                        startActivity(intent);
+                        //transition animation
+                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                getActivity(), view.findViewById(R.id.event_list_card_image), "event_list_card_image_transition");
+                        getActivity().startActivity(intent, options.toBundle());
                     }
                 });
+
+                //setup refresh action
+                swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+                // Setup refresh listener which triggers new data loading
+                swipeContainer.setOnRefreshListener(this);
+                // Configure the refreshing colors
+                swipeContainer.setColorSchemeResources(
+                        android.R.color.holo_blue_bright,
+                        android.R.color.holo_green_light,
+                        android.R.color.holo_orange_light,
+                        android.R.color.holo_red_light);
+
                 break;
         }
 
         return view;
+    }
+
+    @Override public void onRefresh() {
+        (new Handler()).postDelayed(new Runnable() {
+            @Override public void run() {
+                swipeContainer.setRefreshing(false);
+            }
+        }, 5000);
     }
 }
