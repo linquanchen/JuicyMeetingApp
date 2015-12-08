@@ -76,7 +76,7 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 mRecyclerView.setLayoutManager(mLayoutManager);
 
                 if (Data.upComingEvents != null) {
-                    final Event[] events = Utility.getAllUpcomingEvent(Data.upComingEvents, getContext());;
+                    final Event[] events = Utility.getAllUpcomingEvent(Data.upComingEvents, getContext());
 
                     // specify an adapter
                     mAdapter = new CardViewDataAdapter(events, getContext());
@@ -160,33 +160,35 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 // use a linear layout manager
                 exploreLayoutManager = new LinearLayoutManager(getActivity());
                 exploreRecyclerView.setLayoutManager(exploreLayoutManager);
-                final Event[] exploreEvents = new Event[6];
-                exploreEvents[0] = new Event("Third Meeting", "Mountain View", "2015/07/10");
-                exploreEvents[1] = new Event("Four Meeting", "San Francisco", "2015/08/15");
-                exploreEvents[2] = new Event("Nine Meeting", "New York", "2015/08/22");
-                exploreEvents[3] = new Event("Third Meeting", "Mountain View", "2015/09/12");
-                exploreEvents[4] = new Event("Four Meeting", "San Francisco", "2015/12/12");
-                exploreEvents[5] = new Event("Nine Meeting", "New York", "2016/01/12");
-                // specify an adapter (see also next example)
-                exploreAdapter = new CardViewDataAdapter(exploreEvents, getContext());
-                exploreRecyclerView.setAdapter(exploreAdapter);
+//                final Event[] exploreEvents = new Event[6];
+//                exploreEvents[0] = new Event("Third Meeting", "Mountain View", "2015/07/10");
+//                exploreEvents[1] = new Event("Four Meeting", "San Francisco", "2015/08/15");
+//                exploreEvents[2] = new Event("Nine Meeting", "New York", "2015/08/22");
+//                exploreEvents[3] = new Event("Third Meeting", "Mountain View", "2015/09/12");
+//                exploreEvents[4] = new Event("Four Meeting", "San Francisco", "2015/12/12");
+//                exploreEvents[5] = new Event("Nine Meeting", "New York", "2016/01/12");
+                if (Data.exploreEvents != null) {
+                    final Event[] exploreEvents = Utility.getAllUpcomingEvent(Data.exploreEvents, getContext());
+                    // specify an adapter (see also next example)
+                    exploreAdapter = new CardViewDataAdapter(exploreEvents, getContext());
+                    exploreRecyclerView.setAdapter(exploreAdapter);
 
-
-                exploreAdapter.setmItemClickListener(new OnItemClickListener() {
-                    @SuppressLint("NewApi")
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        //create event detail page that can swipe to navigate
-                        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-                        intent.putExtra(Constants.ALL_EVENTS, exploreEvents);
-                        intent.putExtra(Constants.EVENT_INDEX, position);
-//                        //transition animation
-//                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                                getActivity(), view.findViewById(R.id.event_list_card_image), "event_list_card_image_transition");
-//                        getActivity().startActivity(intent, options.toBundle());
-                        startActivity(intent);
-                    }
-                });
+                    exploreAdapter.setmItemClickListener(new OnItemClickListener() {
+                        @SuppressLint("NewApi")
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            //create event detail page that can swipe to navigate
+                            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+                            intent.putExtra(Constants.ALL_EVENTS, exploreEvents);
+                            intent.putExtra(Constants.EVENT_INDEX, position);
+                            //                        //transition animation
+                            //                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            //                                getActivity(), view.findViewById(R.id.event_list_card_image), "event_list_card_image_transition");
+                            //                        getActivity().startActivity(intent, options.toBundle());
+                            startActivity(intent);
+                        }
+                    });
+                }
 
                 //setup refresh action
                 swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);

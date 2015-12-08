@@ -7,4 +7,6 @@ import edu.cmu.juicymeeting.database.model.Event;
  */
 public class Data {
     public static String upComingEvents = null;
+    public static String exploreEvents = null;
+
 }

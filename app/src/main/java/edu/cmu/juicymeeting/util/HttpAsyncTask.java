@@ -27,6 +27,7 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         Data.upComingEvents = result;
+        Data.exploreEvents = result;
     }
 
     public static String GET(String url){
