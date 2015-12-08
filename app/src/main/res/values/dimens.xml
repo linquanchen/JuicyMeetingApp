@@ -3,8 +3,8 @@
     <dimen name="nav_header_vertical_spacing">10dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="pad_5dp">5dp</dimen>
@@ -27,10 +27,27 @@
 
     <dimen name="event_list_card_height">80dp</dimen>
     <dimen name="event_list_card_elevation">1dp</dimen>
+    <dimen name="event_list_card_small_text_size">20dp</dimen>
     <dimen name="event_list_card_text_size">30dp</dimen>
     <dimen name="event_list_card_padding">15dp</dimen>
-    <dimen name="event_list_card_portrait_size">40dp</dimen>
+    <dimen name="event_list_card_portrait_size">20dp</dimen>
+    <dimen name="event_list_image_height">400dp</dimen>
 
     <dimen name="profile_portrait_size">100dp</dimen>
+
+    <dimen name="small_padding">5dp</dimen>
+    <dimen name="medium_padding">10dp</dimen>
+    <dimen name="large_padding">20dp</dimen>
+
+    <dimen name="button_text_size">15sp</dimen>
+    <dimen name="event_detail_map_height">150dp</dimen>
+    <dimen name="event_detail_description_text_size">10sp</dimen>
+    <dimen name="event_detail_name_text_size">20sp</dimen>
+
+    <dimen name="small_text_size">10sp</dimen>
+    <dimen name="medium_text_size">20sp</dimen>
+    <dimen name="large_text_size">30sp</dimen>
+
+    <dimen name="app_top_button_height">48dp</dimen>
 
 </resources>
