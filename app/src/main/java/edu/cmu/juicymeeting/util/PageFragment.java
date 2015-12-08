@@ -102,11 +102,6 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 // use a linear layout manager
                 mLayoutManager = new LinearLayoutManager(getActivity());
                 mRecyclerView.setLayoutManager(mLayoutManager);
-//                final Event[] events = new Event[4];
-//                events[0] = new Event("First Meeting", "Mountain View", "2015/07/12");
-//                events[1] = new Event("Third Meeting", "San Francisco", "2015/08/15");
-//                events[2] = new Event("Sixth Meeting", "New York", "2016/01/01");
-//                events[3] = new Event("Eight Meeting", "Boston", "2016/01/04");
 
                 Event[] e = null;
                 new HttpAsyncTask().execute("http://ec2-52-91-106-6.compute-1.amazonaws.com/webapi/event/upcoming/zxq@cmu.edu");

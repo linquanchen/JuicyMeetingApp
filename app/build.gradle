@@ -36,4 +36,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:8.3.0'
     compile 'com.layer.sdk:layer-sdk:0.17.1'
     compile 'org.slf4j:slf4j-api:1.7.7'
+
+//    compile 'org.apache.httpcomponents:httpcore:4.4.1'
+//    compile 'org.apache.httpcomponents:httpclient:4.5'
 }
