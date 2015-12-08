@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.squareup.picasso.Picasso;
 
 import edu.cmu.juicymeeting.database.model.Event;
 import edu.cmu.juicymeeting.util.Constants;
@@ -72,7 +73,9 @@ public class EventDetailFragment extends Fragment implements
 
     private boolean isJoin = false;
 
-    public EventDetailFragment(){}
+
+    public EventDetailFragment(){
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -108,13 +111,15 @@ public class EventDetailFragment extends Fragment implements
         collapsingToolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
 
         //image
+        Picasso.with(getContext()).load(event.getEventImage()).into(image);
         collapsingToolbarLayout.setTitle(event.getEventName());
         location.setText(event.getLocation());
         date.setText(event.getDate());
         description.setText(event.getDescription());
-        //for debug
-        description.setText("some description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\n" +
-                "some description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\n");
+
+        Picasso.with(getContext()).load(event.getCreatorImage()).into(userPortrait);
+        userName.setText(event.getCreatorName());
+
         JuicyFont.getInstance().setFont(description, JuicyFont.OPEN_SANS_REGULAR);
 
         joinLeave.setOnClickListener(new View.OnClickListener() {

@@ -35,12 +35,14 @@ public class Event implements Parcelable {
     }
 
     protected Event(Parcel in) {
+        eventImage = in.readString();
         eventName = in.readString();
+        description = in.readString();
+        creatorImage = in.readString();
+        creatorName = in.readString();
+        followers = in.readInt();
         location = in.readString();
-        agenda = in.readString();
         date = in.readString();
-        time = in.readString();
-        founder = in.readString();
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
@@ -166,11 +168,13 @@ public class Event implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(eventImage);
         dest.writeString(eventName);
+        dest.writeString(description);
+        dest.writeString(creatorImage);
+        dest.writeString(creatorName);
+        dest.writeInt(followers);
         dest.writeString(location);
-        dest.writeString(agenda);
         dest.writeString(date);
-        dest.writeString(time);
-        dest.writeString(founder);
     }
 }
