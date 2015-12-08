@@ -46,7 +46,7 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 
             // convert inputstream to string
             if(inputStream != null)
-                result = convertInputStreamToString(inputStream);
+                result = Utility.convertInputStreamToString(inputStream);
             else
                 result = "Did not work!";
 
@@ -54,17 +54,6 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
             Log.d("InputStream", e.getLocalizedMessage());
         }
         System.out.println("Get result: " + result);
-        return result;
-    }
-
-    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
-        String line = "";
-        String result = "";
-        while((line = bufferedReader.readLine()) != null) {
-            result += line;
-        }
-        inputStream.close();
         return result;
     }
 }

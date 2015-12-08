@@ -5,6 +5,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -14,8 +17,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -118,11 +121,30 @@ public class EventDetailFragment extends Fragment implements
         date.setText(event.getDate());
         description.setText(event.getDescription());
 
+        //hardcode for now, need implementation later
+        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.sexy_pink));//(event.getImageContextColor());
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));//(event.getTitleContextColor());
+
         Picasso.with(getContext()).load(event.getCreatorImage()).into(userPortrait);
         userName.setText(event.getCreatorName());
 
         JuicyFont.getInstance().setFont(description, JuicyFont.OPEN_SANS_REGULAR);
 
+//        //collapse color
+//        Palette.from(((BitmapDrawable)image.getDrawable()).getBitmap()).maximumColorCount(32).generate(new Palette.PaletteAsyncListener() {
+//            @Override
+//            public void onGenerated(Palette palette) {
+//                // Get the "vibrant" color swatch based on the bitmap
+//                Palette.Swatch vibrant = palette.getDarkVibrantSwatch();
+//                if (vibrant != null) {
+//                    Log.w("color", Integer.toString(vibrant.getRgb()));
+//                    collapsingToolbarLayout.setContentScrimColor(vibrant.getRgb());
+//                    collapsingToolbarLayout.setCollapsedTitleTextColor(vibrant.getTitleTextColor());
+//                }
+//            }
+//        });
+
+        //join / leave floating button
         joinLeave.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
             @Override
@@ -138,19 +160,14 @@ public class EventDetailFragment extends Fragment implements
             }
         });
 
-        // Map
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.event_detail_map);
         mapFragment.getMapAsync(this);
-//        GoogleMap mMap = mapFragment.getMap();
-//        mMap.setOnMyLocationButtonClickListener(this);
-//        enableMyLocation();
         return rootView;
     }
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
-
         mMap.setOnMyLocationButtonClickListener(this);
         Log.v("mMap", map.toString());
         enableMyLocation();

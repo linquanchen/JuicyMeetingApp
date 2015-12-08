@@ -5,13 +5,23 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.util.Log;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import edu.cmu.juicymeeting.database.model.Event;
 
@@ -67,5 +77,43 @@ public class Utility {
             }
         }
         return events;
+    }
+
+
+    public static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while((line = bufferedReader.readLine()) != null) {
+            result += line;
+        }
+        inputStream.close();
+        return result;
+    }
+
+    public static HttpResponse makeRequest(String path, JSONObject holder) throws Exception
+    {
+        //instantiates httpclient to make request
+        DefaultHttpClient httpclient = new DefaultHttpClient();
+
+        //url with the post data
+        HttpPost httpost = new HttpPost(path);
+
+//        //convert parameters into JSON object
+//        JSONObject holder = getJsonObjectFromMap(params);
+        System.out.println(holder);
+        //passes the results to a string builder/entity
+        StringEntity se = new StringEntity(holder.toString());
+
+        //sets the post request as the resulting string
+        httpost.setEntity(se);
+        //sets a request header so the page receving the request
+        //will know what to do with it
+        httpost.setHeader("Accept", "application/json");
+        httpost.setHeader("Content-type", "application/json");
+
+        //Handles what is returned from the page
+        ResponseHandler responseHandler = new BasicResponseHandler();
+        return (HttpResponse) httpclient.execute(httpost, responseHandler);
     }
 }
