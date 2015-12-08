@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -137,11 +138,13 @@ public class EventDetailFragment extends Fragment implements
             }
         });
 
-//        // Map
-//        SupportMapFragment mapFragment =
-//                (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.event_detail_map);
-//        mapFragment.getMapAsync(this);
-
+        // Map
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.event_detail_map);
+        mapFragment.getMapAsync(this);
+//        GoogleMap mMap = mapFragment.getMap();
+//        mMap.setOnMyLocationButtonClickListener(this);
+//        enableMyLocation();
         return rootView;
     }
     @Override
@@ -149,6 +152,7 @@ public class EventDetailFragment extends Fragment implements
         mMap = map;
 
         mMap.setOnMyLocationButtonClickListener(this);
+        Log.v("mMap", map.toString());
         enableMyLocation();
     }
 
