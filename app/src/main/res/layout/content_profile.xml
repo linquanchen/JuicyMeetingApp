@@ -34,7 +34,7 @@ profile name: profile_name
         android:gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/grey"
         android:text="otnt"/>
 
     <TextView
@@ -55,7 +55,7 @@ profile name: profile_name
             android:paddingRight="10dp"
 
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@color/grey"
             android:gravity="right"
             android:text="0 Followers"/>
 
@@ -71,7 +71,7 @@ profile name: profile_name
             android:paddingLeft="10dp"
 
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@color/grey"
             android:gravity="left"
             android:text="0 Following"/>
     </LinearLayout>

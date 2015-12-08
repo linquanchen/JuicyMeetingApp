@@ -3,7 +3,6 @@ package edu.cmu.juicymeeting.util;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +18,6 @@ import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
 import edu.cmu.juicymeeting.juicymeeting.CreateEventActivity;
 import edu.cmu.juicymeeting.juicymeeting.EventDetailActivity;
-import edu.cmu.juicymeeting.juicymeeting.EventMainPageActivity;
 import edu.cmu.juicymeeting.chat.GroupChatActivity;
 import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
@@ -96,9 +94,9 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     @SuppressLint("NewApi")
                     @Override
                     public void onItemClick(View view, int position) {
-                        Log.v("LISTENER", "Position:" + position);
-                        Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
-                        intent.putExtra("Event", events[position]);
+                        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+                        intent.putExtra(Constants.ALL_EVENTS, events);
+                        intent.putExtra(Constants.EVENT_INDEX, position);
 //                        //transition animation
 //                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
 //                                getActivity(), view.findViewById(R.id.event_list_card_image), "event_list_card_image_transition");

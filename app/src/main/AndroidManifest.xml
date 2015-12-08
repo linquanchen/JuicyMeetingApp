@@ -51,10 +51,6 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".EventMainPageActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name="edu.cmu.juicymeeting.chat.GroupChatActivity"
             android:label="@string/app_name" >
         </activity>

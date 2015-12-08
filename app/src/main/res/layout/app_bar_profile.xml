@@ -28,8 +28,7 @@
         android:layout_height="match_parent"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:layout_marginTop="70dp"
-        android:background="@color/dark_grey">
+        android:layout_marginTop="70dp">
 
         <edu.cmu.juicymeeting.util.RImageView
             android:id="@+id/profile_portrait"
@@ -50,7 +49,7 @@
             android:gravity="center"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@color/grey"
             android:text="otnt"/>
 
         <TextView
@@ -71,7 +70,7 @@
                 android:paddingRight="10dp"
 
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/grey"
                 android:gravity="right"
                 android:text="0 Followers"/>
 
@@ -87,7 +86,7 @@
                 android:paddingLeft="10dp"
 
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/grey"
                 android:gravity="left"
                 android:text="0 Following"/>
         </LinearLayout>

@@ -20,8 +20,7 @@ event time: id: event_list_card_time
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/large_padding"
-    android:paddingBottom="@dimen/large_padding"
-    android:background="@color/dark_grey">
+    android:paddingBottom="@dimen/large_padding">
 
     <RelativeLayout
         android:layout_width="match_parent"

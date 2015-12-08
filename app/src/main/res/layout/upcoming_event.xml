@@ -12,7 +12,6 @@ event list: event_list
     android:paddingLeft="@dimen/medium_padding"
     android:paddingRight="@dimen/medium_padding"
     tools:context=".MainPage"
-    android:background="@color/dark_grey"
     android:orientation="vertical">
 
     <LinearLayout
@@ -36,7 +35,7 @@ event list: event_list
             android:text="Create"
             android:textSize="@dimen/button_text_size"
             android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textColor="@color/grey"/>
     </LinearLayout>
 
     <View
