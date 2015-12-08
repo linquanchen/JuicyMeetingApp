@@ -20,6 +20,10 @@ public class Event implements Parcelable {
     public User creator;
     public ChatRoom chatroom;
 
+    public Event() {
+
+    }
+
     public Event(String eventName, String location, String date) {
         this.eventName = eventName;
         this.location = location;
