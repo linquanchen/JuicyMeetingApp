@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/main_color_gray</item>
-        <item name="colorPrimaryDark">@color/half_transparent_dark_grey</item>
+        <item name="colorPrimaryDark">@color/main_color_gray_dk</item>
         <item name="android:colorAccent" tools:ignore="NewApi">@color/sexy_pink</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:windowBackground">@color/dark_grey</item>
