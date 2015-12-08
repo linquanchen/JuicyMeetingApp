@@ -126,12 +126,13 @@ public class EventDetailFragment extends Fragment implements
         JuicyFont.getInstance().setFont(description, JuicyFont.OPEN_SANS_REGULAR);
 
         //collapse color
-        Palette.from(((BitmapDrawable)image.getDrawable()).getBitmap()).maximumColorCount(16).generate(new Palette.PaletteAsyncListener() {
+        Palette.from(((BitmapDrawable)image.getDrawable()).getBitmap()).maximumColorCount(32).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
                 // Get the "vibrant" color swatch based on the bitmap
-                Palette.Swatch vibrant = palette.getVibrantSwatch();
+                Palette.Swatch vibrant = palette.getDarkVibrantSwatch();
                 if (vibrant != null) {
+                    Log.w("color", Integer.toString(vibrant.getRgb()));
                     collapsingToolbarLayout.setContentScrimColor(vibrant.getRgb());
                     collapsingToolbarLayout.setCollapsedTitleTextColor(vibrant.getTitleTextColor());
                 }
@@ -154,9 +155,7 @@ public class EventDetailFragment extends Fragment implements
             }
         });
 
-
-
-//        // Map
+        // Map
 //        SupportMapFragment mapFragment =
 //                (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.event_detail_map);
 //        mapFragment.getMapAsync(this);
@@ -166,7 +165,6 @@ public class EventDetailFragment extends Fragment implements
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
-
         mMap.setOnMyLocationButtonClickListener(this);
         enableMyLocation();
     }

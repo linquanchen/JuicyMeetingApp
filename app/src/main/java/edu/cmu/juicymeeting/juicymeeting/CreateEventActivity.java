@@ -135,13 +135,13 @@ public class CreateEventActivity extends AppCompatActivity {
             }
         });
 
-        cancelButton = (TextView)findViewById(R.id.create_event_cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        cancelButton = (TextView)findViewById(R.id.create_event_cancel);
+//        cancelButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
         publishButton = (TextView)findViewById(R.id.create_event_publish);
         publishButton.setOnClickListener(new View.OnClickListener() {

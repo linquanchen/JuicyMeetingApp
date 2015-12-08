@@ -13,65 +13,67 @@ create event description: create_event_description
     tools:context=".MainPage"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/app_top_button_height"
-            android:layout_gravity="center"
-            android:background="@color/transparent"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/create_event_cancel"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingRight="@dimen/medium_padding"
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/app_top_button_height"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:background="@color/transparent"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+                <!--android:id="@+id/create_event_cancel"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingRight="@dimen/medium_padding"-->
 
-                android:text="Cancel"
-                android:textSize="@dimen/button_text_size"
-                android:textStyle="bold"
-                android:textColor="@color/grey"
-                android:background="@color/transparent"/>
+                <!--android:text="Cancel"-->
+                <!--android:textSize="@dimen/button_text_size"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textColor="@color/grey"-->
+                <!--android:background="@color/transparent"/>-->
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/grey"/>
+            <!--<View-->
+                <!--android:layout_width="1dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@color/grey"/>-->
 
-            <TextView
-                android:id="@+id/create_event_publish"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingLeft="@dimen/medium_padding"
+            <!--<TextView-->
+                <!--android:id="@+id/create_event_publish"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingLeft="@dimen/medium_padding"-->
 
-                android:text="Publish"
-                android:textSize="@dimen/button_text_size"
-                android:textStyle="bold"
-                android:textColor="@color/grey"
-                android:background="@color/transparent"
-                />
-        </LinearLayout>
+                <!--android:text="Publish"-->
+                <!--android:textSize="@dimen/button_text_size"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textColor="@color/grey"-->
+                <!--android:background="@color/transparent"-->
+                <!--/>-->
+        <!--</LinearLayout>-->
 
-        <View
-            android:layout_marginTop="@dimen/medium_padding"
-            android:layout_marginBottom="@dimen/medium_padding"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
 
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp">
+
+        <!--<View-->
+            <!--android:layout_marginTop="@dimen/medium_padding"-->
+            <!--android:layout_marginBottom="@dimen/medium_padding"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@android:color/darker_gray"/>-->
+
+        <!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:paddingTop="10dp">-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -193,9 +195,24 @@ create event description: create_event_description
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/create_event_publish"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/app_top_button_height"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/medium_padding"
+                    android:layout_alignParentBottom="true"
+
+                    android:text="Publish"
+                    android:textSize="@dimen/button_text_size"
+                    android:textStyle="bold"
+                    android:textColor="@color/grey"
+                    android:background="@color/transparent"
+                    />
             </RelativeLayout>
-        </FrameLayout>
-    </LinearLayout>
+        <!--</FrameLayout>-->
+    <!--</LinearLayout>-->
 
 
 </ScrollView>

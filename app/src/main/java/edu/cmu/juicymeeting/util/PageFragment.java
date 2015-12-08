@@ -1,8 +1,15 @@
 package edu.cmu.juicymeeting.util;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -14,7 +21,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
@@ -49,6 +61,28 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private LinearLayout createEvent;
 
+    //create event variables
+    private ImageButton confirmButton;
+    private EditText toEditText;
+    private EditText eventNameEditText;
+    private EditText dateTimeEditText;
+    private EditText locationEditText;
+    private EditText notesEditText;
+
+    private ImageView createEventsButton;
+    private View createEventSelectButton;
+    private TextView cancelButton;
+    private TextView publishButton;
+    private static int RESULT_LOAD_IMG = 1;
+    private String imgDecodableString;
+
+    // Storage Permissions
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
@@ -69,7 +103,35 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                              Bundle savedInstanceState) {
         View view = null;
         switch(mPage) {
-            case 0: //create event page
+            //create event
+            case 0:
+                view = inflater.inflate(R.layout.create_event, container, false);
+                verifyStoragePermissions(getActivity());
+                createEventSelectButton = (View)view.findViewById(R.id.create_event_select);
+                createEventSelectButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Create intent to Open Image applications like Gallery, Google Photos
+                        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        // Start the Intent
+                        startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+                    }
+                });
+
+                publishButton = (TextView)view.findViewById(R.id.create_event_publish);
+                publishButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getActivity(), "Successfully create event!", Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
+                    }
+                });
+
+                break;
+
+            //upcoming event
+            case 1:
                 view = inflater.inflate(R.layout.upcoming_event, container, false);
                 mRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_event_list);
 
@@ -100,14 +162,14 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     });
                 }
 
-                createEvent = (LinearLayout)view.findViewById(R.id.event_create);
-                createEvent.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), CreateEventActivity.class);
-                        startActivity(intent);
-                    }
-                });
+//                createEvent = (LinearLayout)view.findViewById(R.id.event_create);
+//                createEvent.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(getActivity(), CreateEventActivity.class);
+//                        startActivity(intent);
+//                    }
+//                });
 
                 //setup refresh action
                 swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
@@ -121,7 +183,8 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         android.R.color.holo_red_light);
                 break;
 
-            case 2:
+            //chat room
+            case 3:
                 view = inflater.inflate(R.layout.group_chat, container, false);
                 groupRecyclerView = (RecyclerView) view.findViewById(R.id.group_list);
                 // use this setting to improve performance if you know that changes
@@ -155,7 +218,8 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                 break;
 
-            case 1:
+            //explore event
+            case 2:
             default:
                 view = inflater.inflate(R.layout.explore, container, false);
                 exploreRecyclerView = (RecyclerView) view.findViewById(R.id.exploreList);
@@ -218,5 +282,66 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 swipeContainer.setRefreshing(false);
             }
         }, 5000);
+    }
+
+    //create event need check permission
+    /**
+     * Checks if the app has permission to write to device storage
+     *
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param activity
+     */
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+    }
+
+    //create event when user picked a image
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            // When an Image is picked
+            if (requestCode == RESULT_LOAD_IMG && resultCode == getActivity().RESULT_OK
+                    && null != data) {
+                // Get the Image from data
+
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+                // Get the cursor
+                Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                        filePathColumn, null, null, null);
+                // Move to first row
+                cursor.moveToFirst();
+
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                imgDecodableString = cursor.getString(columnIndex);
+                cursor.close();
+                ImageView imgView = (ImageView) getView().findViewById(R.id.create_event_image);
+                // Set the Image in ImageView after decoding the String
+                // Get the directory for the user's public pictures directory.
+                imgView.setImageBitmap(BitmapFactory
+                        .decodeFile(imgDecodableString));
+
+
+            } else {
+                Toast.makeText(getActivity(), "You haven't picked Image",
+                        Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG)
+                    .show();
+        }
     }
 }
