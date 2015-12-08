@@ -25,6 +25,8 @@
         app:tabGravity="center"
         android:textAlignment="center"
         app:tabTextColor="@color/grey"
+        app:tabSelectedTextColor="@color/sexy_pink"
+        android:background="@color/white"
         style="@style/MyCustomTabLayout"
         />
 </LinearLayout>
