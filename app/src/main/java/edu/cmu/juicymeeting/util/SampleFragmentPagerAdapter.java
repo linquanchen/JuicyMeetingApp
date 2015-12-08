@@ -13,8 +13,8 @@ import android.text.style.ImageSpan;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "upcoming", "explore", "chat" };
+    final int PAGE_COUNT = 4;
+    private String tabTitles[] = new String[] { "create", "upcoming", "explore", "chat" };
     private Context context;
 
     /*

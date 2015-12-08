@@ -1,10 +1,15 @@
 package edu.cmu.juicymeeting.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.design.widget.Snackbar;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,11 +54,12 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         // get data from your itemsData at this position
 //        holder.eventListCardImage.setImageBitmap(
 //                decodeSampledBitmapFromResource(context.getResources(), R.drawable.coffee, 300, 300));
         Picasso.with(context).load(eventSet[position].getEventImage()).into(holder.eventListCardImage);
+
         holder.eventListCardName.setText(eventSet[position].getEventName());
         holder.eventListCardDescription.setText(eventSet[position].getDescription());
 

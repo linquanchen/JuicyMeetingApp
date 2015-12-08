@@ -6,7 +6,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.os.Handler;
@@ -30,7 +33,6 @@ import android.widget.Toast;
 
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
-import edu.cmu.juicymeeting.juicymeeting.CreateEventActivity;
 import edu.cmu.juicymeeting.juicymeeting.EventDetailActivity;
 import edu.cmu.juicymeeting.chat.GroupChatActivity;
 import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
@@ -62,19 +64,13 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private LinearLayout createEvent;
 
     //create event variables
-    private ImageButton confirmButton;
-    private EditText toEditText;
-    private EditText eventNameEditText;
-    private EditText dateTimeEditText;
-    private EditText locationEditText;
-    private EditText notesEditText;
-
-    private ImageView createEventsButton;
     private View createEventSelectButton;
     private TextView cancelButton;
     private TextView publishButton;
     private static int RESULT_LOAD_IMG = 1;
     private String imgDecodableString;
+    private int imageContextColor;
+    private int textContextColor;
 
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -124,7 +120,7 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getActivity(), "Successfully create event!", Toast.LENGTH_SHORT).show();
-                        getActivity().finish();
+                        publish(getView());
                     }
                 });
 
@@ -328,13 +324,24 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 imgDecodableString = cursor.getString(columnIndex);
                 cursor.close();
-                ImageView imgView = (ImageView) getView().findViewById(R.id.create_event_image);
+                ImageView imgView = (ImageView)getView().findViewById(R.id.create_event_image);
                 // Set the Image in ImageView after decoding the String
                 // Get the directory for the user's public pictures directory.
-                imgView.setImageBitmap(BitmapFactory
-                        .decodeFile(imgDecodableString));
+                Bitmap bitmap = BitmapFactory.decodeFile(imgDecodableString);
+                imgView.setImageBitmap(bitmap);
 
-
+                //collapse color
+                Palette.from(bitmap).maximumColorCount(16).generate(new Palette.PaletteAsyncListener() {
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        // Get the "vibrant" color swatch based on the bitmap
+                        Palette.Swatch vibrant = palette.getDarkVibrantSwatch();
+                        if (vibrant != null) {
+                            imageContextColor = vibrant.getRgb();
+                            textContextColor = vibrant.getTitleTextColor();
+                        }
+                    }
+                });
             } else {
                 Toast.makeText(getActivity(), "You haven't picked Image",
                         Toast.LENGTH_LONG).show();
@@ -343,5 +350,14 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG)
                     .show();
         }
+    }
+
+    //create event publish, need implement later
+    private void publish(View v) {
+        ((EditText)(v.findViewById(R.id.create_event_name))).setText("");
+        ((EditText)(v.findViewById(R.id.create_event_description))).setText("");
+        ((TextView)(v.findViewById(R.id.create_event_description_copy))).setText("");
+        ((EditText)(v.findViewById(R.id.create_event_location))).setText("");
+        ((EditText)(v.findViewById(R.id.create_event_time))).setText("");
     }
 }
