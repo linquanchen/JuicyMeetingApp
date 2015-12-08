@@ -8,13 +8,17 @@ import android.os.Parcelable;
  * Created by qiuzhexin on 11/13/15.
  */
 public class Event implements Parcelable {
-    public String eventName;
-    public String location;
-    public String agenda;
-    public String date;
 
+    private String eventImage;
+    private String eventName;
     private String description;
+    private String creatorImage;
+    private String creatorName;
+    private int followers;
+    private String location;
+    private String date;
 
+    public String agenda;
     public String time;
     public String founder;
     public User creator;
@@ -31,12 +35,14 @@ public class Event implements Parcelable {
     }
 
     protected Event(Parcel in) {
+        eventImage = in.readString();
         eventName = in.readString();
+        description = in.readString();
+        creatorImage = in.readString();
+        creatorName = in.readString();
+        followers = in.readInt();
         location = in.readString();
-        agenda = in.readString();
         date = in.readString();
-        time = in.readString();
-        founder = in.readString();
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
@@ -50,6 +56,38 @@ public class Event implements Parcelable {
             return new Event[size];
         }
     };
+
+    public String getCreatorImage() {
+        return creatorImage;
+    }
+
+    public void setCreatorImage(String creatorImage) {
+        this.creatorImage = creatorImage;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public String getEventImage() {
+        return eventImage;
+    }
+
+    public void setEventImage(String eventImage) {
+        this.eventImage = eventImage;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
+    public int getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
 
     public String getDescription() {
         return description;
@@ -130,11 +168,13 @@ public class Event implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(eventImage);
         dest.writeString(eventName);
+        dest.writeString(description);
+        dest.writeString(creatorImage);
+        dest.writeString(creatorName);
+        dest.writeInt(followers);
         dest.writeString(location);
-        dest.writeString(agenda);
         dest.writeString(date);
-        dest.writeString(time);
-        dest.writeString(founder);
     }
 }

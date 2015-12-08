@@ -44,7 +44,7 @@ event description: event_detail_description
                 android:src="@drawable/coffee"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
                 android:transitionName="event_list_card_image_transition"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
