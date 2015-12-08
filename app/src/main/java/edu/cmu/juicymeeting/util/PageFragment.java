@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -121,10 +122,11 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                             Log.v("LISTENER", "Position:" + position);
                             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
                             intent.putExtra(Constants.ALL_EVENTS, events);
-                            intent.putExtra(Constants.EVENT_INDEX, position);//                            //transition animation
+                            intent.putExtra(Constants.EVENT_INDEX, position);//
+                            // transition animation
 //                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
 //                                    getActivity(), view.findViewById(R.id.event_list_card_image), "event_list_card_image_transition");
-//                            getActivity().startActivity(intent, options.toBundle());
+                            //ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
                             startActivity(intent);
                         }
                     });

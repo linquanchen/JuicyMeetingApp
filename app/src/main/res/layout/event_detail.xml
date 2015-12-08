@@ -5,175 +5,173 @@ user portrait: event_detail_portrait
 user name: event_detail_user_name
 join or leave group switch button: event_detail_join_leave_switch
 main background image: event_detail_image
-event name: event_detail_event_name
 event location: event_detail_location
 event time: event_detail_date
 event map: event_detail_map
 event description: event_detail_description
 -->
-
-<ScrollView
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:orientation="vertical">-->
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/event_detail_wrapper"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="5dp"
-        android:paddingBottom="20dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <LinearLayout
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/app_top_button_height"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="0.8"
-                android:layout_height="wrap_content"
-                android:paddingRight="@dimen/medium_padding"
-                android:gravity="right">
-                <edu.cmu.juicymeeting.util.RImageView
-                    android:id="@+id/event_detail_portrait"
-                    android:layout_width="@dimen/event_list_card_portrait_size"
-                    android:layout_height="@dimen/event_list_card_portrait_size"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/coffee_portrait"/>
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <TextView
-                    android:id="@+id/event_detail_user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/small_padding"
-                    android:layout_gravity="center"
+            <ImageView
+                android:id="@+id/event_detail_image"
+                android:src="@drawable/coffee"
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+                android:transitionName="event_list_card_image_transition"
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                android:fitsSystemWindows="true"
+                android:minHeight="100dp"/>
 
-                    android:singleLine="true"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/grey"
-                    android:text="Good Coffee"/>
-            </LinearLayout>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"></android.support.v7.widget.Toolbar>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/create"/>
-                <TextView
-                    android:id="@+id/event_detail_join_leave_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
 
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/grey"
-                    android:text="Join Group"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <View
-            android:layout_marginTop="@dimen/medium_padding"
-            android:layout_marginBottom="@dimen/medium_padding"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
-        <ImageView
-            android:id="@+id/event_detail_image"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:transitionName="event_list_card_image_transition"
-            android:src="@drawable/coffee"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="false"/>
-
-        <View
-            android:layout_marginTop="@dimen/medium_padding"
-            android:layout_marginBottom="@dimen/medium_padding"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/event_detail_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/event_detail_event_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:textSize="@dimen/event_detail_name_text_size"
-                android:text="Coffee"
-                android:textColor="@color/grey"/>
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/event_detail_location"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-
-                    android:text="Mountain View"
-                    android:textColor="@color/grey"
-                    />
-                <TextView
-                    android:id="@+id/event_detail_date"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-
-                    android:gravity="right"
-                    android:text="2015/11/12"
-                    android:textColor="@color/grey"
-                    />
-            </LinearLayout>
-
-
-            <!--<fragment-->
-                <!--android:id="@+id/event_detail_map"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/event_detail_map_height"-->
-                <!--android:layout_marginTop="@dimen/medium_padding"-->
-                <!--android:adjustViewBounds="true"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:src="@drawable/event_detail_location"/>-->
-            <fragment
-                android:id="@+id/event_detail_map"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/event_detail_map_height"
-                class="com.google.android.gms.maps.SupportMapFragment" />
-
-            <View
-                android:layout_marginTop="@dimen/medium_padding"
-                android:layout_marginBottom="@dimen/medium_padding"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"/>
-
-            <TextView
-                android:id="@+id/event_detail_description"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:orientation="vertical">
 
-                android:text="Some description"
-                android:textSize="@dimen/event_detail_description_text_size"
-                android:textColor="@color/grey"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/medium_padding"
+                    android:paddingBottom="@dimen/medium_padding">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:gravity="left">
+                        <edu.cmu.juicymeeting.util.RImageView
+                            android:id="@+id/event_detail_portrait"
+                            android:layout_width="@dimen/event_list_card_portrait_size"
+                            android:layout_height="@dimen/event_list_card_portrait_size"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/coffee_portrait"/>
+
+                        <TextView
+                            android:id="@+id/event_detail_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/small_padding"
+                            android:layout_gravity="center"
+
+                            android:singleLine="true"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textColor="@color/grey"
+                            android:text="Good Coffee"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/event_detail_location"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+
+                        android:text="Mountain View"
+                        android:textColor="@color/grey"
+                        />
+                    <TextView
+                        android:id="@+id/event_detail_date"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+
+
+                        android:gravity="right"
+                        android:text="2015/11/12"
+                        android:textColor="@color/grey"
+                        />
+                </LinearLayout>
+
+                <fragment
+                    android:id="@+id/event_detail_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/event_detail_map_height"
+                    class="com.google.android.gms.maps.SupportMapFragment" />
+
+                <View
+                    android:layout_marginTop="@dimen/medium_padding"
+                    android:layout_marginBottom="@dimen/medium_padding"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <TextView
+                    android:id="@+id/event_detail_description"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+
+                    android:text="Some description"
+                    android:textSize="@dimen/event_detail_description_text_size"
+                    android:textColor="@color/grey"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/event_detail_join_leave_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="24dp"
+        android:elevation="4dp"
+        android:tint="@color/white"
+        android:src="@drawable/plus_pure"
+        app:layout_anchor="@id/event_detail_wrapper"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+    <!--</LinearLayout>-->
+
+</android.support.design.widget.CoordinatorLayout>

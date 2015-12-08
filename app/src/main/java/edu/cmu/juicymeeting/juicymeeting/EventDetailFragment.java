@@ -1,14 +1,22 @@
 package edu.cmu.juicymeeting.juicymeeting;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +36,9 @@ import edu.cmu.juicymeeting.util.RImageView;
 
 
 public class EventDetailFragment extends Fragment implements
-        //GoogleMap.OnMyLocationButtonClickListener,
-        //OnMapReadyCallback,
-        ActivityCompat.OnRequestPermissionsResultCallback{
+        GoogleMap.OnMyLocationButtonClickListener,
+        OnMapReadyCallback,
+        ActivityCompat.OnRequestPermissionsResultCallback {
     //public static final String ARG_OBJECT = "object";
 
     //necessary information to select event
@@ -40,12 +48,12 @@ public class EventDetailFragment extends Fragment implements
     //used to show layout
     private RImageView userPortrait;
     private TextView userName;
-    private TextView joinLeave;
+    private FloatingActionButton joinLeave;
     private ImageView image;
-    private TextView name;
     private TextView location;
     private TextView date;
     private TextView description;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     /**
      * Request code for location permission request.
@@ -59,10 +67,10 @@ public class EventDetailFragment extends Fragment implements
      * {@link #onRequestPermissionsResult(int, String[], int[])}.
      */
     private boolean mPermissionDenied = false;
-
-    //private GoogleMap mMap;
-
+    private GoogleMap mMap;
     private View rootView;
+
+    private boolean isJoin = false;
 
     public EventDetailFragment(){}
 
@@ -74,6 +82,12 @@ public class EventDetailFragment extends Fragment implements
         if(rootView == null) {
             rootView = inflater.inflate(R.layout.event_detail, container, false);
         }
+
+        //set toolbar
+        //toolbar
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
         //get necessary variable
         Bundle args = getArguments();
         //activity = (AppCompatActivity)args.getParcelable(Constants.ACTIVITY);
@@ -84,26 +98,37 @@ public class EventDetailFragment extends Fragment implements
         userPortrait = (RImageView)rootView.findViewById(R.id.event_detail_portrait);
         userName = (TextView)rootView.findViewById(R.id.event_detail_user_name);
 
-        joinLeave = (TextView)rootView.findViewById(R.id.event_detail_join_leave_switch);
+        joinLeave = (FloatingActionButton)rootView.findViewById(R.id.event_detail_join_leave_switch);
+        refreshJoinLeaveButtonIcon();
 
         image = (ImageView)rootView.findViewById(R.id.event_detail_image);
-        name = (TextView)rootView.findViewById(R.id.event_detail_event_name);
         location = (TextView)rootView.findViewById(R.id.event_detail_location);
         date = (TextView)rootView.findViewById(R.id.event_detail_date);
         description = (TextView)rootView.findViewById(R.id.event_detail_description);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
 
         //image
-        name.setText(event.getEventName());
-        JuicyFont.getInstance().setFont(name, JuicyFont.OPEN_SANS_REGULAR);
+        collapsingToolbarLayout.setTitle(event.getEventName());
         location.setText(event.getLocation());
         date.setText(event.getDate());
         description.setText(event.getDescription());
+        //for debug
+        description.setText("some description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\n" +
+                "some description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\n");
         JuicyFont.getInstance().setFont(description, JuicyFont.OPEN_SANS_REGULAR);
 
         joinLeave.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
             @Override
             public void onClick(View v) {
-
+                isJoin = !isJoin;
+                if(isJoin) {
+                    Snackbar.make(v, "You joined this meeting", Snackbar.LENGTH_LONG).show();
+                }
+                else {
+                    Snackbar.make(v, "You leaved this meeting", Snackbar.LENGTH_LONG).show();
+                }
+                refreshJoinLeaveButtonIcon();
             }
         });
 
@@ -112,58 +137,56 @@ public class EventDetailFragment extends Fragment implements
 //                (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.event_detail_map);
 //        mapFragment.getMapAsync(this);
 
-
         return rootView;
     }
-//    @Override
-//    public void onMapReady(GoogleMap map) {
-//        mMap = map;
-//
-//        mMap.setOnMyLocationButtonClickListener(this);
-//        enableMyLocation();
-//    }
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
 
-//    /**
-//     * Enables the My Location layer if the fine location permission has been granted.
-//     */
-//    private void enableMyLocation() {
-//        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            // Permission to access the location is missing.
-//            //need AppCompatActivity but could only get FragmentActivity here, need to fix later
-////            PermissionUtils.requestPermission(getActivity(), LOCATION_PERMISSION_REQUEST_CODE,
-////                    Manifest.permission.ACCESS_FINE_LOCATION, true);
-//        } else if (mMap != null) {
-//            // Access to the location has been granted to the app.
-//            mMap.setMyLocationEnabled(true);
-//        }
-//    }
-//
-//    @Override
-//    public boolean onMyLocationButtonClick() {
-//        Toast.makeText(getActivity(), "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-//        // Return false so that we don't consume the event and the default behavior still occurs
-//        // (the camera animates to the user's current position).
-//        return false;
-//    }
-//
-//
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-//                                           @NonNull int[] grantResults) {
-//        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
-//            return;
-//        }
-//
-//        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-//                Manifest.permission.ACCESS_FINE_LOCATION)) {
-//            // Enable the my location layer if the permission has been granted.
-//            enableMyLocation();
-//        } else {
-//            // Display the missing permission error dialog when the fragments resume.
-//            mPermissionDenied = true;
-//        }
-//    }
+        mMap.setOnMyLocationButtonClickListener(this);
+        enableMyLocation();
+    }
+
+    /**
+     * Enables the My Location layer if the fine location permission has been granted.
+     */
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            PermissionUtils.requestPermission((AppCompatActivity)getActivity(), LOCATION_PERMISSION_REQUEST_CODE,
+                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+        } else if (mMap != null) {
+            // Access to the location has been granted to the app.
+            mMap.setMyLocationEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(getActivity(), "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            return;
+        }
+
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // Enable the my location layer if the permission has been granted.
+            enableMyLocation();
+        } else {
+            // Display the missing permission error dialog when the fragments resume.
+            mPermissionDenied = true;
+        }
+    }
 
 //    @Override
 //    protected void onResumeFragments() {
@@ -174,14 +197,25 @@ public class EventDetailFragment extends Fragment implements
 //            mPermissionDenied = false;
 //        }
 //    }
-//
-//    /**
-//     * Displays a dialog with error message explaining that the location permission is missing.
-//     */
-//    private void showMissingPermissionError() {
-//        PermissionUtils.PermissionDeniedDialog
-//                .newInstance(true).show(getActivity().getSupportFragmentManager(), "dialog");
-//    }
+
+    @Override
+    public void onResume() {
+        //super.onResumeFragments();
+        super.onResume();
+        if (mPermissionDenied) {
+            // Permission was not granted, display error dialog.
+            showMissingPermissionError();
+            mPermissionDenied = false;
+        }
+    }
+
+    /**
+     * Displays a dialog with error message explaining that the location permission is missing.
+     */
+    private void showMissingPermissionError() {
+        PermissionUtils.PermissionDeniedDialog
+                .newInstance(true).show(getActivity().getSupportFragmentManager(), "dialog");
+    }
 
     @Override
     public void onDestroy() {
@@ -189,5 +223,13 @@ public class EventDetailFragment extends Fragment implements
 
 //        //necessary for transition animation
 //        getActivity().supportFinishAfterTransition();
+    }
+
+    @SuppressLint("NewApi")
+    private void refreshJoinLeaveButtonIcon() {
+        if(isJoin)
+            joinLeave.setImageDrawable(getResources().getDrawable(R.drawable.minus, getContext().getTheme()));
+        else
+            joinLeave.setImageDrawable(getResources().getDrawable(R.drawable.plus_pure, getContext().getTheme()));
     }
 }
