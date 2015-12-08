@@ -18,4 +18,7 @@
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyCdDf-MSDYVROiRm8N_jMhGYTx6yjgRJzA</string>
+    <string name="title_activity_event_detail">EventDetailActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>
