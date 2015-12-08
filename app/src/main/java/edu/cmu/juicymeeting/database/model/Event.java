@@ -9,12 +9,14 @@ import android.os.Parcelable;
  */
 public class Event implements Parcelable {
 
-    public String eventName;
+    private String eventImage;
+    private String eventName;
     private String description;
+    private String creatorImage;
     private String creatorName;
     private int followers;
-    public String location;
-    public String date;
+    private String location;
+    private String date;
 
     public String agenda;
     public String time;
@@ -53,8 +55,24 @@ public class Event implements Parcelable {
         }
     };
 
+    public String getCreatorImage() {
+        return creatorImage;
+    }
+
+    public void setCreatorImage(String creatorImage) {
+        this.creatorImage = creatorImage;
+    }
+
     public String getCreatorName() {
         return creatorName;
+    }
+
+    public String getEventImage() {
+        return eventImage;
+    }
+
+    public void setEventImage(String eventImage) {
+        this.eventImage = eventImage;
     }
 
     public void setCreatorName(String creatorName) {

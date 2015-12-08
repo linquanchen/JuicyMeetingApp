@@ -1,15 +1,8 @@
 package edu.cmu.juicymeeting.util;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,20 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
-import java.util.Locale;
 
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
@@ -177,10 +156,6 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             default:
                 view = inflater.inflate(R.layout.explore, container, false);
                 exploreRecyclerView = (RecyclerView) view.findViewById(R.id.exploreList);
-                // use this setting to improve performance if you know that changes
-                // in content do not change the layout size of the RecyclerView
-
-                //mRecyclerView.setHasFixedSize(true);
 
                 // use a linear layout manager
                 exploreLayoutManager = new LinearLayoutManager(getActivity());
@@ -234,6 +209,7 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         (new Handler()).postDelayed(new Runnable() {
             @Override
             public void run() {
+                new HttpAsyncTask().execute(RESTfulAPI.upcomingEventURL + "zxq@cmu.edu");
                 swipeContainer.setRefreshing(false);
             }
         }, 5000);

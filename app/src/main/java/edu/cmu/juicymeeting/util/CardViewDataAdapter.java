@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import edu.cmu.juicymeeting.database.model.Event;
 import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
@@ -49,12 +51,13 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // get data from your itemsData at this position
-        holder.eventListCardImage.setImageBitmap(
-                decodeSampledBitmapFromResource(context.getResources(), R.drawable.coffee, 300, 300));
+//        holder.eventListCardImage.setImageBitmap(
+//                decodeSampledBitmapFromResource(context.getResources(), R.drawable.coffee, 300, 300));
+        Picasso.with(context).load(eventSet[position].getEventImage()).into(holder.eventListCardImage);
         holder.eventListCardName.setText(eventSet[position].getEventName());
         holder.eventListCardDescription.setText(eventSet[position].getDescription());
 
-//      holder.eventListCardImage.setImageBitmap(R.drawable.coffee_portrait);
+        Picasso.with(context).load(eventSet[position].getCreatorImage()).into(holder.eventListCardPortrait);
         holder.eventListCardCreatorName.setText(eventSet[position].getCreatorName());
         holder.eventListCardFollowInfo.setText("Followed by "
                 + String.valueOf(eventSet[position].getFollowers()) + " pll");

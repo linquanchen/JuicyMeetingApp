@@ -21,7 +21,6 @@ import edu.cmu.juicymeeting.database.model.Event;
 public class Utility {
 
     public static String getLocation(double lat, double lng, Context context) {
-        System.out.println("lat : " + lat + ", lng: " + lng);
         Geocoder gcd = new Geocoder(context, Locale.getDefault());
         List<Address> addresses = null;
         try {
@@ -36,7 +35,7 @@ public class Utility {
     }
 
     public static Event[] getAllUpcomingEvent(String result, Context context) {
-        
+
         JSONArray jsonObj = null;
         try {
             jsonObj = new JSONArray(result);
@@ -44,17 +43,16 @@ public class Utility {
             e.printStackTrace();
         }
         Event[] events = new Event[jsonObj.length()];
-        System.out.println(events.length);
         for (int i = 0; i < jsonObj.length(); i++) {
             events[i] = new Event();
             try {
                 JSONObject jsonEvent = jsonObj.getJSONObject(i);
-                //events[i].setImg();
+                events[i].setEventImage(jsonEvent.getString("imgStr"));
                 events[i].setEventName(jsonEvent.getString("name"));
                 events[i].setDescription(jsonEvent.getString("description"));
 
-                //por
-                events[i].setCreatorName("Jeffery");
+                events[i].setCreatorImage(jsonEvent.getJSONObject("creator").getString("imgStr"));
+                events[i].setCreatorName(jsonEvent.getJSONObject("creator").getString("name"));
 
                 events[i].setFollowers(jsonEvent.getInt("followers"));
                 events[i].setLocation(getLocation(jsonEvent.getDouble("lat"),
