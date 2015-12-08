@@ -38,7 +38,7 @@ import java.util.Locale;
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
 import edu.cmu.juicymeeting.juicymeeting.CreateEventActivity;
-import edu.cmu.juicymeeting.juicymeeting.EventMainPageActivity;
+import edu.cmu.juicymeeting.juicymeeting.EventDetailActivity;
 import edu.cmu.juicymeeting.chat.GroupChatActivity;
 import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
@@ -119,12 +119,13 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         @Override
                         public void onItemClick(View view, int position) {
                             Log.v("LISTENER", "Position:" + position);
-                            Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
-                            intent.putExtra("Event", events[position]);
-                            //transition animation
-                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                                    getActivity(), view.findViewById(R.id.event_list_card_image), "event_list_card_image_transition");
-                            getActivity().startActivity(intent, options.toBundle());
+                            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+                            intent.putExtra(Constants.ALL_EVENTS, events);
+                            intent.putExtra(Constants.EVENT_INDEX, position);//                            //transition animation
+//                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                                    getActivity(), view.findViewById(R.id.event_list_card_image), "event_list_card_image_transition");
+//                            getActivity().startActivity(intent, options.toBundle());
+                            startActivity(intent);
                         }
                     });
                 }
@@ -212,13 +213,15 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     @SuppressLint("NewApi")
                     @Override
                     public void onItemClick(View view, int position) {
-                        Log.v("LISTENER", "Position:" + position);
-                        Intent intent = new Intent(getActivity(), EventMainPageActivity.class);
-                        intent.putExtra("Event", exploreEvents[position]);
-                        //transition animation
-                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                                getActivity(), view.findViewById(R.id.event_list_card_image), "event_list_card_image_transition");
-                        getActivity().startActivity(intent, options.toBundle());
+                        //create event detail page that can swipe to navigate
+                        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+                        intent.putExtra(Constants.ALL_EVENTS, exploreEvents);
+                        intent.putExtra(Constants.EVENT_INDEX, position);
+//                        //transition animation
+//                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                                getActivity(), view.findViewById(R.id.event_list_card_image), "event_list_card_image_transition");
+//                        getActivity().startActivity(intent, options.toBundle());
+                        startActivity(intent);
                     }
                 });
 
@@ -241,7 +244,8 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override public void onRefresh() {
         (new Handler()).postDelayed(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 swipeContainer.setRefreshing(false);
             }
         }, 5000);

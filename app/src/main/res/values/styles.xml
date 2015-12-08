@@ -2,10 +2,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">@color/main_color_gray</item>
-        <item name="colorPrimaryDark">@color/main_color_gray_dk</item>
+        <item name="colorPrimary">@color/sexy_pink</item>
+        <item name="colorPrimaryDark">@color/sexy_pink_dark</item>
         <item name="android:colorAccent" tools:ignore="NewApi">@color/sexy_pink</item>
-        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/dark_grey</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:navigationBarColor" tools:ignore="NewApi">@color/black</item>
         <item name="android:windowActionBar">true</item>
@@ -13,13 +13,14 @@
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <!--<item name="windowNoTitle">true</item>-->
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabIndicatorColor">@color/sexy_pink</item>
+        <item name="android:textColorPrimary">@color/black</item>
         <item name="tabIndicatorHeight">1dp</item>
         <item name="tabPaddingStart">12dp</item>
         <item name="tabPaddingEnd">12dp</item>

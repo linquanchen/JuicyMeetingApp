@@ -6,13 +6,12 @@ create event description: create_event_description
 -->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:theme="@style/AppTheme"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainPage"
-    android:orientation="vertical"
-    android:background="@color/dark_grey">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +35,7 @@ create event description: create_event_description
                 android:text="Cancel"
                 android:textSize="@dimen/button_text_size"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/grey"
                 android:background="@color/transparent"/>
 
             <View
@@ -55,7 +54,7 @@ create event description: create_event_description
                 android:text="Publish"
                 android:textSize="@dimen/button_text_size"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/grey"
                 android:background="@color/transparent"
                 />
         </LinearLayout>
@@ -94,7 +93,7 @@ create event description: create_event_description
                         android:layout_height="wrap_content"
                         android:elevation="4dp"
 
-                        android:textColor="@color/white"
+                        android:textColor="@color/grey"
                         android:hint="Event Name"
                         android:textStyle="bold"
                         android:fontFamily="monospace"
@@ -143,14 +142,14 @@ create event description: create_event_description
                             android:layout_height="wrap_content"
 
                             android:textStyle="bold"
-                            android:textColor="@color/white"
+                            android:textColor="@color/grey"
                             android:text="Location"/>
                         <EditText
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
 
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/grey"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -163,14 +162,14 @@ create event description: create_event_description
                             android:layout_height="wrap_content"
 
                             android:textStyle="bold"
-                            android:textColor="@color/white"
+                            android:textColor="@color/grey"
                             android:text="Time"/>
                         <EditText
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
 
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/grey"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -183,14 +182,14 @@ create event description: create_event_description
                             android:layout_height="wrap_content"
 
                             android:textStyle="bold"
-                            android:textColor="@color/white"
+                            android:textColor="@color/grey"
                             android:text="Description"/>
                         <EditText
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
 
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/grey"/>
                     </LinearLayout>
 
                 </LinearLayout>
