@@ -5,6 +5,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -13,8 +16,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -117,6 +120,20 @@ public class EventDetailFragment extends Fragment implements
                 "some description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\nsome description\n");
         JuicyFont.getInstance().setFont(description, JuicyFont.OPEN_SANS_REGULAR);
 
+        //collapse color
+        Palette.from(((BitmapDrawable)image.getDrawable()).getBitmap()).maximumColorCount(16).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                // Get the "vibrant" color swatch based on the bitmap
+                Palette.Swatch vibrant = palette.getVibrantSwatch();
+                if (vibrant != null) {
+                    collapsingToolbarLayout.setContentScrimColor(vibrant.getRgb());
+                    collapsingToolbarLayout.setCollapsedTitleTextColor(vibrant.getTitleTextColor());
+                }
+            }
+        });
+
+        //join / leave floating button
         joinLeave.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
             @Override
@@ -131,6 +148,8 @@ public class EventDetailFragment extends Fragment implements
                 refreshJoinLeaveButtonIcon();
             }
         });
+
+
 
 //        // Map
 //        SupportMapFragment mapFragment =
