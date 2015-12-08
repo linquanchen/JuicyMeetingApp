@@ -66,7 +66,7 @@ public class MainPageActivity extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
         //tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        TabLayout.Tab tab = tabLayout.getTabAt(1);//second tab as default
+        TabLayout.Tab tab = tabLayout.getTabAt(2);//second tab as default
         tab.select();
 
         new HttpAsyncTask().execute(RESTfulAPI.upcomingEventURL + "zxq@cmu.edu");
