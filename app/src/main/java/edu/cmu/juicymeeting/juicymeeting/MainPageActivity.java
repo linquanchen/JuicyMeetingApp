@@ -23,7 +23,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import edu.cmu.juicymeeting.util.HttpAsyncTask;
 import edu.cmu.juicymeeting.util.JuicyFont;
+import edu.cmu.juicymeeting.util.RESTfulAPI;
 import edu.cmu.juicymeeting.util.SampleFragmentPagerAdapter;
 
 public class MainPageActivity extends AppCompatActivity
@@ -66,6 +68,9 @@ public class MainPageActivity extends AppCompatActivity
         //tabLayout.setTabMode(TabLayout.MODE_FIXED);
         TabLayout.Tab tab = tabLayout.getTabAt(1);//second tab as default
         tab.select();
+
+        new HttpAsyncTask().execute(RESTfulAPI.upcomingEventURL + "zxq@cmu.edu");
+
     }
 
     public void createGroup(View view) {

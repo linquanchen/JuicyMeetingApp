@@ -22,7 +22,6 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
 
     public Event[] eventSet;
     public OnItemClickListener mItemClickListener;
-
     private Context context;
 
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -52,11 +51,15 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
         // get data from your itemsData at this position
         holder.eventListCardImage.setImageBitmap(
                 decodeSampledBitmapFromResource(context.getResources(), R.drawable.coffee, 300, 300));
-//        holder.eventListCardImage.setImageBitmap(R.drawable.coffee_portrait);
-                holder.eventListCardName.setText(eventSet[position].getEventName());
+        holder.eventListCardName.setText(eventSet[position].getEventName());
+        holder.eventListCardDescription.setText(eventSet[position].getDescription());
+
+//      holder.eventListCardImage.setImageBitmap(R.drawable.coffee_portrait);
+        holder.eventListCardCreatorName.setText(eventSet[position].getCreatorName());
+        holder.eventListCardFollowInfo.setText("Followed by "
+                + String.valueOf(eventSet[position].getFollowers()) + " pll");
         holder.eventListCardLocation.setText(eventSet[position].getLocation());
-        holder.eventListCardMonthYear.setText(eventSet[position].getDate());
-        //holder.eventListCardDay.setText("27");
+        holder.eventListCardDate.setText(eventSet[position].getDate());
     }
 
     @Override
@@ -66,20 +69,25 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
 
     // inner class to hold a reference to each item of RecyclerView
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        //public TextView tvtinfo_text;
         public ImageView eventListCardImage;
         public TextView eventListCardName;
+        public TextView eventListCardDescription;
+        public ImageView eventListCardPortrait;
+        public TextView eventListCardCreatorName;
+        public TextView eventListCardFollowInfo;
         public TextView eventListCardLocation;
-        public TextView eventListCardMonthYear;
-        public TextView eventListCardDay;
+        public TextView eventListCardDate;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             eventListCardImage = (ImageView)itemLayoutView.findViewById(R.id.event_list_card_image);
-            eventListCardName = (TextView)itemLayoutView.findViewById(R.id.event_list_card_user_name);
+            eventListCardName = (TextView)itemLayoutView.findViewById(R.id.event_list_card_name);
+            eventListCardDescription = (TextView)itemLayoutView.findViewById(R.id.event_list_card_description);
+            eventListCardPortrait = (ImageView)itemLayoutView.findViewById(R.id.event_list_card_portrait);
+            eventListCardCreatorName = (TextView)itemLayoutView.findViewById(R.id.event_list_card_user_name);
+            eventListCardFollowInfo = (TextView)itemLayoutView.findViewById(R.id.event_list_card_follow_info);
             eventListCardLocation = (TextView)itemLayoutView.findViewById(R.id.event_list_card_location);
-            eventListCardMonthYear = (TextView)itemLayoutView.findViewById(R.id.event_list_card_time);
-            //eventListCardDay = (TextView)itemLayoutView.findViewById(R.id.event_list_card_day);
+            eventListCardDate = (TextView)itemLayoutView.findViewById(R.id.event_list_card_time);
 
             itemLayoutView.setOnClickListener(this);
         }

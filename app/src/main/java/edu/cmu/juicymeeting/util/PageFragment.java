@@ -68,9 +68,6 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private LinearLayout createEvent;
 
-
-    private String eventResult;
-
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
@@ -94,23 +91,14 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             case 0: //create event page
                 view = inflater.inflate(R.layout.upcoming_event, container, false);
                 mRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_event_list);
-                // use this setting to improve performance if you know that changes
-                // in content do not change the layout size of the RecyclerView
-
-                //mRecyclerView.setHasFixedSize(true);
 
                 // use a linear layout manager
                 mLayoutManager = new LinearLayoutManager(getActivity());
                 mRecyclerView.setLayoutManager(mLayoutManager);
 
-                Event[] e = null;
-                new HttpAsyncTask().execute("http://ec2-52-91-106-6.compute-1.amazonaws.com/webapi/event/upcoming/zxq@cmu.edu");
-                if (eventResult != null) {
-                    System.out.println("eventRESULT: " + eventResult);
-                    Log.v("eventResult", eventResult);
-                    e = Utility.getAllUpcomingEvent(eventResult, getContext());
-                    Log.v("Event length: ", String.valueOf(e.length));
-                    final Event[] events = e;
+                if (Data.upComingEvents != null) {
+                    final Event[] events = Utility.getAllUpcomingEvent(Data.upComingEvents, getContext());;
+
                     // specify an adapter
                     mAdapter = new CardViewDataAdapter(events, getContext());
                     mRecyclerView.setAdapter(mAdapter);
@@ -129,6 +117,7 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         }
                     });
                 }
+
                 createEvent = (LinearLayout)view.findViewById(R.id.event_create);
                 createEvent.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -183,7 +172,6 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 });
 
                 break;
-
 
             case 1:
             default:
@@ -249,70 +237,5 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 swipeContainer.setRefreshing(false);
             }
         }, 5000);
-    }
-
-
-
-    public boolean isConnected(){
-        ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Activity.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected())
-            return true;
-        else
-            return false;
-    }
-
-    private class HttpAsyncTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... urls) {
-
-            return GET(urls[0]);
-        }
-        // onPostExecute displays the results of the AsyncTask.
-        @Override
-        protected void onPostExecute(String result) {
-            //Toast.makeText(getContext(), "Received!", Toast.LENGTH_LONG).show();
-            System.out.println("result: " + result);
-            eventResult = result;
-        }
-    }
-
-    public static String GET(String url){
-        InputStream inputStream = null;
-        String result = "";
-        try {
-
-            // create HttpClient
-            HttpClient httpclient = new DefaultHttpClient();
-
-            // make GET request to the given URL
-            HttpResponse httpResponse = httpclient.execute(new HttpGet(url));
-
-            // receive response as inputStream
-            inputStream = httpResponse.getEntity().getContent();
-
-            // convert inputstream to string
-            if(inputStream != null)
-                result = convertInputStreamToString(inputStream);
-            else
-                result = "Did not work!";
-
-        } catch (Exception e) {
-            Log.d("InputStream", e.getLocalizedMessage());
-        }
-        System.out.println("Get result: " + result);
-        return result;
-    }
-
-    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
-        String line = "";
-        String result = "";
-        while((line = bufferedReader.readLine()) != null)
-            result += line;
-
-        inputStream.close();
-        return result;
-
     }
 }

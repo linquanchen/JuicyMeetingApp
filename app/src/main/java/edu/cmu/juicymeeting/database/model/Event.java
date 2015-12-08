@@ -8,13 +8,15 @@ import android.os.Parcelable;
  * Created by qiuzhexin on 11/13/15.
  */
 public class Event implements Parcelable {
+
     public String eventName;
+    private String description;
+    private String creatorName;
+    private int followers;
     public String location;
-    public String agenda;
     public String date;
 
-    private String description;
-
+    public String agenda;
     public String time;
     public String founder;
     public User creator;
@@ -50,6 +52,22 @@ public class Event implements Parcelable {
             return new Event[size];
         }
     };
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
+    public int getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
 
     public String getDescription() {
         return description;

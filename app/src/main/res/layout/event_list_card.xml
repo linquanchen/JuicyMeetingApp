@@ -96,7 +96,7 @@ event time: id: event_list_card_time
 
                     android:singleLine="true"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
+                    android:textColor="@color/grey"
                     android:text="Good Coffee"/>
 
                 <TextView
@@ -110,6 +110,7 @@ event time: id: event_list_card_time
                     android:gravity="right"
                     android:textColor="@color/grey"
                     android:text="Followed by 33 pll"/>
+
             </LinearLayout>
 
             <!--

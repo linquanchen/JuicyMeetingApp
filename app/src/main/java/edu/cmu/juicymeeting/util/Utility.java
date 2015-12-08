@@ -30,15 +30,13 @@ public class Utility {
             e.printStackTrace();
         }
         if (addresses.size() > 0) {
-            System.out.println(addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getLocality());
             return addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getLocality();
         }
         else return null;
     }
 
     public static Event[] getAllUpcomingEvent(String result, Context context) {
-
-       // JSONArray jsonObj = ParserJson.getJSONFromURL(RESTfulAPI.upcomingEventURL + email);
+        
         JSONArray jsonObj = null;
         try {
             jsonObj = new JSONArray(result);
@@ -51,18 +49,21 @@ public class Utility {
             events[i] = new Event();
             try {
                 JSONObject jsonEvent = jsonObj.getJSONObject(i);
-                events[i].setDate(jsonEvent.getString("eventDateTime"));
                 //events[i].setImg();
-                //events[i].setFollowers();
-                //events[i].setCreatorEmail();
                 events[i].setEventName(jsonEvent.getString("name"));
                 events[i].setDescription(jsonEvent.getString("description"));
-                //events[i].setLon();
-                //events[i].setLat();
-                //events[i].setId();
+
+                //por
+                events[i].setCreatorName("Jeffery");
+
+                events[i].setFollowers(jsonEvent.getInt("followers"));
                 events[i].setLocation(getLocation(jsonEvent.getDouble("lat"),
                         jsonEvent.getDouble("lon"), context));
-                System.out.println(events[i].getLocation());
+                events[i].setDate(jsonEvent.getString("eventDateTime"));
+
+                //events[i].setCreatorEmail();
+                //events[i].setId();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
