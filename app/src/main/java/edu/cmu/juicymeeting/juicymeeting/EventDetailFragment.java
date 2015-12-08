@@ -90,7 +90,6 @@ public class EventDetailFragment extends Fragment implements
             rootView = inflater.inflate(R.layout.event_detail, container, false);
         }
 
-        //set toolbar
         //toolbar
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
