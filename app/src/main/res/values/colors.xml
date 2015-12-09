@@ -17,8 +17,10 @@
     <color name="grey">#999999</color>
     <color name="grey_4">#444444</color>
     <color name="sexy_pink">#E0006C</color>
+    <color name="sexy_pink_light">#ff80bd</color>
     <color name="sexy_pink_dark">#b30048</color>
     <color name="light_grey">#EEEEEE</color>
+    <color name="grey_extra_light">#EEEEEE</color>
 
     <color name="transparent">#00FFFFFF</color>
     <color name="dark_grey">#222222</color>
