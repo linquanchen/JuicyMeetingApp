@@ -33,11 +33,18 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import edu.cmu.juicymeeting.database.model.Event;
 import edu.cmu.juicymeeting.util.Constants;
+import edu.cmu.juicymeeting.util.Data;
 import edu.cmu.juicymeeting.util.JuicyFont;
 import edu.cmu.juicymeeting.util.PermissionUtils;
+import edu.cmu.juicymeeting.util.PostTask;
+import edu.cmu.juicymeeting.util.RESTfulAPI;
 import edu.cmu.juicymeeting.util.RImageView;
+import edu.cmu.juicymeeting.util.Utility;
 
 
 public class EventDetailFragment extends Fragment implements
@@ -90,7 +97,6 @@ public class EventDetailFragment extends Fragment implements
             rootView = inflater.inflate(R.layout.event_detail, container, false);
         }
 
-        //set toolbar
         //toolbar
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -150,10 +156,19 @@ public class EventDetailFragment extends Fragment implements
             @Override
             public void onClick(View v) {
                 isJoin = !isJoin;
+                JSONObject eventObject = new JSONObject();
+                try {
+                    eventObject.put("userEmail", Data.userEmail);
+                    eventObject.put("eventId", event.getId());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 if(isJoin) {
+                    new PostTask(RESTfulAPI.joinEventURL, eventObject);
                     Snackbar.make(v, "You joined this meeting", Snackbar.LENGTH_LONG).show();
                 }
                 else {
+                    new PostTask(RESTfulAPI.disjoinEventURL, eventObject);
                     Snackbar.make(v, "You leaved this meeting", Snackbar.LENGTH_LONG).show();
                 }
                 refreshJoinLeaveButtonIcon();

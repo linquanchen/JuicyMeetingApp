@@ -1,9 +1,14 @@
 package edu.cmu.juicymeeting.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
+import android.util.Base64;
 import android.util.Log;
+
+
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ResponseHandler;
@@ -16,6 +21,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -57,11 +66,11 @@ public class Utility {
             events[i] = new Event();
             try {
                 JSONObject jsonEvent = jsonObj.getJSONObject(i);
-                events[i].setEventImage(jsonEvent.getString("imgStr"));
+                events[i].setEventImage(RESTfulAPI.DNS + jsonEvent.getString("imgUrl"));
                 events[i].setEventName(jsonEvent.getString("name"));
                 events[i].setDescription(jsonEvent.getString("description"));
 
-                events[i].setCreatorImage(jsonEvent.getJSONObject("creator").getString("imgStr"));
+                events[i].setCreatorImage(RESTfulAPI.DNS + jsonEvent.getJSONObject("creator").getString("imgStr"));
                 events[i].setCreatorName(jsonEvent.getJSONObject("creator").getString("name"));
 
                 events[i].setFollowers(jsonEvent.getInt("followers"));
@@ -69,6 +78,8 @@ public class Utility {
                         jsonEvent.getDouble("lon"), context));
                 events[i].setDate(jsonEvent.getString("eventDateTime"));
 
+                events[i].setTitleContextColor(jsonEvent.getLong("titleContextColor"));
+                events[i].setImageContextColor(jsonEvent.getLong("imageContextColor"));
                 //events[i].setCreatorEmail();
                 //events[i].setId();
 
@@ -115,5 +126,29 @@ public class Utility {
         //Handles what is returned from the page
         ResponseHandler responseHandler = new BasicResponseHandler();
         return (HttpResponse) httpclient.execute(httpost, responseHandler);
+    }
+
+    public static String convertImgToStr(String filePath) {
+        InputStream inputStream = null;//You can get an inputStream using any IO API
+        try {
+            inputStream = new FileInputStream(filePath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        byte[] bytes;
+        byte[] buffer = new byte[8192];
+        int bytesRead;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                output.write(buffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        bytes = output.toByteArray();
+        String encodedString = Base64.encodeToString(bytes, Base64.DEFAULT);
+
+        return encodedString;
     }
 }

@@ -9,6 +9,7 @@ import android.os.Parcelable;
  */
 public class Event implements Parcelable {
 
+    private int id;
     private String eventImage;
     private String eventName;
     private String description;
@@ -17,6 +18,9 @@ public class Event implements Parcelable {
     private int followers;
     private String location;
     private String date;
+    private long titleContextColor;
+    private long imageContextColor;
+
 
     public String agenda;
     public String time;
@@ -35,6 +39,7 @@ public class Event implements Parcelable {
     }
 
     protected Event(Parcel in) {
+        id = in.readInt();
         eventImage = in.readString();
         eventName = in.readString();
         description = in.readString();
@@ -43,6 +48,8 @@ public class Event implements Parcelable {
         followers = in.readInt();
         location = in.readString();
         date = in.readString();
+        titleContextColor = in.readLong();
+        imageContextColor = in.readLong();
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
@@ -56,6 +63,30 @@ public class Event implements Parcelable {
             return new Event[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public long getImageContextColor() {
+        return imageContextColor;
+    }
+
+    public void setImageContextColor(long imageContextColor) {
+        this.imageContextColor = imageContextColor;
+    }
+
+    public long getTitleContextColor() {
+        return titleContextColor;
+    }
+
+    public void setTitleContextColor(long titleContextColor) {
+        this.titleContextColor = titleContextColor;
+    }
 
     public String getCreatorImage() {
         return creatorImage;
@@ -168,6 +199,7 @@ public class Event implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(eventImage);
         dest.writeString(eventName);
         dest.writeString(description);
@@ -176,5 +208,7 @@ public class Event implements Parcelable {
         dest.writeInt(followers);
         dest.writeString(location);
         dest.writeString(date);
+        dest.writeLong(titleContextColor);
+        dest.writeLong(imageContextColor);
     }
 }

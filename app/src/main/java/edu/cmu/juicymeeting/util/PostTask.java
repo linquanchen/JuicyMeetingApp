@@ -16,13 +16,13 @@ import java.io.InputStream;
 /**
  * Created by chenlinquan on 12/8/15.
  */
-public class GetJsonTask extends AsyncTask<Void, Void, JSONObject> {
+public class PostTask extends AsyncTask<Void, Void, JSONObject> {
     private static final String TAG = "Get Json";
 
     private String URL;
     private JSONObject jsonObjSend;
 
-    public GetJsonTask(String URL, JSONObject jsonObjSend) {
+    public PostTask(String URL, JSONObject jsonObjSend) {
         this.URL = URL;
         this.jsonObjSend = jsonObjSend;
     }
@@ -35,11 +35,11 @@ public class GetJsonTask extends AsyncTask<Void, Void, JSONObject> {
             HttpPost httpPostRequest = new HttpPost(URL);
 
             StringEntity se = new StringEntity(jsonObjSend.toString());
-
+            System.out.println(jsonObjSend.toString());
             // Set HTTP parameters
             httpPostRequest.setEntity(se);
-            httpPostRequest.setHeader("Accept", "application/json");
-            httpPostRequest.setHeader("Content-type", "application/json");
+//            httpPostRequest.setHeader("Accept", "text");
+//            httpPostRequest.setHeader("Content-type", "text");
 
             long t = System.currentTimeMillis();
             HttpResponse response = (HttpResponse) httpclient.execute(httpPostRequest);
@@ -47,20 +47,23 @@ public class GetJsonTask extends AsyncTask<Void, Void, JSONObject> {
 
             HttpEntity entity = response.getEntity();
 
-//            if (entity != null) {
-//                // Read the content stream
-//                InputStream instream = entity.getContent();
-//
-//                // convert content stream to a String
-//                String resultString= Utility.convertInputStreamToString(instream);
-//                instream.close();
-//                resultString = resultString.substring(1,resultString.length()-1); // remove wrapping "[" and "]"
-//
-//                jsonObjRecv = new JSONObject(resultString);
-//
-//                // Raw DEBUG output of our received JSON object:
-//                Log.i(TAG,"<JSONObject>\n"+jsonObjRecv.toString()+"\n</JSONObject>");
-//            }
+            if (entity != null) {
+                // Read the content stream
+                InputStream instream = entity.getContent();
+
+                // convert content stream to a String
+                String resultString= Utility.convertInputStreamToString(instream);
+                instream.close();
+
+                //resultString = resultString.substring(1,resultString.length()-1); // remove wrapping "[" and "]"
+
+                // Raw DEBUG output of our received JSON object:
+                Log.i(TAG,"<JSONObject>\n"+resultString+"\n</JSONObject>");
+
+                jsonObjRecv = new JSONObject(resultString);
+
+
+            }
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -6,7 +6,7 @@ a copy of description on main image: create_event_description_copy
 location : create_event_location
 time: create_event_time
 -->
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainPage"
@@ -15,204 +15,211 @@ time: create_event_time
     android:padding="@dimen/medium_padding"
     android:orientation="vertical">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="10">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical">-->
             <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/app_top_button_height"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:background="@color/transparent"-->
-                <!--android:gravity="center"-->
-                <!--android:orientation="horizontal">-->
-                <!--<TextView-->
-                    <!--android:id="@+id/create_event_cancel"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_height="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="vertical">-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/app_top_button_height"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:background="@color/transparent"-->
                     <!--android:gravity="center"-->
-                    <!--android:paddingRight="@dimen/medium_padding"-->
+                    <!--android:orientation="horizontal">-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/create_event_cancel"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="center"-->
+                        <!--android:paddingRight="@dimen/medium_padding"-->
 
-                    <!--android:text="Cancel"-->
-                    <!--android:textSize="@dimen/button_text_size"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:textColor="@color/grey"-->
-                    <!--android:background="@color/transparent"/>-->
+                        <!--android:text="Cancel"-->
+                        <!--android:textSize="@dimen/button_text_size"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textColor="@color/grey"-->
+                        <!--android:background="@color/transparent"/>-->
+
+                    <!--<View-->
+                        <!--android:layout_width="1dp"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:background="@color/grey"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/create_event_publish"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="center"-->
+                        <!--android:paddingLeft="@dimen/medium_padding"-->
+
+                        <!--android:text="Publish"-->
+                        <!--android:textSize="@dimen/button_text_size"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textColor="@color/grey"-->
+                        <!--android:background="@color/transparent"-->
+                        <!--/>-->
+                <!--</LinearLayout>-->
+
+
 
                 <!--<View-->
-                    <!--android:layout_width="1dp"-->
+                    <!--android:layout_marginTop="@dimen/medium_padding"-->
+                    <!--android:layout_marginBottom="@dimen/medium_padding"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@android:color/darker_gray"/>-->
+
+                <!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                    <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="match_parent"-->
-                    <!--android:background="@color/grey"/>-->
+                    <!--android:paddingLeft="10dp"-->
+                    <!--android:paddingRight="10dp"-->
+                    <!--android:paddingTop="10dp">-->
 
-                <!--<TextView-->
-                    <!--android:id="@+id/create_event_publish"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:gravity="center"-->
-                    <!--android:paddingLeft="@dimen/medium_padding"-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <View
+                            android:id="@+id/create_event_placeholder"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/event_list_image_height"/>
 
-                    <!--android:text="Publish"-->
-                    <!--android:textSize="@dimen/button_text_size"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:textColor="@color/grey"-->
-                    <!--android:background="@color/transparent"-->
-                    <!--/>-->
+                        <LinearLayout
+                            android:id="@+id/create_event_main_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@id/create_event_placeholder"
+                            android:orientation="vertical">
+                            <EditText
+                                android:id="@+id/create_event_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:elevation="4dp"
+
+                                android:textColor="@color/grey"
+                                android:hint="Event Name"
+                                android:textStyle="bold"
+                                android:fontFamily="monospace"
+                                android:textSize="@dimen/event_list_card_text_size"/>
+
+                            <TextView
+                                android:id="@+id/create_event_description_copy"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:textColor="@color/black"
+                                android:fontFamily="monospace"
+                                android:textSize="@dimen/event_list_card_small_text_size"/>
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/create_event_select"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            />
+                        <ImageView
+                            android:id="@+id/create_event_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:src="@drawable/photo"
+                            android:background="@color/transparent"
+                            android:scaleType="center"
+                            android:adjustViewBounds="false"
+                            android:elevation="3dp"/>
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/create_event_main_edit"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="0.5"
+                                    android:layout_height="wrap_content"
+
+                                    android:textStyle="bold"
+                                    android:textColor="@color/grey"
+                                    android:text="Location"/>
+                                <EditText
+                                    android:id="@+id/create_event_location"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+
+                                    android:textColor="@color/grey"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="0.5"
+                                    android:layout_height="wrap_content"
+
+                                    android:textStyle="bold"
+                                    android:textColor="@color/grey"
+                                    android:text="Time"/>
+                                <EditText
+                                    android:id="@+id/create_event_time"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+
+                                    android:textColor="@color/grey"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="0.5"
+                                    android:layout_height="wrap_content"
+
+                                    android:textStyle="bold"
+                                    android:textColor="@color/grey"
+                                    android:text="Description"/>
+                                <EditText
+                                    android:id="@+id/create_event_description"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+
+                                    android:textColor="@color/grey"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+                <!--</FrameLayout>-->
             <!--</LinearLayout>-->
-
-
-
-            <!--<View-->
-                <!--android:layout_marginTop="@dimen/medium_padding"-->
-                <!--android:layout_marginBottom="@dimen/medium_padding"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:background="@android:color/darker_gray"/>-->
-
-            <!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:paddingLeft="10dp"-->
-                <!--android:paddingRight="10dp"-->
-                <!--android:paddingTop="10dp">-->
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <View
-                        android:id="@+id/create_event_placeholder"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/event_list_image_height"/>
-
-                    <LinearLayout
-                        android:id="@+id/create_event_main_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/create_event_placeholder"
-                        android:orientation="vertical">
-                        <EditText
-                            android:id="@+id/create_event_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:elevation="4dp"
-
-                            android:textColor="@color/grey"
-                            android:hint="Event Name"
-                            android:textStyle="bold"
-                            android:fontFamily="monospace"
-                            android:textSize="@dimen/event_list_card_text_size"/>
-
-                        <TextView
-                            android:id="@+id/create_event_description_copy"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:textColor="@color/black"
-                            android:fontFamily="monospace"
-                            android:textSize="@dimen/event_list_card_small_text_size"/>
-                    </LinearLayout>
-
-                    <View
-                        android:id="@+id/create_event_select"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        />
-                    <ImageView
-                        android:id="@+id/create_event_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:src="@drawable/photo"
-                        android:background="@color/transparent"
-                        android:scaleType="center"
-                        android:adjustViewBounds="false"
-                        android:elevation="3dp"/>
-
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/create_event_main_edit"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="0.5"
-                                android:layout_height="wrap_content"
-
-                                android:textStyle="bold"
-                                android:textColor="@color/grey"
-                                android:text="Location"/>
-                            <EditText
-                                android:id="@+id/create_event_location"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-
-                                android:textColor="@color/grey"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="0.5"
-                                android:layout_height="wrap_content"
-
-                                android:textStyle="bold"
-                                android:textColor="@color/grey"
-                                android:text="Time"/>
-                            <EditText
-                                android:id="@+id/create_event_time"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-
-                                android:textColor="@color/grey"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="0.5"
-                                android:layout_height="wrap_content"
-
-                                android:textStyle="bold"
-                                android:textColor="@color/grey"
-                                android:text="Description"/>
-                            <EditText
-                                android:id="@+id/create_event_description"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-
-                                android:textColor="@color/grey"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </RelativeLayout>
-            <!--</FrameLayout>-->
-        <!--</LinearLayout>-->
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="vertical">
         <View
             android:layout_marginTop="@dimen/medium_padding"
@@ -233,4 +240,4 @@ time: create_event_time
             android:background="@color/white"
             />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

@@ -1,5 +1,6 @@
 package edu.cmu.juicymeeting.util;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,10 +14,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import edu.cmu.juicymeeting.database.model.Event;
+
 /**
  * Created by chenlinquan on 12/7/15.
  */
 public class HttpAsyncTask extends AsyncTask<String, Void, String> {
+    private CardViewDataAdapter mAdapter;
+    private Event[] events;
+    private  Context context;
+
+    public HttpAsyncTask() {
+
+    }
+
+    public HttpAsyncTask(CardViewDataAdapter mAdapter, Event[] events, Context context) {
+        this.mAdapter = mAdapter;
+        this.events = events;
+        this.context = context;
+    }
 
     @Override
     protected String doInBackground(String... params) {
@@ -28,6 +44,11 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         Data.upComingEvents = result;
         Data.exploreEvents = result;
+        if (mAdapter != null) {
+            events = Utility.getAllUpcomingEvent(Data.upComingEvents, context);
+            mAdapter.notifyDataSetChanged();
+            Log.v("mAdapter", "update.........");
+        }
     }
 
     public static String GET(String url){
