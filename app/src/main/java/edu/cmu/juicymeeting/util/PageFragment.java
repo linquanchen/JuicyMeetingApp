@@ -3,14 +3,18 @@ package edu.cmu.juicymeeting.util;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,18 +22,26 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.os.Handler;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Calendar;
 
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
@@ -39,11 +51,16 @@ import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
 // In this case, the fragment displays simple text based on the page
-public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+    protected static final String TAG = "PageFragment";
+
     public static final String ARG_PAGE = "ARG_PAGE";
 
     private static final int CREATE_GROUP_ACTIVITY = 0;
     private static final int JOIN_GROUP_ACTIVITY = 1;
+
+    private static final int REQUEST_ACCESS_FINE_LOCATION = 1;
 
     private int mPage;
 
@@ -79,6 +96,18 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
+    /** Provides the entry point to Google Play services.*/
+    protected GoogleApiClient mGoogleApiClient;
+
+    private EditText name;
+    private EditText location;
+    private EditText time;
+    private EditText description;
+
+    /** Store my location information*/
+    protected Location mLastLocation;
+    private double latitude, longitude;
+
     Event[] events = null;
 
     public static PageFragment newInstance(int page) {
@@ -106,6 +135,47 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 view = inflater.inflate(R.layout.create_event, container, false);
                 verifyStoragePermissions(getActivity());
 
+                name = (EditText)view.findViewById(R.id.create_event_name);
+                location = (EditText)view.findViewById(R.id.create_event_location);
+                time = (EditText)view.findViewById(R.id.create_event_time);
+                description = (EditText)view.findViewById(R.id.create_event_description);
+
+                //((TextView)(v.findViewById(R.id.create_event_description_copy))).setText("");
+                buildGoogleApiClient();
+                location.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mGoogleApiClient.isConnected()) {
+                            mGoogleApiClient.disconnect();
+                        }
+                        mGoogleApiClient.connect();
+                    }
+                });
+
+                time.requestFocus();
+                time.setInputType(InputType.TYPE_NULL);
+                time.setOnClickListener(new View.OnClickListener() {
+                    Calendar mcurrentDate = Calendar.getInstance();
+                    int mYear = mcurrentDate.get(Calendar.YEAR);
+                    int mMonth = mcurrentDate.get(Calendar.MONTH);
+                    int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+                    @Override
+                    public void onClick(View v) {
+
+
+                        DatePickerDialog mDatePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                            public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+                                mYear = selectedyear;
+                                mMonth = selectedmonth;
+                                mDay = selectedday;
+                                time.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
+                            }
+                        }, mYear, mMonth, mDay);
+                        mDatePicker.show();
+                    }
+                });
+
                 createEventSelectButton = (View)view.findViewById(R.id.create_event_select);
                 createEventSelectButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -123,7 +193,7 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getActivity(), "Successfully create event!", Toast.LENGTH_SHORT).show();
-                        publish(getView());
+                        publish();
                     }
                 });
 
@@ -361,29 +431,109 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     //create event publish, need implement later
-    private void publish(View v) {
-        EditText name = (EditText)v.findViewById(R.id.create_event_name);
-        EditText location = (EditText)v.findViewById(R.id.create_event_location);
-        EditText time = (EditText)v.findViewById(R.id.create_event_time);
-        EditText description = (EditText)v.findViewById(R.id.create_event_description);
-
-        //((TextView)(v.findViewById(R.id.create_event_description_copy))).setText("");
+    private void publish() {
 
         JSONObject eventObject = new JSONObject();
         try {
-            eventObject.put("eventDateTime", "2015-11-27 11:25:51.0");
+            eventObject.put("eventDateTime", time.getText().toString());
             eventObject.put("imgStr", Utility.convertImgToStr(imgDecodableString));
             eventObject.put("imgFormat", "jpg");
             eventObject.put("creatorEmail", Data.userEmail);
             eventObject.put("name", name.getText().toString());
             eventObject.put("description", description.getText().toString());
-            eventObject.put("lon", -122.0819);
-            eventObject.put("lat", 37.3894);
+            eventObject.put("lon", longitude);
+            eventObject.put("lat", latitude);
             eventObject.put("imageContextColor", imageContextColor);
             eventObject.put("titleContextColor", textContextColor);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         new PostTask(RESTfulAPI.creatEventURL, eventObject).execute();
+    }
+
+
+    /**
+     * Get the current location
+     */
+    private void getLocation() {
+        // Provides a simple way of getting a device's location and is well suited for
+        // applications that do not require a fine-grained location and that do not need location
+        // updates. Gets the best and most recent location currently available, which may be null
+        // in rare cases when a location is not available.
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (mLastLocation != null) {
+            latitude = Double.parseDouble(String.valueOf(mLastLocation.getLatitude()));
+            longitude = Double.parseDouble(String.valueOf(mLastLocation.getLongitude()));
+            location.setText("Latitude: " + latitude + ", Longitude: " + longitude);
+        } else {
+            Toast.makeText(getActivity(), R.string.no_location_detected, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_ACCESS_FINE_LOCATION: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted
+                    getLocation();
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(getActivity(), R.string.permission_denied, Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+        }
+    }
+
+    /**
+     * Builds a GoogleApiClient. Uses the addApi() method to request the LocationServices API.
+     */
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApiIfAvailable(LocationServices.API)
+                .build();
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1)
+//            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+//                    == PackageManager.PERMISSION_GRANTED) {
+//                // GET the current location
+//                getLocation();
+//            } else {
+//                // Should we show an explanation?
+//                if (shouldShowRequestPermissionRationale(
+//                        Manifest.permission.ACCESS_FINE_LOCATION)) {
+//                    // Explain to the user why we need to read the contacts
+//                    Toast.makeText(getActivity(), R.string.permission_rationale, Toast.LENGTH_LONG).show();
+//                }
+//
+//                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+//                        REQUEST_ACCESS_FINE_LOCATION);
+//            }
+//        else {
+//            getLocation();
+//        }
+        getLocation();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        // The connection to Google Play services was lost for some reason. We call connect() to
+        // attempt to re-establish the connection.
+        Log.i(TAG, "Connection suspended");
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
+        // onConnectionFailed.
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode());
     }
 }
