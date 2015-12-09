@@ -47,7 +47,7 @@ public class Utility {
             events[i] = new Event();
             try {
                 JSONObject jsonEvent = jsonObj.getJSONObject(i);
-                events[i].setEventImage(jsonEvent.getString("imgStr"));
+                events[i].setEventImage(jsonEvent.getString("imgUrl"));
                 events[i].setEventName(jsonEvent.getString("name"));
                 events[i].setDescription(jsonEvent.getString("description"));
 

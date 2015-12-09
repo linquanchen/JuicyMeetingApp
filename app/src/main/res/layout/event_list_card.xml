@@ -19,7 +19,6 @@ event time: id: event_list_card_time
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/large_padding"
     android:paddingBottom="@dimen/large_padding">
 
     <RelativeLayout

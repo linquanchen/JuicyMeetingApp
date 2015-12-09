@@ -13,12 +13,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TabHost;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,17 +57,21 @@ public class MainPageActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        navigationView.setNavigationItemSelectedListener(this);
 
-
+        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        //tab view pager
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager(),
-                MainPageActivity.this));
-
+        final SampleFragmentPagerAdapter pagerAdapter = new SampleFragmentPagerAdapter(getSupportFragmentManager(), MainPageActivity.this);
+        viewPager.setAdapter(pagerAdapter);
         // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
-        //tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        // Iterate over all tabs and set the custom view
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(pagerAdapter.getSelectedTabView(i));
+        }
         TabLayout.Tab tab = tabLayout.getTabAt(2);//second tab as default
         tab.select();
 
