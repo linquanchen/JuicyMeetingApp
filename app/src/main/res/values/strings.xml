@@ -21,4 +21,17 @@
     <string name="title_activity_event_detail">EventDetailActivity</string>
 
     <string name="hello_world">Hello world!</string>
+
+    <!-- Location  -->
+    <string name="no_location_detected">
+        No location detected. Make sure location is enabled on the device.
+    </string>
+
+    <string name="permission_rationale">We need permission to ger location to be able to show
+        location.
+    </string>
+    <string name="permission_SMS">We need permission to send SMS.</string>
+    <string name="permission_denied">Permission denied</string>
+
+    <string name="not_marshmallow">Android Marshmallow not detected - please change device</string>
 </resources>

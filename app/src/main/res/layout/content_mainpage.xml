@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:theme="@style/AppTheme"
     android:layout_width="match_parent"
@@ -22,9 +21,11 @@
         android:paddingTop="@dimen/small_padding"
         android:paddingBottom="@dimen/small_padding"
         android:layout_gravity="center_horizontal"
-        app:tabGravity="center"
+        android:background="@color/grey_extra_light"
         android:textAlignment="center"
-        app:tabTextColor="@color/grey"
+        android:clickable="true"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
         style="@style/MyCustomTabLayout"
         />
 </LinearLayout>
