@@ -58,7 +58,8 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
         // get data from your itemsData at this position
 //        holder.eventListCardImage.setImageBitmap(
 //                decodeSampledBitmapFromResource(context.getResources(), R.drawable.coffee, 300, 300));
-        Picasso.with(context).load(eventSet[position].getEventImage()).into(holder.eventListCardImage);
+        Picasso.with(context).load(eventSet[position].getEventImage()).resize(500, 500)
+                .centerCrop().into(holder.eventListCardImage);
 
         holder.eventListCardName.setText(eventSet[position].getEventName());
         holder.eventListCardDescription.setText(eventSet[position].getDescription());
