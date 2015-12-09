@@ -15,11 +15,11 @@
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@color/white</item>
-        <item name="android:textColorPrimary">@color/grey</item>
         <item name="tabIndicatorHeight">1dp</item>
         <item name="tabPaddingStart">12dp</item>
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabTextAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="android:textColorPrimary">@color/grey</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>

@@ -130,6 +130,8 @@ public class EventDetailFragment extends Fragment implements
         //hardcode for now, need implementation later
         collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.sexy_pink));//(event.getImageContextColor());
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));//(event.getTitleContextColor());
+//        collapsingToolbarLayout.setContentScrimColor(event.getImageContextColor());
+//        collapsingToolbarLayout.setCollapsedTitleText(event.getTitleContextColor());
 
         Picasso.with(getContext()).load(event.getCreatorImage()).into(userPortrait);
         userName.setText(event.getCreatorName());

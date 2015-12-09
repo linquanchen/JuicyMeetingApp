@@ -161,15 +161,6 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     });
                 }
 
-//                createEvent = (LinearLayout)view.findViewById(R.id.event_create);
-//                createEvent.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent(getActivity(), CreateEventActivity.class);
-//                        startActivity(intent);
-//                    }
-//                });
-
                 //setup refresh action
                 swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
                 // Setup refresh listener which triggers new data loading

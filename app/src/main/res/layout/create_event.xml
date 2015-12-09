@@ -236,7 +236,7 @@ time: create_event_time
             android:text="Publish"
             android:textSize="@dimen/button_text_size"
             android:textStyle="bold"
-            android:textColor="@color/grey"
+            android:textColor="@color/dark_grey"
             android:background="@color/white"
             />
     </LinearLayout>
