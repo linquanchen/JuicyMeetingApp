@@ -110,9 +110,6 @@ public class Utility {
         //url with the post data
         HttpPost httpost = new HttpPost(path);
 
-//        //convert parameters into JSON object
-//        JSONObject holder = getJsonObjectFromMap(params);
-        System.out.println(holder);
         //passes the results to a string builder/entity
         StringEntity se = new StringEntity(holder.toString());
 
