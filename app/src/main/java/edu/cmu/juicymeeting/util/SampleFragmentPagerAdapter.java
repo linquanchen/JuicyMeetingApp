@@ -3,6 +3,7 @@ package edu.cmu.juicymeeting.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,11 +24,15 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 4;
     private Context context;
     private String tabTitles[] = new String[] { "create", "upcoming", "explore", "chat" };
-    private int[] imageResId = { R.drawable.create, R.drawable.star_outline, R.drawable.search, R.drawable.chat};
+    private int[] imageNormalResId = { R.drawable.create, R.drawable.star_outline, R.drawable.search, R.drawable.chat};
+    private int[] imageSelectedResId = { R.drawable.create_pink, R.drawable.star_outline_pink,
+            R.drawable.search_pink, R.drawable.chat_pink};
+    private int[] imageResId;
 
     public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
+        imageResId = imageNormalResId;
     }
 
     @Override
@@ -37,7 +42,6 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.w("get new item", Integer.toString(position));
         return PageFragment.newInstance(position);
     }
 
@@ -47,15 +51,25 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
         return tabTitles[position];
     }
 
+    @SuppressLint("NewApi")
     public View getNormalTabView(int position) {
         // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView and ImageView
         View v = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
         TextView tv = (TextView) v.findViewById(R.id.textView);
         tv.setText(tabTitles[position]);
+        tv.setTextColor(context.getColor(R.color.black));
         ImageView img = (ImageView) v.findViewById(R.id.imgView);
         img.setImageResource(imageResId[position]);
-        img.setColorFilter(R.color.dark_grey);
         return v;
+    }
+
+    private boolean selected = false;
+    public void switchTab() {
+        if(!selected)
+            imageResId = imageNormalResId;
+        else
+            imageResId = imageSelectedResId;
+        selected = !selected;
     }
 
     @SuppressLint("NewApi")
@@ -64,10 +78,9 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
         View v = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
         TextView tv = (TextView) v.findViewById(R.id.textView);
         tv.setText(tabTitles[position]);
+        tv.setTextColor(context.getColor(R.color.sexy_pink));
         ImageView img = (ImageView) v.findViewById(R.id.imgView);
-        img.setImageResource(imageResId[position]);
-        img.setColorFilter(R.color.sexy_pink);
-        img.setImageTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.sexy_pink)));
+        img.setImageResource(imageSelectedResId[position]);
         return v;
     }
 }

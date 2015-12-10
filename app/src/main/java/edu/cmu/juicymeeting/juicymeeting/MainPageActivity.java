@@ -1,8 +1,6 @@
 package edu.cmu.juicymeeting.juicymeeting;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -17,13 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TabHost;
+import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import edu.cmu.juicymeeting.util.Data;
 import edu.cmu.juicymeeting.util.HttpAsyncTask;
@@ -50,6 +43,8 @@ public class MainPageActivity extends AppCompatActivity
         //toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.drawable.profile);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,8 +66,66 @@ public class MainPageActivity extends AppCompatActivity
         // Iterate over all tabs and set the custom view
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
-            tab.setCustomView(pagerAdapter.getSelectedTabView(i));
+            tab.setCustomView(pagerAdapter.getNormalTabView(i));
         }
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout){
+            @Override
+            public void onPageSelected(int position) {
+                //Log.w("select ", Integer.toString(position));
+                //pagerAdapter.switchTab();
+//                //icon color
+//                for(int i = 0; i < tabLayout.getTabCount(); i++) {
+//                    TabLayout.Tab tab = tabLayout.getTabAt(position);
+//                    tab.setCustomView(pagerAdapter.getNormalTabView(position));
+//                }
+//                TabLayout.Tab tab = tabLayout.getTabAt(position);
+//                tab.setCustomView(pagerAdapter.getSelectedTabView(position));
+
+                switch(position) {
+                    case 0:
+                        //toolbar, set menu
+                        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+                        TextView toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
+                        toolbar.getMenu().clear();
+                        toolbarTitle.setText("CREATE");
+                        toolbar.inflateMenu(R.menu.menu_publish);
+//                        // menu items
+//                        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//                            @Override
+//                            public boolean onMenuItemClick(MenuItem item) {
+//                                int id = item.getItemId();
+//                                if (id == R.id.action_settings) {
+//                                    publish();
+//                                    return true;
+//                                }
+//                                return false;
+//                            }
+//                        });
+                        break;
+                    case 1:
+                        //toolbar, set menu
+                        toolbar = (Toolbar)findViewById(R.id.toolbar);
+                        toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
+                        toolbar.getMenu().clear();
+                        toolbarTitle.setText("MY EVENTS");
+                        break;
+
+                    case 2:
+                        //toolbar, set menu
+                        toolbar = (Toolbar)findViewById(R.id.toolbar);
+                        toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
+                        toolbar.getMenu().clear();
+                        toolbarTitle.setText("EXPLORE");
+                        break;
+                    case 3:
+                        toolbar = (Toolbar)findViewById(R.id.toolbar);
+                        toolbar.getMenu().clear();
+                        toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
+                        toolbarTitle.setText("CHAT");
+                        break;
+                }
+            }
+        });
         TabLayout.Tab tab = tabLayout.getTabAt(2);//second tab as default
         tab.select();
 
@@ -180,5 +233,9 @@ public class MainPageActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void tabClick(View v) {
+        Log.w("test", "test");
     }
 }

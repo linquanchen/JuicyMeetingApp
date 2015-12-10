@@ -34,4 +34,6 @@
     <string name="permission_denied">Permission denied</string>
 
     <string name="not_marshmallow">Android Marshmallow not detected - please change device</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_signup">SignupActivity</string>
 </resources>

@@ -15,9 +15,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,14 +29,17 @@ import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -109,6 +116,10 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private double latitude, longitude;
 
     Event[] events = null;
+
+    //toolbar setting
+    private Toolbar toolbar;
+    private TextView toolbarTitle;
 
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -201,7 +212,9 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
             //upcoming event
             case 1:
+                Log.w("page fragment ", "1");
                 view = inflater.inflate(R.layout.upcoming_event, container, false);
+
                 mRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_event_list);
 
                 // use a linear layout manager
@@ -245,7 +258,9 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
             //chat room
             case 3:
+                Log.w("page fragment ", "3");
                 view = inflater.inflate(R.layout.group_chat, container, false);
+
                 groupRecyclerView = (RecyclerView) view.findViewById(R.id.group_list);
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
@@ -280,10 +295,10 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
             //explore event
             case 2:
-            default:
+                Log.w("page fragment ", "2");
                 view = inflater.inflate(R.layout.explore, container, false);
-                exploreRecyclerView = (RecyclerView) view.findViewById(R.id.exploreList);
 
+                exploreRecyclerView = (RecyclerView) view.findViewById(R.id.exploreList);
                 // use a linear layout manager
                 exploreLayoutManager = new LinearLayoutManager(getActivity());
                 exploreRecyclerView.setLayoutManager(exploreLayoutManager);
@@ -328,6 +343,9 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         android.R.color.holo_orange_light,
                         android.R.color.holo_red_light);
 
+                break;
+            default:
+                Log.w("page fragment ", "default");
                 break;
         }
 
