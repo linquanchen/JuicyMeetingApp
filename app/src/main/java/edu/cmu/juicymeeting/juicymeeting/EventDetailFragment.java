@@ -129,7 +129,7 @@ public class EventDetailFragment extends Fragment implements
         collapsingToolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
 
         //image
-        Picasso.with(getContext()).load(event.getEventImage()).into(image);
+        Picasso.with(getContext()).load(event.getEventImage()).resize(800, 1000).centerCrop().into(image);
         collapsingToolbarLayout.setTitle(event.getEventName());
         location.setText(event.getLocation());
         date.setText(event.getDate());
