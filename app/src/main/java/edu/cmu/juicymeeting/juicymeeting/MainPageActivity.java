@@ -53,7 +53,7 @@ public class MainPageActivity extends AppCompatActivity
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -75,45 +75,19 @@ public class MainPageActivity extends AppCompatActivity
         // Iterate over all tabs and set the custom view
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
-//            tab.setTag("" + i);
             tab.setCustomView(pagerAdapter.getNormalTabView(i));
         }
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout){
             @Override
             public void onPageSelected(int position) {
-                //Log.w("select ", Integer.toString(position));
-                //pagerAdapter.switchTab();
-//                //icon color
-//                for(int i = 0; i < tabLayout.getTabCount(); i++) {
-//                    TabLayout.Tab tab = tabLayout.getTabAt(position);
-//                    tab.setCustomView(pagerAdapter.getNormalTabView(position));
-//                }
-//                TabLayout.Tab tab = tabLayout.getTabAt(position);
-//                tab.setCustomView(pagerAdapter.getSelectedTabView(position));
-
                 switch(position) {
                     case 0:
                         //toolbar, set menu
                         toolbar = (Toolbar) findViewById(R.id.toolbar);
                         toolbar.setNavigationIcon(R.drawable.profile_pink);
                         TextView toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
-                        //toolbar.getMenu().clear();
                         toolbarTitle.setText("CREATE");
-                        //toolbar.inflateMenu(R.menu.menu_publish);
                         getSupportActionBar().setDisplayShowTitleEnabled(false);
-                        // menu items
-//                        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//                            @Override
-//                            public boolean onMenuItemClick(MenuItem item) {
-//                                int id = item.getItemId();
-//                                if (id == R.id.action_settings) {
-//                                    //publish();
-//                                    Log.w("click", "menu");
-//                                    return true;
-//                                }
-//                                return false;
-//                            }
-//                        });
                         break;
                     case 1:
                         //toolbar, set menu
@@ -122,10 +96,8 @@ public class MainPageActivity extends AppCompatActivity
                         toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
                         toolbar.getMenu().clear();
                         toolbarTitle.setText("MY EVENTS");
-//                        setSupportActionBar(toolbar);
                         getSupportActionBar().setDisplayShowTitleEnabled(false);
                         break;
-
                     case 2:
                         //toolbar, set menu
                         toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -133,7 +105,6 @@ public class MainPageActivity extends AppCompatActivity
                         toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
                         toolbar.getMenu().clear();
                         toolbarTitle.setText("EXPLORE");
-//                        setSupportActionBar(toolbar);
                         getSupportActionBar().setDisplayShowTitleEnabled(false);
                         break;
                     case 3:
@@ -142,7 +113,6 @@ public class MainPageActivity extends AppCompatActivity
                         toolbar.getMenu().clear();
                         toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
                         toolbarTitle.setText("CHAT");
-//                        setSupportActionBar(toolbar);
                         getSupportActionBar().setDisplayShowTitleEnabled(false);
                         break;
                 }
