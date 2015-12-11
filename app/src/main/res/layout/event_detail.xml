@@ -56,8 +56,22 @@ event description: event_detail_description
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|enterAlways"></android.support.v7.widget.Toolbar>
+                app:layout_scrollFlags="scroll|enterAlways">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Toolbar Title"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/medium_text_size"
+                    android:textColor="@color/sexy_pink"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:id="@+id/toolbar_title" />
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

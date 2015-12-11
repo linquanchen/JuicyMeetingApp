@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.graphics.Palette;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,6 +55,7 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
         return viewHolder;
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         // get data from your itemsData at this position
@@ -71,6 +74,17 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
                 + String.valueOf(eventSet[position].getFollowers()) + " pll");
         holder.eventListCardLocation.setText(eventSet[position].getLocation());
         holder.eventListCardDate.setText(eventSet[position].getDate());
+
+        //set context color
+        Log.w("color", ""+eventSet[position].getImageContextColor());
+        int imageContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(eventSet[position].getImageContextColor()))));
+        int textContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(eventSet[position].getTitleContextColor()))));
+        holder.eventListCardWrapper.setBackgroundColor(imageContextColor);
+        holder.eventListCardName.setTextColor(textContextColor);
+        holder.eventListCardCreatorName.setTextColor(textContextColor);
+        holder.eventListCardFollowInfo.setTextColor(textContextColor);
+        holder.eventListCardLocation.setTextColor(textContextColor);
+        holder.eventListCardDate.setTextColor(textContextColor);
     }
 
     @Override
@@ -88,6 +102,7 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
         public TextView eventListCardFollowInfo;
         public TextView eventListCardLocation;
         public TextView eventListCardDate;
+        public FrameLayout eventListCardWrapper;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
@@ -99,6 +114,7 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
             eventListCardFollowInfo = (TextView)itemLayoutView.findViewById(R.id.event_list_card_follow_info);
             eventListCardLocation = (TextView)itemLayoutView.findViewById(R.id.event_list_card_location);
             eventListCardDate = (TextView)itemLayoutView.findViewById(R.id.event_list_card_time);
+            eventListCardWrapper = (FrameLayout)itemLayoutView.findViewById(R.id.event_list_card_wrapper);
 
             itemLayoutView.setOnClickListener(this);
         }
@@ -123,7 +139,6 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
         int inSampleSize = 1;
 
         if (height > reqHeight || width > reqWidth) {
-
             final int halfHeight = height / 2;
             final int halfWidth = width / 2;
 

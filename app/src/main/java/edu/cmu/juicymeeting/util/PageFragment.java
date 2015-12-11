@@ -2,6 +2,7 @@ package edu.cmu.juicymeeting.util;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -9,15 +10,24 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.renderscript.Allocation;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,14 +35,20 @@ import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -132,6 +148,15 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         switch(mPage) {
             //create event
             case 0:
+                Toolbar t = (Toolbar)(((AppCompatActivity)(getActivity())).findViewById(R.id.toolbar));
+                t.inflateMenu(R.menu.menu_publish);
+                t.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        publish();
+                        return true;
+                    }
+                });
                 view = inflater.inflate(R.layout.create_event, container, false);
                 verifyStoragePermissions(getActivity());
 
@@ -188,20 +213,21 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     }
                 });
 
-                publishButton = (TextView)view.findViewById(R.id.create_event_publish);
-                publishButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getActivity(), "Successfully create event!", Toast.LENGTH_SHORT).show();
-                        publish();
-                    }
-                });
+//                publishButton = (TextView)view.findViewById(R.id.create_event_publish);
+//                publishButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(getActivity(), "Successfully create event!", Toast.LENGTH_SHORT).show();
+//                        publish();
+//                    }
+//                });
 
                 break;
 
             //upcoming event
             case 1:
                 view = inflater.inflate(R.layout.upcoming_event, container, false);
+
                 mRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_event_list);
 
                 // use a linear layout manager
@@ -222,10 +248,6 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
                             intent.putExtra(Constants.ALL_EVENTS, events);
                             intent.putExtra(Constants.EVENT_INDEX, position);//
-                            // transition animation
-//                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                                    getActivity(), view.findViewById(R.id.event_list_card_image), "event_list_card_image_transition");
-                            //ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
                             startActivity(intent);
                         }
                     });
@@ -246,6 +268,7 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             //chat room
             case 3:
                 view = inflater.inflate(R.layout.group_chat, container, false);
+
                 groupRecyclerView = (RecyclerView) view.findViewById(R.id.group_list);
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
@@ -280,10 +303,9 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
             //explore event
             case 2:
-            default:
                 view = inflater.inflate(R.layout.explore, container, false);
-                exploreRecyclerView = (RecyclerView) view.findViewById(R.id.exploreList);
 
+                exploreRecyclerView = (RecyclerView) view.findViewById(R.id.exploreList);
                 // use a linear layout manager
                 exploreLayoutManager = new LinearLayoutManager(getActivity());
                 exploreRecyclerView.setLayoutManager(exploreLayoutManager);
@@ -302,10 +324,6 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
                             intent.putExtra(Constants.ALL_EVENTS, exploreEvents);
                             intent.putExtra(Constants.EVENT_INDEX, position);
-                            //                        //transition animation
-                            //                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                            //                                getActivity(), view.findViewById(R.id.event_list_card_image), "event_list_card_image_transition");
-                            //                        getActivity().startActivity(intent, options.toBundle());
                             startActivity(intent);
                         }
                     });
@@ -323,10 +341,25 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         android.R.color.holo_red_light);
 
                 break;
+            default:
+                break;
         }
 
         return view;
     }
+
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//        inflater.inflate(R.menu.menu_publish, menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        Log.w("select", "fragment");
+//
+//        return false;
+//    }
 
     @Override
     public void onResume() {
@@ -434,7 +467,8 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     //create event publish, need implement later
-    private void publish() {
+    public void publish() {
+        Log.w("public", "awesome");
 
         JSONObject eventObject = new JSONObject();
         try {
