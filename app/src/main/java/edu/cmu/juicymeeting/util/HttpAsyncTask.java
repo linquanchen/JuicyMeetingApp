@@ -44,7 +44,7 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         Data.upComingEvents = result;
         if (mAdapter != null) {
-            events = Utility.getAllUpcomingEvent(Data.upComingEvents, context);
+            events = Utility.getAllUpcomingEvent(Data.upComingEvents, context, Data.UPCOMING_EVENTS);
             mAdapter.notifyDataSetChanged();
             Log.v("mAdapter", "update.........");
         }

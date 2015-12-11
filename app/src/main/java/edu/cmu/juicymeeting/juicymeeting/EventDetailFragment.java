@@ -89,7 +89,7 @@ public class EventDetailFragment extends Fragment implements
     private GoogleMap mMap;
     private View rootView;
 
-    private boolean isJoin = true;
+    private boolean isJoin;
 
 
     public EventDetailFragment(){
@@ -114,6 +114,9 @@ public class EventDetailFragment extends Fragment implements
         Bundle args = getArguments();
         //activity = (AppCompatActivity)args.getParcelable(Constants.ACTIVITY);
         event = (Event)args.getParcelable(Constants.EVENT);
+
+        // Get the join status of every event
+        isJoin = Data.isJoinMap.get(event.getId());
 
         //title
         toolbar.setTitle(event.getEventName());
@@ -185,10 +188,12 @@ public class EventDetailFragment extends Fragment implements
                 if(isJoin) {
                     new PostTask(RESTfulAPI.joinEventURL, eventObject).execute();
                     Snackbar.make(v, "You joined this meeting", Snackbar.LENGTH_LONG).show();
+                    Data.isJoinMap.put(event.getId(), true );
                 }
                 else {
                     new PostTask(RESTfulAPI.disjoinEventURL, eventObject).execute();
                     Snackbar.make(v, "You leaved this meeting", Snackbar.LENGTH_LONG).show();
+                    Data.isJoinMap.put(event.getId(), false);
                 }
                 refreshJoinLeaveButtonIcon();
             }

@@ -2,7 +2,6 @@ package edu.cmu.juicymeeting.util;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -10,45 +9,32 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
-import android.renderscript.Allocation;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.os.Handler;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -59,10 +45,10 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
+import edu.cmu.juicymeeting.chat.GroupChatActivity;
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
 import edu.cmu.juicymeeting.juicymeeting.EventDetailActivity;
-import edu.cmu.juicymeeting.chat.GroupChatActivity;
 import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
@@ -225,7 +211,7 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 mRecyclerView.setLayoutManager(mLayoutManager);
 
                 if (Data.upComingEvents != null) {
-                    events = Utility.getAllUpcomingEvent(Data.upComingEvents, getContext());
+                    events = Utility.getAllUpcomingEvent(Data.upComingEvents, getContext(), Data.UPCOMING_EVENTS);
 
                     // specify an adapter
                     mAdapter = new CardViewDataAdapter(events, getContext());
@@ -301,7 +287,7 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 exploreRecyclerView.setLayoutManager(exploreLayoutManager);
 
                 if (Data.exploreEvents != null) {
-                    final Event[] exploreEvents = Utility.getAllUpcomingEvent(Data.exploreEvents, getContext());
+                    final Event[] exploreEvents = Utility.getAllUpcomingEvent(Data.exploreEvents, getContext(), Data.EXPLORE_EVENTS);
                     // specify an adapter (see also next example)
                     exploreAdapter = new CardViewDataAdapter(exploreEvents, getContext());
                     exploreRecyclerView.setAdapter(exploreAdapter);
