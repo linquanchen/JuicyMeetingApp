@@ -24,10 +24,10 @@
         android:paddingBottom="@dimen/small_padding"
         android:layout_gravity="center_horizontal"
         android:background="@color/grey_extra_light"
+        app:tabBackground="@color/transparent"
         android:textAlignment="center"
         android:onClick="tabClick"
         app:tabGravity="fill"
         app:tabMode="fixed"
-        style="@style/MyCustomTabLayout"
-        />
+        style="@style/MyCustomTabLayout" />
 </LinearLayout>

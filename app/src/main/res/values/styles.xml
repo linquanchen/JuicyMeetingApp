@@ -21,11 +21,11 @@
         <item name="tabPaddingStart">12dp</item>
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabTextAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="android:background">@color/transparent</item>
         <item name="android:textColorPrimary">@color/grey</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
-
     <style name="editext_graybg" parent="android:Widget.EditText">
         <item name="android:background">@drawable/editext_bg_gray</item>
         <item name="android:drawablePadding">@dimen/pad_10dp</item>

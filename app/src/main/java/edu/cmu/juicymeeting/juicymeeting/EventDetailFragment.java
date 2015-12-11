@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -65,6 +66,7 @@ public class EventDetailFragment extends Fragment implements
     private TextView location;
     private TextView date;
     private TextView description;
+    private TextView title;
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
     /**
@@ -100,12 +102,18 @@ public class EventDetailFragment extends Fragment implements
         //toolbar
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.drawable.profile);
+        toolbar.getMenu().clear();
 
         //get necessary variable
         Bundle args = getArguments();
         //activity = (AppCompatActivity)args.getParcelable(Constants.ACTIVITY);
         event = (Event)args.getParcelable(Constants.EVENT);
 
+        //title
+        title = (TextView)rootView.findViewById(R.id.toolbar_title);
+        title.setText(event.getEventName());
 
         //insert event detail information into layout
         userPortrait = (RImageView)rootView.findViewById(R.id.event_detail_portrait);
@@ -128,8 +136,10 @@ public class EventDetailFragment extends Fragment implements
         description.setText(event.getDescription());
 
         //hardcode for now, need implementation later
-        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.sexy_pink));//(event.getImageContextColor());
-        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));//(event.getTitleContextColor());
+        int imageContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getImageContextColor()))));
+        int textContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getTitleContextColor()))));
+        collapsingToolbarLayout.setContentScrimColor(imageContextColor);
+        collapsingToolbarLayout.setCollapsedTitleTextColor(textContextColor);
 //        collapsingToolbarLayout.setContentScrimColor(event.getImageContextColor());
 //        collapsingToolbarLayout.setCollapsedTitleText(event.getTitleContextColor());
 
