@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,11 +21,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 //import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,10 +65,13 @@ public class EventDetailFragment extends Fragment implements
     private RImageView userPortrait;
     private TextView userName;
     private FloatingActionButton joinLeave;
+//    private TextView joinLeave;
+    private View joinLeaveBackground;
     private ImageView image;
     private TextView location;
     private TextView date;
     private TextView description;
+    private TextView title;
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
     /**
@@ -82,7 +89,7 @@ public class EventDetailFragment extends Fragment implements
     private GoogleMap mMap;
     private View rootView;
 
-    private boolean isJoin = false;
+    private boolean isJoin = true;
 
 
     public EventDetailFragment(){
@@ -99,19 +106,27 @@ public class EventDetailFragment extends Fragment implements
 
         //toolbar
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        toolbar.getMenu().clear();
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //get necessary variable
         Bundle args = getArguments();
         //activity = (AppCompatActivity)args.getParcelable(Constants.ACTIVITY);
         event = (Event)args.getParcelable(Constants.EVENT);
 
+        //title
+        toolbar.setTitle(event.getEventName());
+//        title = (TextView)rootView.findViewById(R.id.toolbar_title);
+//        title.setText(event.getEventName());
 
         //insert event detail information into layout
         userPortrait = (RImageView)rootView.findViewById(R.id.event_detail_portrait);
         userName = (TextView)rootView.findViewById(R.id.event_detail_user_name);
 
         joinLeave = (FloatingActionButton)rootView.findViewById(R.id.event_detail_join_leave_switch);
+//         joinLeave = (TextView)rootView.findViewById(R.id.event_detail_join_leave_switch);
+//        joinLeaveBackground = (View) rootView.findViewById( R.id.event_detail_join_leave_switch_background );
         refreshJoinLeaveButtonIcon();
 
         image = (ImageView)rootView.findViewById(R.id.event_detail_image);
@@ -121,15 +136,17 @@ public class EventDetailFragment extends Fragment implements
         collapsingToolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
 
         //image
-        Picasso.with(getContext()).load(event.getEventImage()).into(image);
+        Picasso.with(getContext()).load(event.getEventImage()).resize(800, 1000).centerCrop().into(image);
         collapsingToolbarLayout.setTitle(event.getEventName());
         location.setText(event.getLocation());
         date.setText(event.getDate());
         description.setText(event.getDescription());
 
         //hardcode for now, need implementation later
-        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.sexy_pink));//(event.getImageContextColor());
-        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));//(event.getTitleContextColor());
+        int imageContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getImageContextColor()))));
+        int textContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getTitleContextColor()))));
+        collapsingToolbarLayout.setContentScrimColor(imageContextColor);
+        collapsingToolbarLayout.setCollapsedTitleTextColor(textContextColor);
 //        collapsingToolbarLayout.setContentScrimColor(event.getImageContextColor());
 //        collapsingToolbarLayout.setCollapsedTitleText(event.getTitleContextColor());
 
@@ -166,11 +183,11 @@ public class EventDetailFragment extends Fragment implements
                     e.printStackTrace();
                 }
                 if(isJoin) {
-                    new PostTask(RESTfulAPI.joinEventURL, eventObject);
+                    new PostTask(RESTfulAPI.joinEventURL, eventObject).execute();
                     Snackbar.make(v, "You joined this meeting", Snackbar.LENGTH_LONG).show();
                 }
                 else {
-                    new PostTask(RESTfulAPI.disjoinEventURL, eventObject);
+                    new PostTask(RESTfulAPI.disjoinEventURL, eventObject).execute();
                     Snackbar.make(v, "You leaved this meeting", Snackbar.LENGTH_LONG).show();
                 }
                 refreshJoinLeaveButtonIcon();
@@ -274,5 +291,22 @@ public class EventDetailFragment extends Fragment implements
             joinLeave.setImageDrawable(getResources().getDrawable(R.drawable.minus, getContext().getTheme()));
         else
             joinLeave.setImageDrawable(getResources().getDrawable(R.drawable.plus_pure, getContext().getTheme()));
+//        AppCompatActivity activity = (AppCompatActivity)getActivity();
+//        DisplayMetrics dm = new DisplayMetrics();
+//        activity.getWindowManager().getDefaultDisplay().getMetrics( dm );
+//        int statusBarOffset = dm.heightPixels - joinLeaveBackground.getMeasuredHeight();
+//
+//        int originalPos[] = new int[2];
+//        joinLeaveBackground.getLocationOnScreen( originalPos );
+//
+//        int xDest = dm.widthPixels/2;
+//        xDest -= (joinLeaveBackground.getMeasuredWidth()/2);
+//        int yDest = dm.heightPixels/2 - (joinLeaveBackground.getMeasuredHeight()/2) - statusBarOffset;
+//
+//        TranslateAnimation anim = new TranslateAnimation( 0, xDest - originalPos[0] , 0, yDest - originalPos[1] );
+//        anim.setDuration(1000);
+//        anim.setFillAfter( true );
+//        joinLeaveBackground.startAnimation(anim);
+
     }
 }

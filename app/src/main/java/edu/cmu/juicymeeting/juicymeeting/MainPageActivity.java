@@ -1,26 +1,25 @@
 package edu.cmu.juicymeeting.juicymeeting;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TabHost;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +27,8 @@ import java.util.Arrays;
 import edu.cmu.juicymeeting.util.Data;
 import edu.cmu.juicymeeting.util.HttpAsyncTask;
 import edu.cmu.juicymeeting.util.JuicyFont;
+import edu.cmu.juicymeeting.util.PostTask;
+import edu.cmu.juicymeeting.util.PageFragment;
 import edu.cmu.juicymeeting.util.RESTfulAPI;
 import edu.cmu.juicymeeting.util.SampleFragmentPagerAdapter;
 
@@ -36,6 +37,8 @@ public class MainPageActivity extends AppCompatActivity
 
     private static final int CREATE_GROUP_ACTIVITY = 0;
     private static final int JOIN_GROUP_ACTIVITY = 1;
+
+    private Toolbar toolbar;
 
 
     @Override
@@ -48,8 +51,9 @@ public class MainPageActivity extends AppCompatActivity
         setContentView(R.layout.activity_mainpage);
 
         //toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,12 +75,63 @@ public class MainPageActivity extends AppCompatActivity
         // Iterate over all tabs and set the custom view
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
-            tab.setCustomView(pagerAdapter.getSelectedTabView(i));
+            tab.setCustomView(pagerAdapter.getNormalTabView(i));
         }
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout){
+            @Override
+            public void onPageSelected(int position) {
+                switch(position) {
+                    case 0:
+                        //toolbar, set menu
+                        toolbar = (Toolbar) findViewById(R.id.toolbar);
+                        toolbar.setNavigationIcon(R.drawable.profile_pink);
+                        TextView toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
+                        toolbarTitle.setText("CREATE");
+                        getSupportActionBar().setDisplayShowTitleEnabled(false);
+                        break;
+                    case 1:
+                        //toolbar, set menu
+                        toolbar = (Toolbar) findViewById(R.id.toolbar);
+                        toolbar.setNavigationIcon(R.drawable.profile_pink);
+                        toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
+                        toolbar.getMenu().clear();
+                        toolbarTitle.setText("MY EVENTS");
+                        getSupportActionBar().setDisplayShowTitleEnabled(false);
+                        break;
+                    case 2:
+                        //toolbar, set menu
+                        toolbar = (Toolbar)findViewById(R.id.toolbar);
+                        toolbar.setNavigationIcon(R.drawable.profile_pink);
+                        toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
+                        toolbar.getMenu().clear();
+                        toolbarTitle.setText("EXPLORE");
+                        getSupportActionBar().setDisplayShowTitleEnabled(false);
+                        break;
+                    case 3:
+                        toolbar = (Toolbar)findViewById(R.id.toolbar);
+                        toolbar.setNavigationIcon(R.drawable.profile_pink);
+                        toolbar.getMenu().clear();
+                        toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
+                        toolbarTitle.setText("CHAT");
+                        getSupportActionBar().setDisplayShowTitleEnabled(false);
+                        break;
+                }
+            }
+        });
         TabLayout.Tab tab = tabLayout.getTabAt(2);//second tab as default
         tab.select();
 
         new HttpAsyncTask().execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
+
+        JSONObject eventObject = new JSONObject();
+        try {
+            eventObject.put("lat", Data.lat);
+            eventObject.put("lon", Data.log);
+            eventObject.put("distance", Data.distance);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new PostTask(RESTfulAPI.exploreEventURL, eventObject, "explore").execute();
 
     }
 
@@ -119,7 +174,19 @@ public class MainPageActivity extends AppCompatActivity
         }
     }
 
-
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_publish, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        Log.w("click", "menu");
+//        ((PageFragment)(getSupportFragmentManager().findFragmentById(R.id.create_event_wrapper))).publish();
+//        return true;
+//    }
 
     @Override
     public void onBackPressed() {
@@ -129,28 +196,6 @@ public class MainPageActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -180,5 +225,9 @@ public class MainPageActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void tabClick(View v) {
+        Log.w("test", "test");
     }
 }

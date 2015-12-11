@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+over wrapper: event_list_card_wrapper
 main background image: id: event_list_card_image
 event name: id: event_list_card_name
 event description: id: event_list_card_description
@@ -17,6 +18,7 @@ event time: id: event_list_card_time
 -->
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/event_list_card_wrapper"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/large_padding">

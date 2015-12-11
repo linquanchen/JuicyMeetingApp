@@ -2,28 +2,30 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">@color/light_grey</item>
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/sexy_pink</item>
     </style>
-    <style name="AppTheme.NoActionBar">
+
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
-        <!--<item name="windowNoTitle">true</item>-->
+        <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/white</item>
-        <item name="tabIndicatorHeight">1dp</item>
+        <item name="tabIndicatorColor">@color/sexy_pink</item>
+        <item name="tabIndicatorHeight">2dp</item>
         <item name="tabPaddingStart">12dp</item>
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabTextAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="android:background">@color/transparent</item>
         <item name="android:textColorPrimary">@color/grey</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
-
     <style name="editext_graybg" parent="android:Widget.EditText">
         <item name="android:background">@drawable/editext_bg_gray</item>
         <item name="android:drawablePadding">@dimen/pad_10dp</item>
@@ -33,6 +35,7 @@
         <item name="android:paddingRight">@dimen/pad_10dp</item>
         <item name="android:textSize">@dimen/txt_16sp</item>
     </style>
+
     <style name="btn_white_large" parent="@style/btn">
         <item name="android:background">@drawable/green_btn</item>
         <item name="android:textColor">@color/white</item>
@@ -66,6 +69,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/txt_14sp</item>
     </style>
+
     <style name="btn_green_white_bg" parent="@style/btn">
         <item name="android:background">@color/white</item>
         <item name="android:paddingBottom">@dimen/pad_10dp</item>
@@ -74,4 +78,7 @@
         <item name="android:textColor">@color/main_color_green</item>
         <item name="android:textSize">@dimen/txt_16sp</item>
     </style>
+
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

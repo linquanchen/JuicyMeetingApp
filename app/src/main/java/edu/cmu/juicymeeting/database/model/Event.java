@@ -20,6 +20,8 @@ public class Event implements Parcelable {
     private String date;
     private long titleContextColor;
     private long imageContextColor;
+   // private boolean
+
 
 
     public String agenda;
