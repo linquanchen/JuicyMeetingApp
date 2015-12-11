@@ -1,29 +1,18 @@
 package edu.cmu.juicymeeting.juicymeeting;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TabHost;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import edu.cmu.juicymeeting.util.Data;
 import edu.cmu.juicymeeting.util.HttpAsyncTask;
@@ -81,12 +70,12 @@ public class MainPageActivity extends AppCompatActivity
     }
 
     public void createGroup(View view) {
-        Intent intent = new Intent(this, CreateGroupActivity.class);
+        Intent intent = new Intent(this, CreateJoinGroupActivity.class);
         startActivityForResult(intent, CREATE_GROUP_ACTIVITY);
     }
 
     public void joinGroup(View view) {
-        Intent intent = new Intent(MainPageActivity.this, JoinGroupActivity.class);
+        Intent intent = new Intent(MainPageActivity.this, CreateJoinGroupActivity.class);
         startActivity(intent);
     }
 

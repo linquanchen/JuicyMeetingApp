@@ -54,6 +54,12 @@
             android:name=".EventDetailActivity"
             android:label="@string/title_activity_event_detail" >
         </activity>
+
+        <activity android:name="edu.cmu.juicymeeting.juicymeeting.ChatroomActivity" >
+        </activity>
+        <activity android:name="edu.cmu.juicymeeting.juicymeeting.CreateJoinGroupActivity" />
+        <activity android:name="edu.cmu.juicymeeting.juicymeeting.GroupChatsActivity" >
+        </activity>
     </application>
 
 </manifest>

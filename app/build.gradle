@@ -30,6 +30,9 @@ repositories {
 
 
 
+
+
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -41,4 +44,5 @@ dependencies {
     compile 'com.layer.sdk:layer-sdk:0.17.1'
     compile 'org.slf4j:slf4j-api:1.7.7'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile project(':androidwebsocketsmaster')
 }
