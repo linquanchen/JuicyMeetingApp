@@ -9,12 +9,8 @@ event location: event_detail_location
 event time: event_detail_date
 event map: event_detail_map
 event description: event_detail_description
+the background of switch button : event_detail_join_leave_switch_background
 -->
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--android:orientation="vertical">-->
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -60,17 +56,17 @@ event description: event_detail_description
                 android:gravity="center_horizontal"
                 android:fitsSystemWindows="true"
                 app:layout_scrollFlags="scroll|enterAlways">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Toolbar Title"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/medium_text_size"
-                    android:textColor="@color/sexy_pink"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:id="@+id/toolbar_title" />
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Toolbar Title"-->
+                    <!--android:textAllCaps="true"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textSize="@dimen/medium_text_size"-->
+                    <!--android:textColor="@color/sexy_pink"-->
+                    <!--android:gravity="center"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:id="@+id/toolbar_title" />-->
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -177,9 +173,38 @@ event description: event_detail_description
                     android:textSize="@dimen/event_detail_description_text_size"
                     android:textColor="@color/grey"/>
             </LinearLayout>
+            <!--leave some space at bottom-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/white"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/large_text_size"-->
+        <!--android:layout_gravity="bottom">-->
+        <!--<TextView-->
+            <!--android:id="@+id/event_detail_join_leave_switch"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:gravity="center"-->
+            <!--android:elevation="1dp"-->
+
+            <!--android:background="@color/transparent"-->
+            <!--android:text="JOIN MEETING"-->
+            <!--android:textSize="@dimen/large_text_size"-->
+            <!--android:textAllCaps="true"-->
+            <!--android:textColor="@color/sexy_pink"/>-->
+        <!--&lt;!&ndash;<View&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/event_detail_join_leave_switch_background"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:elevation="0dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:background="@drawable/join_meeting_status_bar"/>&ndash;&gt;-->
+    <!--</RelativeLayout>-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/event_detail_join_leave_switch"
         android:layout_width="wrap_content"
@@ -191,7 +216,5 @@ event description: event_detail_description
         android:src="@drawable/plus_pure"
         app:layout_anchor="@id/event_detail_wrapper"
         app:layout_anchorGravity="bottom|right|end"/>
-
-    <!--</LinearLayout>-->
 
 </android.support.design.widget.CoordinatorLayout>

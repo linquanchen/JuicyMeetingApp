@@ -212,16 +212,6 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
                     }
                 });
-
-//                publishButton = (TextView)view.findViewById(R.id.create_event_publish);
-//                publishButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Toast.makeText(getActivity(), "Successfully create event!", Toast.LENGTH_SHORT).show();
-//                        publish();
-//                    }
-//                });
-
                 break;
 
             //upcoming event
@@ -347,19 +337,6 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         return view;
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.menu_publish, menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        Log.w("select", "fragment");
-//
-//        return false;
-//    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -458,8 +435,6 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     //create event publish, need implement later
     public void publish() {
-        Log.w("public", "awesome");
-
         JSONObject eventObject = new JSONObject();
         try {
             eventObject.put("eventDateTime", time.getText().toString());
