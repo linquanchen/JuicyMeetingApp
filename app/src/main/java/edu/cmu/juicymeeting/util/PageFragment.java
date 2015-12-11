@@ -287,13 +287,7 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 // use a linear layout manager
                 exploreLayoutManager = new LinearLayoutManager(getActivity());
                 exploreRecyclerView.setLayoutManager(exploreLayoutManager);
-//                final Event[] exploreEvents = new Event[6];
-//                exploreEvents[0] = new Event("Third Meeting", "Mountain View", "2015/07/10");
-//                exploreEvents[1] = new Event("Four Meeting", "San Francisco", "2015/08/15");
-//                exploreEvents[2] = new Event("Nine Meeting", "New York", "2015/08/22");
-//                exploreEvents[3] = new Event("Third Meeting", "Mountain View", "2015/09/12");
-//                exploreEvents[4] = new Event("Four Meeting", "San Francisco", "2015/12/12");
-//                exploreEvents[5] = new Event("Nine Meeting", "New York", "2016/01/12");
+
                 if (Data.exploreEvents != null) {
                     final Event[] exploreEvents = Utility.getAllUpcomingEvent(Data.exploreEvents, getContext());
                     // specify an adapter (see also next example)
@@ -348,7 +342,16 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         (new Handler()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                new HttpAsyncTask(mAdapter, events, getContext()).execute(RESTfulAPI.upcomingEventURL + "zxq@cmu.edu");
+                new HttpAsyncTask(mAdapter, events, getContext()).execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
+                JSONObject eventObject = new JSONObject();
+                try {
+                    eventObject.put("lat", Data.lat);
+                    eventObject.put("lon", Data.log);
+                    eventObject.put("distance", Data.distance);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                new PostTask(RESTfulAPI.exploreEventURL, eventObject, "explore").execute();
                 swipeContainer.setRefreshing(false);
             }
         }, 5000);

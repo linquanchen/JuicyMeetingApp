@@ -82,7 +82,7 @@ public class EventDetailFragment extends Fragment implements
     private GoogleMap mMap;
     private View rootView;
 
-    private boolean isJoin = false;
+    private boolean isJoin = true;
 
 
     public EventDetailFragment(){
@@ -166,11 +166,11 @@ public class EventDetailFragment extends Fragment implements
                     e.printStackTrace();
                 }
                 if(isJoin) {
-                    new PostTask(RESTfulAPI.joinEventURL, eventObject);
+                    new PostTask(RESTfulAPI.joinEventURL, eventObject).execute();
                     Snackbar.make(v, "You joined this meeting", Snackbar.LENGTH_LONG).show();
                 }
                 else {
-                    new PostTask(RESTfulAPI.disjoinEventURL, eventObject);
+                    new PostTask(RESTfulAPI.disjoinEventURL, eventObject).execute();
                     Snackbar.make(v, "You leaved this meeting", Snackbar.LENGTH_LONG).show();
                 }
                 refreshJoinLeaveButtonIcon();

@@ -64,7 +64,8 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
         holder.eventListCardName.setText(eventSet[position].getEventName());
         holder.eventListCardDescription.setText(eventSet[position].getDescription());
 
-        Picasso.with(context).load(eventSet[position].getCreatorImage()).into(holder.eventListCardPortrait);
+        Picasso.with(context).load(eventSet[position].getCreatorImage()).resize(100, 100)
+                .centerCrop().into(holder.eventListCardPortrait);
         holder.eventListCardCreatorName.setText(eventSet[position].getCreatorName());
         holder.eventListCardFollowInfo.setText("Followed by "
                 + String.valueOf(eventSet[position].getFollowers()) + " pll");

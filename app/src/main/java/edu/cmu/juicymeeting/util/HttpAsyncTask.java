@@ -43,7 +43,6 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         Data.upComingEvents = result;
-        Data.exploreEvents = result;
         if (mAdapter != null) {
             events = Utility.getAllUpcomingEvent(Data.upComingEvents, context);
             mAdapter.notifyDataSetChanged();

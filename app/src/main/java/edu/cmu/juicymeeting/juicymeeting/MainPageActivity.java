@@ -22,12 +22,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TabHost;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.cmu.juicymeeting.util.Data;
 import edu.cmu.juicymeeting.util.HttpAsyncTask;
 import edu.cmu.juicymeeting.util.JuicyFont;
+import edu.cmu.juicymeeting.util.PostTask;
 import edu.cmu.juicymeeting.util.RESTfulAPI;
 import edu.cmu.juicymeeting.util.SampleFragmentPagerAdapter;
 
@@ -77,6 +81,16 @@ public class MainPageActivity extends AppCompatActivity
         tab.select();
 
         new HttpAsyncTask().execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
+
+        JSONObject eventObject = new JSONObject();
+        try {
+            eventObject.put("lat", Data.lat);
+            eventObject.put("lon", Data.log);
+            eventObject.put("distance", Data.distance);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new PostTask(RESTfulAPI.exploreEventURL, eventObject, "explore").execute();
 
     }
 

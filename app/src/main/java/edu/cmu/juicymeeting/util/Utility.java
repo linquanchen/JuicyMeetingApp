@@ -66,6 +66,8 @@ public class Utility {
             events[i] = new Event();
             try {
                 JSONObject jsonEvent = jsonObj.getJSONObject(i);
+
+                events[i].setId(jsonEvent.getInt("id"));
                 events[i].setEventImage(RESTfulAPI.DNS + jsonEvent.getString("imgUrl"));
                 events[i].setEventName(jsonEvent.getString("name"));
                 events[i].setDescription(jsonEvent.getString("description"));
@@ -81,7 +83,8 @@ public class Utility {
                 events[i].setTitleContextColor(jsonEvent.getLong("titleContextColor"));
                 events[i].setImageContextColor(jsonEvent.getLong("imageContextColor"));
                 //events[i].setCreatorEmail();
-                //events[i].setId();
+
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
