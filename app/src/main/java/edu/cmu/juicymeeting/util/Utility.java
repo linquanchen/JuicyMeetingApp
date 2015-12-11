@@ -46,7 +46,7 @@ public class Utility {
         else return null;
     }
 
-    public static Event[] getAllUpcomingEvent(String result, Context context, String type) {
+    public static Event[] getAllEvents(String result, Context context, String type) {
 
         JSONArray jsonObj = null;
         try {

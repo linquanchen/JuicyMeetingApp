@@ -114,7 +114,7 @@ public class MainPageActivity extends AppCompatActivity
         TabLayout.Tab tab = tabLayout.getTabAt(2);//second tab as default
         tab.select();
 
-        new HttpAsyncTask().execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
+        new HttpAsyncTask(this).execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
 
         JSONObject eventObject = new JSONObject();
         try {

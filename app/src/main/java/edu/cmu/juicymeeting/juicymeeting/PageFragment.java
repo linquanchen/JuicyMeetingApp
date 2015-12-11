@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.util;
+package edu.cmu.juicymeeting.juicymeeting;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -48,9 +48,14 @@ import java.util.Calendar;
 import edu.cmu.juicymeeting.chat.GroupChatActivity;
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
-import edu.cmu.juicymeeting.juicymeeting.EventDetailActivity;
-import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
-import edu.cmu.juicymeeting.juicymeeting.R;
+import edu.cmu.juicymeeting.util.CardViewDataAdapter;
+import edu.cmu.juicymeeting.util.ChatGroupAdapter;
+import edu.cmu.juicymeeting.util.Constants;
+import edu.cmu.juicymeeting.util.Data;
+import edu.cmu.juicymeeting.util.HttpAsyncTask;
+import edu.cmu.juicymeeting.util.PostTask;
+import edu.cmu.juicymeeting.util.RESTfulAPI;
+import edu.cmu.juicymeeting.util.Utility;
 
 // In this case, the fragment displays simple text based on the page
 public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,
@@ -66,9 +71,9 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private int mPage;
 
-    private RecyclerView mRecyclerView;
-    private CardViewDataAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView upcomingRecyclerView;
+    private CardViewDataAdapter upcomingAdapter;
+    private RecyclerView.LayoutManager upcomingLayoutManager;
 
     private SwipeRefreshLayout swipeContainer;
 
@@ -109,8 +114,6 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     /** Store my location information*/
     protected Location mLastLocation;
     private double latitude, longitude;
-
-    Event[] events = null;
 
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -203,27 +206,24 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             //upcoming event
             case 1:
                 view = inflater.inflate(R.layout.upcoming_event, container, false);
-
-                mRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_event_list);
+                upcomingRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_event_list);
 
                 // use a linear layout manager
-                mLayoutManager = new LinearLayoutManager(getActivity());
-                mRecyclerView.setLayoutManager(mLayoutManager);
+                upcomingLayoutManager = new LinearLayoutManager(getActivity());
+                upcomingRecyclerView.setLayoutManager(upcomingLayoutManager);
 
-                if (Data.upComingEvents != null) {
-                    events = Utility.getAllUpcomingEvent(Data.upComingEvents, getContext(), Data.UPCOMING_EVENTS);
-
+                if (Data.upcomingEvents != null) {
                     // specify an adapter
-                    mAdapter = new CardViewDataAdapter(events, getContext());
-                    mRecyclerView.setAdapter(mAdapter);
+                    upcomingAdapter = new CardViewDataAdapter(Data.upcomingEvents, getContext());
+                    upcomingRecyclerView.setAdapter(upcomingAdapter);
 
-                    mAdapter.setmItemClickListener(new OnItemClickListener() {
+                    upcomingAdapter.setmItemClickListener(new OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
                             Log.v("LISTENER", "Position:" + position);
                             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-                            intent.putExtra(Constants.ALL_EVENTS, events);
-                            intent.putExtra(Constants.EVENT_INDEX, position);//
+                            intent.putExtra(Constants.ALL_EVENTS, Data.upcomingEvents);
+                            intent.putExtra(Constants.EVENT_INDEX, position);
                             startActivity(intent);
                         }
                     });
@@ -246,14 +246,11 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 view = inflater.inflate(R.layout.group_chat, container, false);
 
                 groupRecyclerView = (RecyclerView) view.findViewById(R.id.group_list);
-                // use this setting to improve performance if you know that changes
-                // in content do not change the layout size of the RecyclerView
-
-                //mRecyclerView.setHasFixedSize(true);
 
                 // use a linear layout manager
                 groupLayoutManager = new LinearLayoutManager(getActivity());
                 groupRecyclerView.setLayoutManager(groupLayoutManager);
+
                 ChatGroup[] chatGroups = new ChatGroup[4];
                 chatGroups[0] = new ChatGroup("First Meeting", "Mountain View", 1);
                 chatGroups[1] = new ChatGroup("Third Meeting", "San Francisco", 2);
@@ -287,7 +284,7 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 exploreRecyclerView.setLayoutManager(exploreLayoutManager);
 
                 if (Data.exploreEvents != null) {
-                    final Event[] exploreEvents = Utility.getAllUpcomingEvent(Data.exploreEvents, getContext(), Data.EXPLORE_EVENTS);
+                    final Event[] exploreEvents = Utility.getAllEvents(Data.exploreEvents, getContext(), Data.EXPLORE_EVENTS);
                     // specify an adapter (see also next example)
                     exploreAdapter = new CardViewDataAdapter(exploreEvents, getContext());
                     exploreRecyclerView.setAdapter(exploreAdapter);
@@ -327,18 +324,19 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onResume() {
         super.onResume();
-        if (mAdapter != null) {
-            mAdapter.notifyDataSetChanged();
+        if (upcomingAdapter != null) {
+            upcomingAdapter.notifyDataSetChanged();
             Log.v("onResume", "update.........");
         }
-
     }
 
     @Override public void onRefresh() {
         (new Handler()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                new HttpAsyncTask(mAdapter, events, getContext()).execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
+
+                new HttpAsyncTask(upcomingAdapter, getContext()).execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
+
                 JSONObject eventObject = new JSONObject();
                 try {
                     eventObject.put("lat", Data.lat);
