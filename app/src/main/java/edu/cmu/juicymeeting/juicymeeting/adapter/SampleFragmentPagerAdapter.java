@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import edu.cmu.juicymeeting.juicymeeting.fragment.PageFragment;
 import edu.cmu.juicymeeting.juicymeeting.R;
+import edu.cmu.juicymeeting.juicymeeting.fragment.PageFragment;
 
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     private static final int PAGE_COUNT = 4;
