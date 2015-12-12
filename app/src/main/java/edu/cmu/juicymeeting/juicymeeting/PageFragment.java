@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,10 +47,8 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.List;
 
-import edu.cmu.juicymeeting.chat.GroupChatActivity;
 import edu.cmu.juicymeeting.database.chatDB.DatabaseConnector;
 import edu.cmu.juicymeeting.database.chatDB.Group;
-import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
 import edu.cmu.juicymeeting.helper.SimpleItemTouchHelperCallback;
 import edu.cmu.juicymeeting.util.CardViewDataAdapter;
