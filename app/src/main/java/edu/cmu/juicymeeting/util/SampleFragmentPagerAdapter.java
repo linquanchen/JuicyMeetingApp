@@ -2,22 +2,15 @@ package edu.cmu.juicymeeting.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import edu.cmu.juicymeeting.juicymeeting.PageFragment;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {

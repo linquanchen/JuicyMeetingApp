@@ -2,13 +2,8 @@ package edu.cmu.juicymeeting.juicymeeting;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -16,19 +11,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-//import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +38,8 @@ import edu.cmu.juicymeeting.util.PermissionUtils;
 import edu.cmu.juicymeeting.util.PostTask;
 import edu.cmu.juicymeeting.util.RESTfulAPI;
 import edu.cmu.juicymeeting.util.RImageView;
-import edu.cmu.juicymeeting.util.Utility;
+
+//import android.support.v7.graphics.Palette;
 
 
 public class EventDetailFragment extends Fragment implements
@@ -56,6 +47,7 @@ public class EventDetailFragment extends Fragment implements
         OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback {
     //public static final String ARG_OBJECT = "object";
+    private static final String TAG = "EventDetailFragment";
 
     //necessary information to select event
     private Event event;
@@ -89,7 +81,7 @@ public class EventDetailFragment extends Fragment implements
     private GoogleMap mMap;
     private View rootView;
 
-    private boolean isJoin = true;
+    private boolean isJoin;
 
 
     public EventDetailFragment(){
@@ -114,6 +106,9 @@ public class EventDetailFragment extends Fragment implements
         Bundle args = getArguments();
         //activity = (AppCompatActivity)args.getParcelable(Constants.ACTIVITY);
         event = (Event)args.getParcelable(Constants.EVENT);
+
+        // Get the join status of every event
+        isJoin = Data.isJoinMap.get(event.getId());
 
         //title
         toolbar.setTitle(event.getEventName());
@@ -185,10 +180,13 @@ public class EventDetailFragment extends Fragment implements
                 if(isJoin) {
                     new PostTask(RESTfulAPI.joinEventURL, eventObject).execute();
                     Snackbar.make(v, "You joined this meeting", Snackbar.LENGTH_LONG).show();
+                    Data.isJoinMap.put(event.getId(), true );
                 }
                 else {
                     new PostTask(RESTfulAPI.disjoinEventURL, eventObject).execute();
                     Snackbar.make(v, "You leaved this meeting", Snackbar.LENGTH_LONG).show();
+                    Data.isJoinMap.put(event.getId(), false);
+                    onDestroy();
                 }
                 refreshJoinLeaveButtonIcon();
             }
@@ -280,7 +278,7 @@ public class EventDetailFragment extends Fragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        Log.v(TAG, "onDestory()");
 //        //necessary for transition animation
 //        getActivity().supportFinishAfterTransition();
     }
