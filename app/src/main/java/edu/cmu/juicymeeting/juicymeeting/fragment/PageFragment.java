@@ -54,16 +54,16 @@ import edu.cmu.juicymeeting.juicymeeting.R;
 import edu.cmu.juicymeeting.juicymeeting.activity.ChatroomActivity;
 import edu.cmu.juicymeeting.juicymeeting.activity.CreateJoinGroupActivity;
 import edu.cmu.juicymeeting.juicymeeting.activity.EventDetailActivity;
-import edu.cmu.juicymeeting.juicymeeting.adapter.SimpleItemTouchHelperCallback;
-import edu.cmu.juicymeeting.juicymeeting.adapter.EventAdapter;
 import edu.cmu.juicymeeting.juicymeeting.adapter.ChatGroupAdapter;
+import edu.cmu.juicymeeting.juicymeeting.adapter.EventAdapter;
+import edu.cmu.juicymeeting.juicymeeting.adapter.GroupRecyclerListAdapter;
+import edu.cmu.juicymeeting.juicymeeting.adapter.SimpleItemTouchHelperCallback;
 import edu.cmu.juicymeeting.util.Constants;
 import edu.cmu.juicymeeting.util.Data;
-import edu.cmu.juicymeeting.juicymeeting.adapter.GroupRecyclerListAdapter;
+import edu.cmu.juicymeeting.util.Utility;
 import edu.cmu.juicymeeting.ws.HttpGetTask;
 import edu.cmu.juicymeeting.ws.HttpPostTask;
 import edu.cmu.juicymeeting.ws.RESTfulAPI;
-import edu.cmu.juicymeeting.util.Utility;
 
 // In this case, the fragment displays simple text based on the page
 public class PageFragment extends Fragment

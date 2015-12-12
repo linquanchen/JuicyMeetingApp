@@ -28,8 +28,8 @@ import edu.cmu.juicymeeting.database.chatDB.DatabaseConnector;
 import edu.cmu.juicymeeting.database.chatDB.Group;
 import edu.cmu.juicymeeting.database.chatDB.Message;
 import edu.cmu.juicymeeting.juicymeeting.R;
-import edu.cmu.juicymeeting.util.ChatUtil;
 import edu.cmu.juicymeeting.juicymeeting.adapter.MessageListAdapter;
+import edu.cmu.juicymeeting.util.ChatUtil;
 import edu.cmu.juicymeeting.ws.WsConfig;
 
 public class ChatroomActivity extends AppCompatActivity {

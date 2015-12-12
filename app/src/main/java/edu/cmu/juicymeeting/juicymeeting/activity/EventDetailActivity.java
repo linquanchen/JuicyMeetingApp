@@ -2,6 +2,7 @@ package edu.cmu.juicymeeting.juicymeeting.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -10,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -29,10 +29,10 @@ import edu.cmu.juicymeeting.juicymeeting.adapter.EventDetailPageAdapter;
 import edu.cmu.juicymeeting.juicymeeting.adapter.SampleFragmentPagerAdapter;
 import edu.cmu.juicymeeting.util.Constants;
 import edu.cmu.juicymeeting.util.Data;
-import edu.cmu.juicymeeting.ws.HttpGetTask;
 import edu.cmu.juicymeeting.util.JuicyFont;
-import edu.cmu.juicymeeting.ws.HttpPostTask;
 import edu.cmu.juicymeeting.util.ZoomOutPageTransformer;
+import edu.cmu.juicymeeting.ws.HttpGetTask;
+import edu.cmu.juicymeeting.ws.HttpPostTask;
 import edu.cmu.juicymeeting.ws.RESTfulAPI;
 
 public class EventDetailActivity extends AppCompatActivity {
@@ -62,31 +62,6 @@ public class EventDetailActivity extends AppCompatActivity {
         mViewPager.setCurrentItem(position);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_event_detail, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//
-//        switch (item.getItemId()) {
-//            // Respond to the action bar's Up/Home button
-//            //necessary for transition animation
-////            case android.R.id.home:
-////                supportFinishAfterTransition();
-////                return true;
-//            case R.id.action_settings:
-//                return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     protected void onDestroy() {
@@ -243,7 +218,6 @@ public class EventDetailActivity extends AppCompatActivity {
             //toolbar
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-    //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -325,16 +299,6 @@ public class EventDetailActivity extends AppCompatActivity {
 
         }
 
-    //    public void createGroup(View view) {
-    //        Intent intent = new Intent(this, CreateJoinGroupActivity.class);
-    //        startActivityForResult(intent, CREATE_GROUP_ACTIVITY);
-    //    }
-    //
-    //    public void joinGroup(View view) {
-    //        Intent intent = new Intent(MainPageActivity.this, CreateJoinGroupActivity.class);
-    //        startActivity(intent);
-    //    }
-
         @Override
         public void onActivityResult(int requestCode, int resultCode, Intent data) {
             super.onActivityResult(requestCode, resultCode, data);
@@ -351,20 +315,6 @@ public class EventDetailActivity extends AppCompatActivity {
                 }
             }
         }
-
-    //    @Override
-    //    public boolean onCreateOptionsMenu(Menu menu) {
-    //        MenuInflater inflater = getMenuInflater();
-    //        inflater.inflate(R.menu.menu_publish, menu);
-    //        return true;
-    //    }
-    //
-    //    @Override
-    //    public boolean onOptionsItemSelected(MenuItem item) {
-    //        Log.w("click", "menu");
-    //        ((PageFragment)(getSupportFragmentManager().findFragmentById(R.id.create_event_wrapper))).publish();
-    //        return true;
-    //    }
 
         @Override
         public void onBackPressed() {

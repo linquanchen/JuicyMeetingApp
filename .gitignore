@@ -7,3 +7,4 @@
 /build
 /captures
 *.class
+androidwebsocketsmaster/build/outputs/*
