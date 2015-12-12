@@ -25,7 +25,7 @@ public class ProfileActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationIcon(R.drawable.profile);
+        toolbar.setNavigationIcon(R.drawable.profile_pink);
         toolbar.getMenu().clear();
 
         //set title

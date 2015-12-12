@@ -97,7 +97,7 @@ public class EventDetailFragment extends Fragment implements
         }
 
         //toolbar
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar)rootView.findViewById(R.id.toolbar);
         toolbar.getMenu().clear();
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -138,31 +138,32 @@ public class EventDetailFragment extends Fragment implements
         description.setText(event.getDescription());
 
         //hardcode for now, need implementation later
-        int imageContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getImageContextColor()))));
-        int textContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getTitleContextColor()))));
-        collapsingToolbarLayout.setContentScrimColor(imageContextColor);
-        collapsingToolbarLayout.setCollapsedTitleTextColor(textContextColor);
-//        collapsingToolbarLayout.setContentScrimColor(event.getImageContextColor());
-//        collapsingToolbarLayout.setCollapsedTitleText(event.getTitleContextColor());
+//        int imageContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getImageContextColor()))));
+//        int textContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getTitleContextColor()))));
+//        collapsingToolbarLayout.setContentScrimColor(imageContextColor);
+//        collapsingToolbarLayout.setCollapsedTitleTextColor(textContextColor);
+
+        //set content scrim color and title context color
+        int imageContextColor = (int)event.getImageContextColor();
+        int textContextColor = (int)event.getTitleContextColor();
+        collapsingToolbarLayout.setContentScrimColor(Color.argb(
+                (0xFF000000 & imageContextColor) >> 24,
+                (0x00FF0000 & imageContextColor) >> 16,
+                (0x0000FF00 & imageContextColor) >> 8,
+                (0x000000FF & imageContextColor)
+        ));
+        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.argb(
+                (0xFF000000 & textContextColor) >> 24,
+                (0x00FF0000 & textContextColor) >> 16,
+                (0x0000FF00 & textContextColor) >> 8,
+                (0x000000FF & textContextColor)
+        ));
+
 
         Picasso.with(getContext()).load(event.getCreatorImage()).into(userPortrait);
         userName.setText(event.getCreatorName());
 
         JuicyFont.getInstance().setFont(description, JuicyFont.OPEN_SANS_REGULAR);
-
-//        //collapse color
-//        Palette.from(((BitmapDrawable)image.getDrawable()).getBitmap()).maximumColorCount(32).generate(new Palette.PaletteAsyncListener() {
-//            @Override
-//            public void onGenerated(Palette palette) {
-//                // Get the "vibrant" color swatch based on the bitmap
-//                Palette.Swatch vibrant = palette.getDarkVibrantSwatch();
-//                if (vibrant != null) {
-//                    Log.w("color", Integer.toString(vibrant.getRgb()));
-//                    collapsingToolbarLayout.setContentScrimColor(vibrant.getRgb());
-//                    collapsingToolbarLayout.setCollapsedTitleTextColor(vibrant.getTitleTextColor());
-//                }
-//            }
-//        });
 
         //join / leave floating button
         joinLeave.setOnClickListener(new View.OnClickListener() {

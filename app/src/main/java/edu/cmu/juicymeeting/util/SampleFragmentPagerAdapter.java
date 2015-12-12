@@ -2,22 +2,24 @@ package edu.cmu.juicymeeting.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.cmu.juicymeeting.juicymeeting.PageFragment;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 4;
+    private static final int PAGE_COUNT = 4;
     private Context context;
-    private String tabTitles[] = new String[]{"CREATE", "MY EVENTS", "EXPLORE", "CHAT"};
-    private int[] imageResId = {R.drawable.create, R.drawable.star_outline, R.drawable.search, R.drawable.chat};
+    private static String tabTitles[] = new String[]{"CREATE", "MY", "EXPLORE", "CHAT"};
+    private int[] imageResId = {R.drawable.create, R.drawable.star_outline, R.drawable.explore, R.drawable.chat};
 
     public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
@@ -47,7 +49,9 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
         View v = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
         TextView tv = (TextView) v.findViewById(R.id.textView);
         tv.setText(tabTitles[position]);
-        tv.setTextColor(context.getColor(R.color.black));
+        tv.setTextColor(Color.rgb(0,0,0));
+//        ImageView img = (ImageView)v.findViewById(R.id.imgView);
+//        img.setBackgroundResource(imageResId[position]);
         tv.setCompoundDrawablesRelativeWithIntrinsicBounds(0, imageResId[position], 0, 0);
         return v;
     }

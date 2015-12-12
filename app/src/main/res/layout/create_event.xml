@@ -75,8 +75,6 @@ time: create_event_time
                     android:adjustViewBounds="false"
                     android:elevation="3dp"/>
 
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -40,7 +40,7 @@
     <dimen name="large_padding">20dp</dimen>
 
     <dimen name="button_text_size">15sp</dimen>
-    <dimen name="event_detail_map_height">150dp</dimen>
+    <dimen name="event_detail_map_height">250dp</dimen>
     <dimen name="event_detail_description_text_size">10sp</dimen>
     <dimen name="event_detail_name_text_size">20sp</dimen>
 

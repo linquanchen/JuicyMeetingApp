@@ -14,7 +14,7 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <ImageView android:src="@drawable/event_detail_head_image"
+        <ImageView android:src="@drawable/logo_white"
             android:layout_width="wrap_content"
             android:layout_height="72dp"
             android:layout_marginBottom="24dp"
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="Already a member? Login"
-            android:textColor="@color/grey"
+            android:textColor="@color/grey_extra_light"
             android:gravity="center"
             android:textSize="16dip"/>
 
