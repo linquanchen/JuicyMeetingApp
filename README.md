@@ -14,7 +14,7 @@ get upcoming events by user email
 GET http://localhost:8080/juicyBackend/webapi/event/upcoming/zxq@cmu.edu
 
 response:
-`[
+```[
   {
     "imgUrl": "http://i.imgur.com/DvpvklR.png",
     "titleContextColor": 2,
@@ -34,4 +34,4 @@ response:
     "id": 1,
     "lat": 23.1
   }
-]`
+]```
