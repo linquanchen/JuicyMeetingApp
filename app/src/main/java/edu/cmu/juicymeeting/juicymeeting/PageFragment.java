@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -407,16 +408,14 @@ public class PageFragment extends Fragment
                 imgView.setImageBitmap(bitmap);
 
                 //collapse color
-                Palette.from(bitmap).maximumColorCount(16).generate(new Palette.PaletteAsyncListener() {
+                Palette.from(bitmap).maximumColorCount(32).generate(new Palette.PaletteAsyncListener() {
                     @Override
                     public void onGenerated(Palette palette) {
                         // Get the "vibrant" color swatch based on the bitmap
                         Palette.Swatch vibrant = palette.getDarkVibrantSwatch();
                         if (vibrant != null) {
                             imageContextColor = vibrant.getRgb();
-                            Log.v("imageContextColor", String.valueOf(imageContextColor));
                             textContextColor = vibrant.getTitleTextColor();
-                            Log.v("textContextColor", String.valueOf(textContextColor));
                         }
                     }
                 });

@@ -138,10 +138,27 @@ public class EventDetailFragment extends Fragment implements
         description.setText(event.getDescription());
 
         //hardcode for now, need implementation later
-        int imageContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getImageContextColor()))));
-        int textContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getTitleContextColor()))));
-        collapsingToolbarLayout.setContentScrimColor(imageContextColor);
-        collapsingToolbarLayout.setCollapsedTitleTextColor(textContextColor);
+//        int imageContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getImageContextColor()))));
+//        int textContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getTitleContextColor()))));
+//        collapsingToolbarLayout.setContentScrimColor(imageContextColor);
+//        collapsingToolbarLayout.setCollapsedTitleTextColor(textContextColor);
+
+        //set content scrim color and title context color
+        int imageContextColor = (int)event.getImageContextColor();
+        int textContextColor = (int)event.getTitleContextColor();
+        collapsingToolbarLayout.setContentScrimColor(Color.argb(
+                (0xFF000000 & imageContextColor) >> 24,
+                (0x00FF0000 & imageContextColor) >> 16,
+                (0x0000FF00 & imageContextColor) >> 8,
+                (0x000000FF & imageContextColor)
+        ));
+        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.argb(
+                (0xFF000000 & textContextColor) >> 24,
+                (0x00FF0000 & textContextColor) >> 16,
+                (0x0000FF00 & textContextColor) >> 8,
+                (0x000000FF & textContextColor)
+        ));
+
 
         Picasso.with(getContext()).load(event.getCreatorImage()).into(userPortrait);
         userName.setText(event.getCreatorName());
