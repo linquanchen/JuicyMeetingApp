@@ -19,19 +19,19 @@ import edu.cmu.juicymeeting.util.Utility;
 /**
  * Created by chenlinquan on 12/8/15.
  */
-public class PostTask extends AsyncTask<Void, Void, String> {
+public class HttpPostTask extends AsyncTask<Void, Void, String> {
     private static final String TAG = "Get Json";
 
     private String URL;
     private JSONObject jsonObjSend;
     private String postType = null;
 
-    public PostTask(String URL, JSONObject jsonObjSend) {
+    public HttpPostTask(String URL, JSONObject jsonObjSend) {
         this.URL = URL;
         this.jsonObjSend = jsonObjSend;
     }
 
-    public PostTask(String URL, JSONObject jsonObjSend, String postType) {
+    public HttpPostTask(String URL, JSONObject jsonObjSend, String postType) {
         this.URL = URL;
         this.jsonObjSend = jsonObjSend;
         this.postType = postType;

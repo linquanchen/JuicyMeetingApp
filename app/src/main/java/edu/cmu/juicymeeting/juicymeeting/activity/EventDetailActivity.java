@@ -29,9 +29,9 @@ import edu.cmu.juicymeeting.juicymeeting.adapter.EventDetailPageAdapter;
 import edu.cmu.juicymeeting.juicymeeting.adapter.SampleFragmentPagerAdapter;
 import edu.cmu.juicymeeting.util.Constants;
 import edu.cmu.juicymeeting.util.Data;
-import edu.cmu.juicymeeting.ws.HttpAsyncTask;
+import edu.cmu.juicymeeting.ws.HttpGetTask;
 import edu.cmu.juicymeeting.util.JuicyFont;
-import edu.cmu.juicymeeting.ws.PostTask;
+import edu.cmu.juicymeeting.ws.HttpPostTask;
 import edu.cmu.juicymeeting.util.ZoomOutPageTransformer;
 import edu.cmu.juicymeeting.ws.RESTfulAPI;
 
@@ -311,7 +311,7 @@ public class EventDetailActivity extends AppCompatActivity {
             TabLayout.Tab tab = tabLayout.getTabAt(2);//second tab as default
             tab.select();
 
-            new HttpAsyncTask(this).execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
+            new HttpGetTask(this).execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
 
             JSONObject eventObject = new JSONObject();
             try {
@@ -321,7 +321,7 @@ public class EventDetailActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            new PostTask(RESTfulAPI.exploreEventURL, eventObject, "explore").execute();
+            new HttpPostTask(RESTfulAPI.exploreEventURL, eventObject, "explore").execute();
 
         }
 

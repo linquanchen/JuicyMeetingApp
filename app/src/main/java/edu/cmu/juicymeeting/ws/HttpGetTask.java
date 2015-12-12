@@ -18,16 +18,16 @@ import edu.cmu.juicymeeting.util.Utility;
 /**
  * Created by chenlinquan on 12/7/15.
  */
-public class HttpAsyncTask extends AsyncTask<String, Void, String> {
+public class HttpGetTask extends AsyncTask<String, Void, String> {
     
     private EventAdapter adapter;
     private  Context context;
 
-    public HttpAsyncTask(Context context) {
+    public HttpGetTask(Context context) {
         this.context = context;
     }
 
-    public HttpAsyncTask(EventAdapter adapter, Context context) {
+    public HttpGetTask(EventAdapter adapter, Context context) {
         this.adapter = adapter;
         this.context = context;
     }

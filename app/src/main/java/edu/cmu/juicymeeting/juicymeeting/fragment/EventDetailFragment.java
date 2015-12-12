@@ -36,7 +36,7 @@ import edu.cmu.juicymeeting.util.Constants;
 import edu.cmu.juicymeeting.util.Data;
 import edu.cmu.juicymeeting.util.JuicyFont;
 import edu.cmu.juicymeeting.util.PermissionUtils;
-import edu.cmu.juicymeeting.ws.PostTask;
+import edu.cmu.juicymeeting.ws.HttpPostTask;
 import edu.cmu.juicymeeting.ws.RESTfulAPI;
 import edu.cmu.juicymeeting.util.RImageView;
 
@@ -180,12 +180,12 @@ public class EventDetailFragment extends Fragment implements
                     e.printStackTrace();
                 }
                 if(isJoin) {
-                    new PostTask(RESTfulAPI.joinEventURL, eventObject).execute();
+                    new HttpPostTask(RESTfulAPI.joinEventURL, eventObject).execute();
                     Snackbar.make(v, "You joined this meeting", Snackbar.LENGTH_LONG).show();
                     Data.isJoinMap.put(event.getId(), true );
                 }
                 else {
-                    new PostTask(RESTfulAPI.disjoinEventURL, eventObject).execute();
+                    new HttpPostTask(RESTfulAPI.disjoinEventURL, eventObject).execute();
                     Snackbar.make(v, "You leaved this meeting", Snackbar.LENGTH_LONG).show();
                     Data.isJoinMap.put(event.getId(), false);
                     onDestroy();

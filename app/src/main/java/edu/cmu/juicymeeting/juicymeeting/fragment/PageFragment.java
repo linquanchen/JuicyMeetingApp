@@ -60,8 +60,8 @@ import edu.cmu.juicymeeting.juicymeeting.adapter.ChatGroupAdapter;
 import edu.cmu.juicymeeting.util.Constants;
 import edu.cmu.juicymeeting.util.Data;
 import edu.cmu.juicymeeting.juicymeeting.adapter.GroupRecyclerListAdapter;
-import edu.cmu.juicymeeting.ws.HttpAsyncTask;
-import edu.cmu.juicymeeting.ws.PostTask;
+import edu.cmu.juicymeeting.ws.HttpGetTask;
+import edu.cmu.juicymeeting.ws.HttpPostTask;
 import edu.cmu.juicymeeting.ws.RESTfulAPI;
 import edu.cmu.juicymeeting.util.Utility;
 
@@ -366,7 +366,7 @@ public class PageFragment extends Fragment
             @Override
             public void run() {
 
-                new HttpAsyncTask(upcomingAdapter, getContext()).execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
+                new HttpGetTask(upcomingAdapter, getContext()).execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
 
                 JSONObject eventObject = new JSONObject();
                 try {
@@ -376,7 +376,7 @@ public class PageFragment extends Fragment
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                new PostTask(RESTfulAPI.exploreEventURL, eventObject, "explore").execute();
+                new HttpPostTask(RESTfulAPI.exploreEventURL, eventObject, "explore").execute();
                 swipeContainer.setRefreshing(false);
             }
         }, 5000);
@@ -473,7 +473,7 @@ public class PageFragment extends Fragment
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new PostTask(RESTfulAPI.creatEventURL, eventObject).execute();
+        new HttpPostTask(RESTfulAPI.creatEventURL, eventObject).execute();
     }
 
 
