@@ -1,8 +1,7 @@
-package edu.cmu.juicymeeting.util;
+package edu.cmu.juicymeeting.juicymeeting;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -10,45 +9,32 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
-import android.renderscript.Allocation;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.os.Handler;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -59,12 +45,17 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
+import edu.cmu.juicymeeting.chat.GroupChatActivity;
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
-import edu.cmu.juicymeeting.juicymeeting.EventDetailActivity;
-import edu.cmu.juicymeeting.chat.GroupChatActivity;
-import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
-import edu.cmu.juicymeeting.juicymeeting.R;
+import edu.cmu.juicymeeting.util.CardViewDataAdapter;
+import edu.cmu.juicymeeting.util.ChatGroupAdapter;
+import edu.cmu.juicymeeting.util.Constants;
+import edu.cmu.juicymeeting.util.Data;
+import edu.cmu.juicymeeting.util.HttpAsyncTask;
+import edu.cmu.juicymeeting.util.PostTask;
+import edu.cmu.juicymeeting.util.RESTfulAPI;
+import edu.cmu.juicymeeting.util.Utility;
 
 // In this case, the fragment displays simple text based on the page
 public class PageFragment extends Fragment
@@ -83,9 +74,9 @@ public class PageFragment extends Fragment
 
     private int mPage;
 
-    private RecyclerView mRecyclerView;
-    private CardViewDataAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView upcomingRecyclerView;
+    private CardViewDataAdapter upcomingAdapter;
+    private RecyclerView.LayoutManager upcomingLayoutManager;
 
     private SwipeRefreshLayout swipeContainer;
 
@@ -126,8 +117,6 @@ public class PageFragment extends Fragment
     /** Store my location information*/
     protected Location mLastLocation;
     private double latitude, longitude;
-
-    Event[] events = null;
 
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -220,27 +209,24 @@ public class PageFragment extends Fragment
             //upcoming event
             case 1:
                 view = inflater.inflate(R.layout.upcoming_event, container, false);
-
-                mRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_event_list);
+                upcomingRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_event_list);
 
                 // use a linear layout manager
-                mLayoutManager = new LinearLayoutManager(getActivity());
-                mRecyclerView.setLayoutManager(mLayoutManager);
+                upcomingLayoutManager = new LinearLayoutManager(getActivity());
+                upcomingRecyclerView.setLayoutManager(upcomingLayoutManager);
 
-                if (Data.upComingEvents != null) {
-                    events = Utility.getAllUpcomingEvent(Data.upComingEvents, getContext());
-
+                if (Data.upcomingEvents != null) {
                     // specify an adapter
-                    mAdapter = new CardViewDataAdapter(events, getContext());
-                    mRecyclerView.setAdapter(mAdapter);
+                    upcomingAdapter = new CardViewDataAdapter(Data.upcomingEvents, getContext());
+                    upcomingRecyclerView.setAdapter(upcomingAdapter);
 
-                    mAdapter.setmItemClickListener(new OnItemClickListener() {
+                    upcomingAdapter.setmItemClickListener(new OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
                             Log.v("LISTENER", "Position:" + position);
                             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-                            intent.putExtra(Constants.ALL_EVENTS, events);
-                            intent.putExtra(Constants.EVENT_INDEX, position);//
+                            intent.putExtra(Constants.ALL_EVENTS, Data.upcomingEvents);
+                            intent.putExtra(Constants.EVENT_INDEX, position);
                             startActivity(intent);
                         }
                     });
@@ -263,14 +249,11 @@ public class PageFragment extends Fragment
                 view = inflater.inflate(R.layout.group_chat, container, false);
 
                 groupRecyclerView = (RecyclerView) view.findViewById(R.id.group_list);
-                // use this setting to improve performance if you know that changes
-                // in content do not change the layout size of the RecyclerView
-
-                //mRecyclerView.setHasFixedSize(true);
 
                 // use a linear layout manager
                 groupLayoutManager = new LinearLayoutManager(getActivity());
                 groupRecyclerView.setLayoutManager(groupLayoutManager);
+
                 ChatGroup[] chatGroups = new ChatGroup[4];
                 chatGroups[0] = new ChatGroup("First Meeting", "Mountain View", 1);
                 chatGroups[1] = new ChatGroup("Third Meeting", "San Francisco", 2);
@@ -302,8 +285,9 @@ public class PageFragment extends Fragment
                 // use a linear layout manager
                 exploreLayoutManager = new LinearLayoutManager(getActivity());
                 exploreRecyclerView.setLayoutManager(exploreLayoutManager);
+
                 if (Data.exploreEvents != null) {
-                    final Event[] exploreEvents = Utility.getAllUpcomingEvent(Data.exploreEvents, getContext());
+                    final Event[] exploreEvents = Utility.getAllEvents(Data.exploreEvents, getContext(), Data.EXPLORE_EVENTS);
                     // specify an adapter (see also next example)
                     exploreAdapter = new CardViewDataAdapter(exploreEvents, getContext());
                     exploreRecyclerView.setAdapter(exploreAdapter);
@@ -343,18 +327,28 @@ public class PageFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        if (mAdapter != null) {
-            mAdapter.notifyDataSetChanged();
+        if (upcomingAdapter != null) {
+            upcomingAdapter.notifyDataSetChanged();
             Log.v("onResume", "update.........");
         }
-
     }
 
     @Override public void onRefresh() {
         (new Handler()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                new HttpAsyncTask(mAdapter, events, getContext()).execute(RESTfulAPI.upcomingEventURL + "zxq@cmu.edu");
+
+                new HttpAsyncTask(upcomingAdapter, getContext()).execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
+
+                JSONObject eventObject = new JSONObject();
+                try {
+                    eventObject.put("lat", Data.lat);
+                    eventObject.put("lon", Data.log);
+                    eventObject.put("distance", Data.distance);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                new PostTask(RESTfulAPI.exploreEventURL, eventObject, "explore").execute();
                 swipeContainer.setRefreshing(false);
             }
         }, 5000);

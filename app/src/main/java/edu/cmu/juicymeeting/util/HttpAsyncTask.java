@@ -9,28 +9,22 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import edu.cmu.juicymeeting.database.model.Event;
 
 /**
  * Created by chenlinquan on 12/7/15.
  */
 public class HttpAsyncTask extends AsyncTask<String, Void, String> {
-    private CardViewDataAdapter mAdapter;
-    private Event[] events;
+    
+    private CardViewDataAdapter adapter;
     private  Context context;
 
-    public HttpAsyncTask() {
-
+    public HttpAsyncTask(Context context) {
+        this.context = context;
     }
 
-    public HttpAsyncTask(CardViewDataAdapter mAdapter, Event[] events, Context context) {
-        this.mAdapter = mAdapter;
-        this.events = events;
+    public HttpAsyncTask(CardViewDataAdapter adapter, Context context) {
+        this.adapter = adapter;
         this.context = context;
     }
 
@@ -42,12 +36,10 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
     // onPostExecute displays the results of the AsyncTask.
     @Override
     protected void onPostExecute(String result) {
-        Data.upComingEvents = result;
-        Data.exploreEvents = result;
-        if (mAdapter != null) {
-            events = Utility.getAllUpcomingEvent(Data.upComingEvents, context);
-            mAdapter.notifyDataSetChanged();
-            Log.v("mAdapter", "update.........");
+        Data.upcomingEvents = Utility.getAllEvents(result, context, Data.UPCOMING_EVENTS);
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+            Log.v("adapter", "update.........");
         }
     }
 
@@ -55,7 +47,6 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
         InputStream inputStream = null;
         String result = "";
         try {
-
             // create HttpClient
             HttpClient httpclient = new DefaultHttpClient();
 

@@ -16,20 +16,27 @@ import java.io.InputStream;
 /**
  * Created by chenlinquan on 12/8/15.
  */
-public class PostTask extends AsyncTask<Void, Void, JSONObject> {
+public class PostTask extends AsyncTask<Void, Void, String> {
     private static final String TAG = "Get Json";
 
     private String URL;
     private JSONObject jsonObjSend;
+    private String postType = null;
 
     public PostTask(String URL, JSONObject jsonObjSend) {
         this.URL = URL;
         this.jsonObjSend = jsonObjSend;
     }
 
+    public PostTask(String URL, JSONObject jsonObjSend, String postType) {
+        this.URL = URL;
+        this.jsonObjSend = jsonObjSend;
+        this.postType = postType;
+    }
+
     @Override
-    protected JSONObject doInBackground(Void... params) {
-        JSONObject jsonObjRecv = null;
+    protected String doInBackground(Void... params) {
+        String resultString = null;
         try {
             DefaultHttpClient httpclient = new DefaultHttpClient();
             HttpPost httpPostRequest = new HttpPost(URL);
@@ -50,26 +57,25 @@ public class PostTask extends AsyncTask<Void, Void, JSONObject> {
                 InputStream instream = entity.getContent();
 
                 // convert content stream to a String
-                String resultString= Utility.convertInputStreamToString(instream);
-                instream.close();
+                resultString = Utility.convertInputStreamToString(instream);
 
-                //resultString = resultString.substring(1,resultString.length()-1); // remove wrapping "[" and "]"
+                instream.close();
 
                 // Raw DEBUG output of our received JSON object:
                 Log.i(TAG,"<JSONObject>\n"+resultString+"\n</JSONObject>");
-
-                jsonObjRecv = new JSONObject(resultString);
-
-
+                //jsonObjRecv = new JSONObject(resultString);
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-        return jsonObjRecv;
+        return resultString;
     }
 
-    protected void onPostExecute(JSONObject result) {
+    protected void onPostExecute(String result) {
+        if (postType != null && postType.equals("explore")) {
+            Data.exploreEvents = result;
+        }
     }
 
 }

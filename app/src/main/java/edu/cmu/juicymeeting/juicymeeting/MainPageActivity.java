@@ -1,7 +1,6 @@
 package edu.cmu.juicymeeting.juicymeeting;
 
 import android.content.Intent;
-import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -12,17 +11,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import edu.cmu.juicymeeting.util.Data;
 import edu.cmu.juicymeeting.util.HttpAsyncTask;
 import edu.cmu.juicymeeting.util.JuicyFont;
-import edu.cmu.juicymeeting.util.PageFragment;
+import edu.cmu.juicymeeting.util.PostTask;
 import edu.cmu.juicymeeting.util.RESTfulAPI;
 import edu.cmu.juicymeeting.util.SampleFragmentPagerAdapter;
 
@@ -115,7 +114,17 @@ public class MainPageActivity extends AppCompatActivity
         TabLayout.Tab tab = tabLayout.getTabAt(2);//second tab as default
         tab.select();
 
-        new HttpAsyncTask().execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
+        new HttpAsyncTask(this).execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
+
+        JSONObject eventObject = new JSONObject();
+        try {
+            eventObject.put("lat", Data.lat);
+            eventObject.put("lon", Data.log);
+            eventObject.put("distance", Data.distance);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new PostTask(RESTfulAPI.exploreEventURL, eventObject, "explore").execute();
 
     }
 
