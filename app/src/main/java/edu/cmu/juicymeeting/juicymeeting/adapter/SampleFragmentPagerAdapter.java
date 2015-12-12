@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.util;
+package edu.cmu.juicymeeting.juicymeeting.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,10 +9,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import edu.cmu.juicymeeting.juicymeeting.PageFragment;
+import edu.cmu.juicymeeting.juicymeeting.fragment.PageFragment;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {

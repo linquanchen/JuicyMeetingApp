@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.util;
+package edu.cmu.juicymeeting.juicymeeting.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.cmu.juicymeeting.database.model.ChatGroup;
-import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
+import edu.cmu.juicymeeting.juicymeeting.activity.EventDetailActivity;
 
 /**
  * Created by chenlinquan on 11/18/15.
@@ -17,7 +17,7 @@ import edu.cmu.juicymeeting.juicymeeting.R;
 public class ChatGroupAdapter extends RecyclerView.Adapter<ChatGroupAdapter.ViewHolder>  {
 
     public ChatGroup[] chatGroups;
-    public OnItemClickListener mItemClickListener;
+    public EventDetailActivity.OnItemClickListener mItemClickListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public ChatGroupAdapter(ChatGroup[] chatGroups) {
@@ -74,7 +74,7 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<ChatGroupAdapter.View
         }
     }
 
-    public void setmItemClickListener(final OnItemClickListener onItemClickListener) {
+    public void setmItemClickListener(final EventDetailActivity.OnItemClickListener onItemClickListener) {
         this.mItemClickListener = onItemClickListener;
     }
 }

@@ -1,7 +1,10 @@
-package edu.cmu.juicymeeting.helper;
+package edu.cmu.juicymeeting.juicymeeting.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+
+import edu.cmu.juicymeeting.juicymeeting.adapter.ItemTouchHelperAdapter;
+import edu.cmu.juicymeeting.juicymeeting.adapter.ItemTouchHelperViewHolder;
 
 /**
  * An implementation of {@link ItemTouchHelper.Callback} that enables basic drag & drop and

@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.juicymeeting;
+package edu.cmu.juicymeeting.juicymeeting.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import edu.cmu.juicymeeting.juicymeeting.R;
 
 public class JoinGroupActivity extends AppCompatActivity {
     public static final String PASS = "PASS";

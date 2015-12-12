@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.util;
+package edu.cmu.juicymeeting.ws;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -12,6 +12,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+
+import edu.cmu.juicymeeting.util.Data;
+import edu.cmu.juicymeeting.util.Utility;
 
 /**
  * Created by chenlinquan on 12/8/15.

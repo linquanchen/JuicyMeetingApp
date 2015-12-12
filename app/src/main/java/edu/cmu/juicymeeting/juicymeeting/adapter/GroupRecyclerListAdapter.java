@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.util;
+package edu.cmu.juicymeeting.juicymeeting.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,10 +24,9 @@ import java.util.Locale;
 
 import edu.cmu.juicymeeting.database.chatDB.DatabaseConnector;
 import edu.cmu.juicymeeting.database.chatDB.Group;
-import edu.cmu.juicymeeting.helper.ItemTouchHelperAdapter;
-import edu.cmu.juicymeeting.helper.ItemTouchHelperViewHolder;
-import edu.cmu.juicymeeting.juicymeeting.ChatroomActivity;
+import edu.cmu.juicymeeting.juicymeeting.activity.ChatroomActivity;
 import edu.cmu.juicymeeting.juicymeeting.R;
+import edu.cmu.juicymeeting.ws.WsConfig;
 
 /**
  * Recycle List Adpater to show chat groups

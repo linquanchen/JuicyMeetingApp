@@ -1,16 +1,13 @@
-package edu.cmu.juicymeeting.juicymeeting;
+package edu.cmu.juicymeeting.juicymeeting.adapter;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 
-import java.io.Serializable;
-
 import edu.cmu.juicymeeting.database.model.Event;
+import edu.cmu.juicymeeting.juicymeeting.fragment.EventDetailFragment;
 import edu.cmu.juicymeeting.util.Constants;
 
 //public class EventDetailPageAdapter extends FragmentStatePagerAdapter {

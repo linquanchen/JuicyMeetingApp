@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.util;
+package edu.cmu.juicymeeting.ws;
 
 /**
  * Created by chenlinquan on 12/7/15.

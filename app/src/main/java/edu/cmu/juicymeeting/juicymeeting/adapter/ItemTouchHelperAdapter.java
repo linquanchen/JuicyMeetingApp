@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.helper;
+package edu.cmu.juicymeeting.juicymeeting.adapter;
 
 import android.support.v7.widget.RecyclerView;
 

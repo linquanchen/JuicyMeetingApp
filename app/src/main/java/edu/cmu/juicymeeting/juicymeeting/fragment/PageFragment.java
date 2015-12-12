@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.juicymeeting;
+package edu.cmu.juicymeeting.juicymeeting.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -50,15 +50,19 @@ import java.util.List;
 import edu.cmu.juicymeeting.database.chatDB.DatabaseConnector;
 import edu.cmu.juicymeeting.database.chatDB.Group;
 import edu.cmu.juicymeeting.database.model.Event;
-import edu.cmu.juicymeeting.helper.SimpleItemTouchHelperCallback;
-import edu.cmu.juicymeeting.util.CardViewDataAdapter;
-import edu.cmu.juicymeeting.util.ChatGroupAdapter;
+import edu.cmu.juicymeeting.juicymeeting.R;
+import edu.cmu.juicymeeting.juicymeeting.activity.ChatroomActivity;
+import edu.cmu.juicymeeting.juicymeeting.activity.CreateJoinGroupActivity;
+import edu.cmu.juicymeeting.juicymeeting.activity.EventDetailActivity;
+import edu.cmu.juicymeeting.juicymeeting.adapter.SimpleItemTouchHelperCallback;
+import edu.cmu.juicymeeting.juicymeeting.adapter.EventAdapter;
+import edu.cmu.juicymeeting.juicymeeting.adapter.ChatGroupAdapter;
 import edu.cmu.juicymeeting.util.Constants;
 import edu.cmu.juicymeeting.util.Data;
-import edu.cmu.juicymeeting.util.GroupRecyclerListAdapter;
-import edu.cmu.juicymeeting.util.HttpAsyncTask;
-import edu.cmu.juicymeeting.util.PostTask;
-import edu.cmu.juicymeeting.util.RESTfulAPI;
+import edu.cmu.juicymeeting.juicymeeting.adapter.GroupRecyclerListAdapter;
+import edu.cmu.juicymeeting.ws.HttpAsyncTask;
+import edu.cmu.juicymeeting.ws.PostTask;
+import edu.cmu.juicymeeting.ws.RESTfulAPI;
 import edu.cmu.juicymeeting.util.Utility;
 
 // In this case, the fragment displays simple text based on the page
@@ -79,13 +83,13 @@ public class PageFragment extends Fragment
     private int mPage;
 
     private RecyclerView upcomingRecyclerView;
-    private CardViewDataAdapter upcomingAdapter;
+    private EventAdapter upcomingAdapter;
     private RecyclerView.LayoutManager upcomingLayoutManager;
 
     private SwipeRefreshLayout swipeContainer;
 
     private RecyclerView exploreRecyclerView;
-    private CardViewDataAdapter exploreAdapter;
+    private EventAdapter exploreAdapter;
     private RecyclerView.LayoutManager exploreLayoutManager;
 
     private RecyclerView groupRecyclerView;
@@ -231,10 +235,10 @@ public class PageFragment extends Fragment
 
                 if (Data.upcomingEvents != null) {
                     // specify an adapter
-                    upcomingAdapter = new CardViewDataAdapter(Data.upcomingEvents, getContext());
+                    upcomingAdapter = new EventAdapter(Data.upcomingEvents, getContext());
                     upcomingRecyclerView.setAdapter(upcomingAdapter);
 
-                    upcomingAdapter.setmItemClickListener(new OnItemClickListener() {
+                    upcomingAdapter.setmItemClickListener(new EventDetailActivity.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
                             Log.v("LISTENER", "Position:" + position);
@@ -307,10 +311,10 @@ public class PageFragment extends Fragment
                 if (Data.exploreEvents != null) {
                     final Event[] exploreEvents = Utility.getAllEvents(Data.exploreEvents, getContext(), Data.EXPLORE_EVENTS);
                     // specify an adapter (see also next example)
-                    exploreAdapter = new CardViewDataAdapter(exploreEvents, getContext());
+                    exploreAdapter = new EventAdapter(exploreEvents, getContext());
                     exploreRecyclerView.setAdapter(exploreAdapter);
 
-                    exploreAdapter.setmItemClickListener(new OnItemClickListener() {
+                    exploreAdapter.setmItemClickListener(new EventDetailActivity.OnItemClickListener() {
                         @SuppressLint("NewApi")
                         @Override
                         public void onItemClick(View view, int position) {

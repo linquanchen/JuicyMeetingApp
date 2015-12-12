@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.util;
+package edu.cmu.juicymeeting.juicymeeting.adapter;
 
 import android.app.Activity;
 import android.content.Context;

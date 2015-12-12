@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.util;
+package edu.cmu.juicymeeting.juicymeeting.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,25 +18,25 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import edu.cmu.juicymeeting.database.model.Event;
-import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
+import edu.cmu.juicymeeting.juicymeeting.activity.EventDetailActivity;
 
 /**
  * Created by chenlinquan on 11/18/15.
  */
-public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapter.ViewHolder>  {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>  {
 
     public Event[] eventSet;
-    public OnItemClickListener mItemClickListener;
+    public EventDetailActivity.OnItemClickListener mItemClickListener;
     private Context context;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CardViewDataAdapter(Event[] eventSet) {
+    public EventAdapter(Event[] eventSet) {
         this.eventSet = eventSet;
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CardViewDataAdapter(Event[] eventSet, Context context) {
+    public EventAdapter(Event[] eventSet, Context context) {
         this.eventSet = eventSet;
         this.context = context;
     }
@@ -124,7 +124,7 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
         }
     }
 
-    public void setmItemClickListener(final OnItemClickListener onItemClickListener) {
+    public void setmItemClickListener(final EventDetailActivity.OnItemClickListener onItemClickListener) {
         this.mItemClickListener = onItemClickListener;
     }
 

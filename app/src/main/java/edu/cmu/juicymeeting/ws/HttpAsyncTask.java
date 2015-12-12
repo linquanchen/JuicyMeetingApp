@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.util;
+package edu.cmu.juicymeeting.ws;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -11,19 +11,23 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.InputStream;
 
+import edu.cmu.juicymeeting.juicymeeting.adapter.EventAdapter;
+import edu.cmu.juicymeeting.util.Data;
+import edu.cmu.juicymeeting.util.Utility;
+
 /**
  * Created by chenlinquan on 12/7/15.
  */
 public class HttpAsyncTask extends AsyncTask<String, Void, String> {
     
-    private CardViewDataAdapter adapter;
+    private EventAdapter adapter;
     private  Context context;
 
     public HttpAsyncTask(Context context) {
         this.context = context;
     }
 
-    public HttpAsyncTask(CardViewDataAdapter adapter, Context context) {
+    public HttpAsyncTask(EventAdapter adapter, Context context) {
         this.adapter = adapter;
         this.context = context;
     }

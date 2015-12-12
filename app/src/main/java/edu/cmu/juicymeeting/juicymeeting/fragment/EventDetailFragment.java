@@ -1,4 +1,4 @@
-package edu.cmu.juicymeeting.juicymeeting;
+package edu.cmu.juicymeeting.juicymeeting.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -31,12 +31,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import edu.cmu.juicymeeting.database.model.Event;
+import edu.cmu.juicymeeting.juicymeeting.R;
 import edu.cmu.juicymeeting.util.Constants;
 import edu.cmu.juicymeeting.util.Data;
 import edu.cmu.juicymeeting.util.JuicyFont;
 import edu.cmu.juicymeeting.util.PermissionUtils;
-import edu.cmu.juicymeeting.util.PostTask;
-import edu.cmu.juicymeeting.util.RESTfulAPI;
+import edu.cmu.juicymeeting.ws.PostTask;
+import edu.cmu.juicymeeting.ws.RESTfulAPI;
 import edu.cmu.juicymeeting.util.RImageView;
 
 //import android.support.v7.graphics.Palette;
