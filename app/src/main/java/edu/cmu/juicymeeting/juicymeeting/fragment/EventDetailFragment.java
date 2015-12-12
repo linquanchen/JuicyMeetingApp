@@ -113,16 +113,12 @@ public class EventDetailFragment extends Fragment implements
 
         //title
         toolbar.setTitle(event.getEventName());
-//        title = (TextView)rootView.findViewById(R.id.toolbar_title);
-//        title.setText(event.getEventName());
 
         //insert event detail information into layout
         userPortrait = (RImageView)rootView.findViewById(R.id.event_detail_portrait);
         userName = (TextView)rootView.findViewById(R.id.event_detail_user_name);
 
         joinLeave = (FloatingActionButton)rootView.findViewById(R.id.event_detail_join_leave_switch);
-//         joinLeave = (TextView)rootView.findViewById(R.id.event_detail_join_leave_switch);
-//        joinLeaveBackground = (View) rootView.findViewById( R.id.event_detail_join_leave_switch_background );
         refreshJoinLeaveButtonIcon();
 
         image = (ImageView)rootView.findViewById(R.id.event_detail_image);
@@ -137,12 +133,6 @@ public class EventDetailFragment extends Fragment implements
         location.setText(event.getLocation());
         date.setText(event.getDate());
         description.setText(event.getDescription());
-
-        //hardcode for now, need implementation later
-//        int imageContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getImageContextColor()))));
-//        int textContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getTitleContextColor()))));
-//        collapsingToolbarLayout.setContentScrimColor(imageContextColor);
-//        collapsingToolbarLayout.setCollapsedTitleTextColor(textContextColor);
 
         //set content scrim color and title context color
         int imageContextColor = (int)event.getImageContextColor();
@@ -247,16 +237,6 @@ public class EventDetailFragment extends Fragment implements
             mPermissionDenied = true;
         }
     }
-
-//    @Override
-//    protected void onResumeFragments() {
-//        //super.onResumeFragments();
-//        if (mPermissionDenied) {
-//            // Permission was not granted, display error dialog.
-//            showMissingPermissionError();
-//            mPermissionDenied = false;
-//        }
-//    }
 
     @Override
     public void onResume() {

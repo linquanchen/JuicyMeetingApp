@@ -24,8 +24,8 @@ import java.util.Locale;
 
 import edu.cmu.juicymeeting.database.chatDB.DatabaseConnector;
 import edu.cmu.juicymeeting.database.chatDB.Group;
-import edu.cmu.juicymeeting.juicymeeting.activity.ChatroomActivity;
 import edu.cmu.juicymeeting.juicymeeting.R;
+import edu.cmu.juicymeeting.juicymeeting.activity.ChatroomActivity;
 import edu.cmu.juicymeeting.ws.WsConfig;
 
 /**
@@ -59,7 +59,6 @@ public class GroupRecyclerListAdapter extends RecyclerView.Adapter<GroupRecycler
 
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, int position) {
-       // holder.textView.setText(mItems.get(position));
         // change miliseconds to date for presentation
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(new Date(mGroups.get(position).createTime));

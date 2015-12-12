@@ -3,9 +3,6 @@ package edu.cmu.juicymeeting.juicymeeting.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import edu.cmu.juicymeeting.juicymeeting.adapter.ItemTouchHelperAdapter;
-import edu.cmu.juicymeeting.juicymeeting.adapter.ItemTouchHelperViewHolder;
-
 /**
  * An implementation of {@link ItemTouchHelper.Callback} that enables basic drag & drop and
  * swipe-to-dismiss. Drag events are automatically started by an item long-press.<br/>
