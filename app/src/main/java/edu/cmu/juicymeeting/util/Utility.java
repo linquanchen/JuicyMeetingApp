@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 
 import edu.cmu.juicymeeting.database.model.Event;
+import edu.cmu.juicymeeting.ws.RESTfulAPI;
 
 /**
  * Created by chenlinquan on 12/7/15.

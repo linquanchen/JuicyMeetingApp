@@ -26,7 +26,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.EventDetailActivity$LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,29 +35,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainPageActivity"
+            android:name=".activity.EventDetailActivity$MainPageActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activity.CreateJoinGroupActivity$ProfileActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".CreateGroupActivity"
+            android:name=".activity.CreateJoinGroupActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".JoinGroupActivity"
-            android:label="@string/app_name" />
+            android:name=".activity.ChatroomActivity"/>
         <activity
             android:name="edu.cmu.juicymeeting.chat.GroupChatActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".EventDetailActivity"
+            android:name=".activity.EventDetailActivity"
             android:label="@string/title_activity_event_detail" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".activity.CreateJoinGroupActivity$SignupActivity"
             android:label="@string/title_activity_signup"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
