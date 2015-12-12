@@ -105,7 +105,7 @@ public class EventDetailFragment extends Fragment implements
         }
 
         //toolbar
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar)rootView.findViewById(R.id.toolbar);
         toolbar.getMenu().clear();
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -147,27 +147,11 @@ public class EventDetailFragment extends Fragment implements
         int textContextColor = Color.parseColor(String.format("#%06X", (0xFFFFFF & (int)(event.getTitleContextColor()))));
         collapsingToolbarLayout.setContentScrimColor(imageContextColor);
         collapsingToolbarLayout.setCollapsedTitleTextColor(textContextColor);
-//        collapsingToolbarLayout.setContentScrimColor(event.getImageContextColor());
-//        collapsingToolbarLayout.setCollapsedTitleText(event.getTitleContextColor());
 
         Picasso.with(getContext()).load(event.getCreatorImage()).into(userPortrait);
         userName.setText(event.getCreatorName());
 
         JuicyFont.getInstance().setFont(description, JuicyFont.OPEN_SANS_REGULAR);
-
-//        //collapse color
-//        Palette.from(((BitmapDrawable)image.getDrawable()).getBitmap()).maximumColorCount(32).generate(new Palette.PaletteAsyncListener() {
-//            @Override
-//            public void onGenerated(Palette palette) {
-//                // Get the "vibrant" color swatch based on the bitmap
-//                Palette.Swatch vibrant = palette.getDarkVibrantSwatch();
-//                if (vibrant != null) {
-//                    Log.w("color", Integer.toString(vibrant.getRgb()));
-//                    collapsingToolbarLayout.setContentScrimColor(vibrant.getRgb());
-//                    collapsingToolbarLayout.setCollapsedTitleTextColor(vibrant.getTitleTextColor());
-//                }
-//            }
-//        });
 
         //join / leave floating button
         joinLeave.setOnClickListener(new View.OnClickListener() {

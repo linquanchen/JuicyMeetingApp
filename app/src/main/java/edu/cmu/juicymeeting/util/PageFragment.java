@@ -67,8 +67,11 @@ import edu.cmu.juicymeeting.juicymeeting.OnItemClickListener;
 import edu.cmu.juicymeeting.juicymeeting.R;
 
 // In this case, the fragment displays simple text based on the page
-public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+public class PageFragment extends Fragment
+        implements
+        SwipeRefreshLayout.OnRefreshListener,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener{
     protected static final String TAG = "PageFragment";
 
     public static final String ARG_PAGE = "ARG_PAGE";

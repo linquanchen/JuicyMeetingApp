@@ -38,8 +38,6 @@ public class PostTask extends AsyncTask<Void, Void, JSONObject> {
             System.out.println(jsonObjSend.toString());
             // Set HTTP parameters
             httpPostRequest.setEntity(se);
-//            httpPostRequest.setHeader("Accept", "text");
-//            httpPostRequest.setHeader("Content-type", "text");
 
             long t = System.currentTimeMillis();
             HttpResponse response = (HttpResponse) httpclient.execute(httpPostRequest);
