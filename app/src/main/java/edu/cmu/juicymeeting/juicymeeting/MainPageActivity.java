@@ -128,15 +128,15 @@ public class MainPageActivity extends AppCompatActivity
 
     }
 
-    public void createGroup(View view) {
-        Intent intent = new Intent(this, CreateGroupActivity.class);
-        startActivityForResult(intent, CREATE_GROUP_ACTIVITY);
-    }
-
-    public void joinGroup(View view) {
-        Intent intent = new Intent(MainPageActivity.this, JoinGroupActivity.class);
-        startActivity(intent);
-    }
+//    public void createGroup(View view) {
+//        Intent intent = new Intent(this, CreateJoinGroupActivity.class);
+//        startActivityForResult(intent, CREATE_GROUP_ACTIVITY);
+//    }
+//
+//    public void joinGroup(View view) {
+//        Intent intent = new Intent(MainPageActivity.this, CreateJoinGroupActivity.class);
+//        startActivity(intent);
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

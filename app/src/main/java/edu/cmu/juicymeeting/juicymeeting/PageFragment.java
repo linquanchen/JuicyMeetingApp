@@ -23,6 +23,7 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,14 +45,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.List;
 
 import edu.cmu.juicymeeting.chat.GroupChatActivity;
+import edu.cmu.juicymeeting.database.chatDB.DatabaseConnector;
+import edu.cmu.juicymeeting.database.chatDB.Group;
 import edu.cmu.juicymeeting.database.model.ChatGroup;
 import edu.cmu.juicymeeting.database.model.Event;
+import edu.cmu.juicymeeting.helper.SimpleItemTouchHelperCallback;
 import edu.cmu.juicymeeting.util.CardViewDataAdapter;
 import edu.cmu.juicymeeting.util.ChatGroupAdapter;
 import edu.cmu.juicymeeting.util.Constants;
 import edu.cmu.juicymeeting.util.Data;
+import edu.cmu.juicymeeting.util.GroupRecyclerListAdapter;
 import edu.cmu.juicymeeting.util.HttpAsyncTask;
 import edu.cmu.juicymeeting.util.PostTask;
 import edu.cmu.juicymeeting.util.RESTfulAPI;
@@ -115,6 +121,12 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     protected Location mLastLocation;
     private double latitude, longitude;
 
+    /** zhexinq chat recycle view **/
+    private GroupRecyclerListAdapter mGroupRecyclerListAdapter;
+    private ItemTouchHelper mItemTouchHelper;
+    private RecyclerView mRecyclerView;
+    private List<Group> mGroups;
+
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
@@ -127,6 +139,10 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
+        // retrieve group data
+        DatabaseConnector connector = DatabaseConnector.getInstance(getActivity());
+        connector.deleteAllRecords(); // for testing
+        mGroups = connector.getAllGroupsOrderByCreateTime();
     }
 
 
@@ -243,35 +259,39 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
             //chat room
             case 3:
+                mGroupRecyclerListAdapter = new GroupRecyclerListAdapter(mGroups, getActivity());
                 view = inflater.inflate(R.layout.group_chat, container, false);
-
                 groupRecyclerView = (RecyclerView) view.findViewById(R.id.group_list);
 
-                // use a linear layout manager
-                groupLayoutManager = new LinearLayoutManager(getActivity());
-                groupRecyclerView.setLayoutManager(groupLayoutManager);
+                // configure the recyclerView
+                groupRecyclerView.setHasFixedSize(true);
+                groupRecyclerView.setAdapter(mGroupRecyclerListAdapter);
+                groupRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-                ChatGroup[] chatGroups = new ChatGroup[4];
-                chatGroups[0] = new ChatGroup("First Meeting", "Mountain View", 1);
-                chatGroups[1] = new ChatGroup("Third Meeting", "San Francisco", 2);
-                chatGroups[2] = new ChatGroup("Sixth Meeting", "New York", 2);
-                chatGroups[3] = new ChatGroup("Eight Meeting", "Boston", 2);
-                // specify an adapter (see also next example)
-                groupAdapter = new ChatGroupAdapter(chatGroups);
-                groupRecyclerView.setAdapter(groupAdapter);
+                // attach callbacks to recycler view for movement
+                ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mGroupRecyclerListAdapter);
+                mItemTouchHelper = new ItemTouchHelper(callback);
+                mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
-                groupAdapter.setmItemClickListener(new OnItemClickListener() {
-
-                    @SuppressLint("NewApi")
+                // get create/join group button
+                LinearLayout createGroup = (LinearLayout) view.findViewById(R.id.group_create);
+                createGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onItemClick(View view, int position) {
-                        //Toast.makeText(getActivity(), position, Toast.LENGTH_LONG);
-                        Log.v("LISTENER", "Position:" + position);
-                        Intent intent = new Intent(getActivity(), GroupChatActivity.class);
-                        startActivity(intent);
+                    public void onClick(View view) {
+                        Intent i = new Intent(getActivity(), CreateJoinGroupActivity.class);
+                        i.putExtra(ChatroomActivity.CHAT_ACTION, "create");
+                        startActivity(i);
                     }
                 });
-
+                LinearLayout joinGroup = (LinearLayout) view.findViewById(R.id.group_join);
+                joinGroup.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(getActivity(), CreateJoinGroupActivity.class);
+                        i.putExtra(ChatroomActivity.CHAT_ACTION, "join");
+                        startActivity(i);
+                    }
+                });
                 break;
 
             //explore event
@@ -328,6 +348,12 @@ public class PageFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             upcomingAdapter.notifyDataSetChanged();
             Log.v("onResume", "update.........");
         }
+        // refresh the chat group list
+        DatabaseConnector connector = DatabaseConnector.getInstance(getActivity());
+        mGroups.clear();
+        mGroups.addAll(connector.getAllGroupsOrderByCreateTime());
+        if (mGroupRecyclerListAdapter != null)
+            mGroupRecyclerListAdapter.notifyDataSetChanged();
     }
 
     @Override public void onRefresh() {

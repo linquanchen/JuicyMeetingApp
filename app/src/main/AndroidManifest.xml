@@ -43,8 +43,10 @@
             android:name=".ProfileActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".CreateGroupActivity"
+            android:name=".CreateJoinGroupActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name=".ChatroomActivity"/>
         <activity
             android:name=".JoinGroupActivity"
             android:label="@string/app_name" />
@@ -57,7 +59,8 @@
         <activity
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
