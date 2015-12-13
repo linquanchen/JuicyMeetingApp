@@ -16,6 +16,11 @@
         android:layout_height="0px"
         android:layout_weight="1"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"/>
+
     <android.support.design.widget.TabLayout
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
@@ -23,7 +28,7 @@
         android:paddingTop="@dimen/small_padding"
         android:paddingBottom="@dimen/small_padding"
         android:layout_gravity="center_horizontal"
-        android:background="@color/grey_extra_light"
+        android:background="@color/white"
         app:tabBackground="@color/transparent"
         android:textAlignment="center"
         android:onClick="tabClick"

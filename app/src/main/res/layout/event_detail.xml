@@ -81,10 +81,10 @@ the background of switch button : event_detail_join_leave_switch_background
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="20dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:paddingTop="@dimen/small_padding"
+            android:paddingBottom="@dimen/large_padding"
+            android:paddingLeft="@dimen/medium_padding"
+            android:paddingRight="@dimen/medium_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -209,14 +209,11 @@ public class PageFragment extends Fragment
                 view = inflater.inflate(R.layout.create_event, container, false);
                 verifyStoragePermissions(getActivity());
 
-//                (TabLayout)getActivity().findViewById(R.id.sliding_tabs)
-
                 name = (EditText)view.findViewById(R.id.create_event_name);
                 location = (EditText)view.findViewById(R.id.create_event_location);
                 time = (EditText)view.findViewById(R.id.create_event_time);
                 description = (EditText)view.findViewById(R.id.create_event_description);
 
-                //((TextView)(v.findViewById(R.id.create_event_description_copy))).setText("");
                 buildGoogleApiClient();
                 location.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     private Context context;
     private static String tabTitles[] = new String[]{"CREATE", "MY", "EXPLORE", "CHAT"};
     private int[] imageResId = {R.drawable.create, R.drawable.star_outline, R.drawable.explore, R.drawable.chat};
+    private int[] imageSelectedResId = {R.drawable.create_pink, R.drawable.star_outline_pink, R.drawable.explore, R.drawable.chat};
 
     public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
@@ -43,15 +45,26 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @SuppressLint("NewApi")
     public View getNormalTabView(int position) {
-        Log.w("get new tab view", "normal");
-        // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView and ImageView
         View v = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
         TextView tv = (TextView) v.findViewById(R.id.textView);
         tv.setText(tabTitles[position]);
         tv.setTextColor(Color.rgb(0,0,0));
-//        ImageView img = (ImageView)v.findViewById(R.id.imgView);
-//        img.setBackgroundResource(imageResId[position]);
+        tv.setTextColor(ContextCompat.getColor(context, R.color.black));
         tv.setCompoundDrawablesRelativeWithIntrinsicBounds(0, imageResId[position], 0, 0);
         return v;
+    }
+
+    @SuppressLint("NewApi")
+    public void setNormalTabView(View v, int position) {
+        TextView tv = (TextView) v.findViewById(R.id.textView);
+        tv.setTextColor(ContextCompat.getColor(context, R.color.black));
+        tv.setCompoundDrawablesRelativeWithIntrinsicBounds(0, imageResId[position], 0, 0);
+    }
+
+    @SuppressLint("NewApi")
+    public void setSelectedTabView(View v, int position) {
+        TextView tv = (TextView) v.findViewById(R.id.textView);
+        tv.setTextColor(ContextCompat.getColor(context, R.color.sexy_pink));
+        tv.setCompoundDrawablesRelativeWithIntrinsicBounds(0, imageSelectedResId[position], 0, 0);
     }
 }

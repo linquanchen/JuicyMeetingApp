@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -235,12 +236,14 @@ public class EventDetailActivity extends AppCompatActivity {
 
             // Get the ViewPager and set it's PagerAdapter so that it can display items
             //tab view pager
-            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+            final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
             final SampleFragmentPagerAdapter pagerAdapter = new SampleFragmentPagerAdapter(getSupportFragmentManager(), MainPageActivity.this);
             viewPager.setAdapter(pagerAdapter);
             // Give the TabLayout the ViewPager
             final TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
             tabLayout.setupWithViewPager(viewPager);
+//            tabLayout.setTabTextColors(getResources().getColor(R.color.black, getTheme()),
+//                    getResources().getColor(R.color.sexy_pink, getTheme()));
             // Iterate over all tabs and set the custom view
             for (int i = 0; i < tabLayout.getTabCount(); i++) {
                 TabLayout.Tab tab = tabLayout.getTabAt(i);
@@ -250,6 +253,14 @@ public class EventDetailActivity extends AppCompatActivity {
                 @Override
                 public void onPageSelected(int position) {
                     TextView toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
+                    //set all tab to normal view
+                    for(int i = 0; i < tabLayout.getTabCount(); i++) {
+                        if(i != position)
+                            pagerAdapter.setNormalTabView(tabLayout.getTabAt(i).getCustomView(), i);
+                        else
+                            pagerAdapter.setSelectedTabView(tabLayout.getTabAt(i).getCustomView(), i);
+                    }
+                    TabLayout.Tab tab = tabLayout.getTabAt(position);
                     switch(position) {
                         case 0:
                             toolbarTitle.setText("CREATE");
@@ -266,7 +277,7 @@ public class EventDetailActivity extends AppCompatActivity {
                     }
                 }
             });
-            TabLayout.Tab tab = tabLayout.getTabAt(2);//second tab as default
+            TabLayout.Tab tab = tabLayout.getTabAt(2);//explore tab as default
             tab.select();
 
             new HttpGetTask(this).execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
