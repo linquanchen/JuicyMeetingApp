@@ -139,9 +139,7 @@ public class CreateJoinGroupActivity extends AppCompatActivity {
             } else if (id == R.id.nav_events) {
                 Intent intent = new Intent(this, EventDetailActivity.MainPageActivity.class);
                 startActivity(intent);
-            } else if (id == R.id.nav_pastEvents) {
-
-            } else if (id == R.id.nav_manage) {
+            } else if (id == R.id.nav_myEvents) {
 
             } else if (id == R.id.nav_chat) {
 

@@ -247,16 +247,31 @@ public class EventDetailActivity extends AppCompatActivity {
                 TabLayout.Tab tab = tabLayout.getTabAt(i);
                 tab.setCustomView(pagerAdapter.getNormalTabView(i));
             }
-            //set page change listener to change custom tab view programmtically
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout){
                 @Override
                 public void onPageSelected(int position) {
+                    TextView toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
                     //set all tab to normal view except the selected view to pink color
                     for(int i = 0; i < tabLayout.getTabCount(); i++) {
                         if(i != position)
                             pagerAdapter.setNormalTabView(tabLayout.getTabAt(i).getCustomView(), i);
                         else
                             pagerAdapter.setSelectedTabView(tabLayout.getTabAt(i).getCustomView(), i);
+                    }
+                    //change title
+                    switch(position) {
+                        case 0:
+                            toolbarTitle.setText("CREATE");
+                            break;
+                        case 1:
+                            toolbarTitle.setText("MY EVENTS");
+                            break;
+                        case 2:
+                            toolbarTitle.setText("EXPLORE");
+                            break;
+                        case 3:
+                            toolbarTitle.setText("CHAT");
+                            break;
                     }
                 }
             });
@@ -316,9 +331,7 @@ public class EventDetailActivity extends AppCompatActivity {
             } else if (id == R.id.nav_events) {
                 Intent intent = new Intent(this, MainPageActivity.class);
                 startActivity(intent);
-            } else if (id == R.id.nav_pastEvents) {
-
-            } else if (id == R.id.nav_manage) {
+            } else if (id == R.id.nav_myEvents) {
 
             } else if (id == R.id.nav_chat) {
 

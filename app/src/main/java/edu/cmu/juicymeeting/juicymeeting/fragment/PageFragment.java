@@ -200,15 +200,12 @@ public class PageFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = null;
-        //page title
-        TextView title = (TextView)(((Toolbar)getActivity().findViewById(R.id.toolbar)).findViewById(R.id.toolbar_title));
         //refresh menu
         getActivity().invalidateOptionsMenu();
         switch(mPage) {
             //create event
             case 0:
                 view = inflater.inflate(R.layout.create_event, container, false);
-                title.setText("CREATE");
                 verifyStoragePermissions(getActivity());
 
                 name = (EditText)view.findViewById(R.id.create_event_name);
@@ -267,7 +264,6 @@ public class PageFragment extends Fragment
             //upcoming event
             case 1:
                 view = inflater.inflate(R.layout.upcoming_event, container, false);
-                title.setText("MY EVENTS");
                 upcomingRecyclerView = (RecyclerView) view.findViewById(R.id.upcoming_event_list);
 
                 // use a linear layout manager
@@ -308,7 +304,6 @@ public class PageFragment extends Fragment
             //explore event
             case 2:
                 view = inflater.inflate(R.layout.explore, container, false);
-                title.setText("EXPLORE");
 
                 exploreRecyclerView = (RecyclerView) view.findViewById(R.id.exploreList);
                 // use a linear layout manager
@@ -349,8 +344,6 @@ public class PageFragment extends Fragment
             //chat room
             case 3:
                 view = inflater.inflate(R.layout.group_chat, container, false);
-                title.setText("CHAT");
-
                 mGroupRecyclerListAdapter = new GroupRecyclerListAdapter(mGroups, getActivity());
                 groupRecyclerView = (RecyclerView) view.findViewById(R.id.group_list);
 
