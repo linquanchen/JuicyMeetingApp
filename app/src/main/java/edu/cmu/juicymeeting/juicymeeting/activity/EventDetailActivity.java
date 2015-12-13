@@ -13,6 +13,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -205,7 +207,6 @@ public class EventDetailActivity extends AppCompatActivity {
 
         private Toolbar toolbar;
 
-
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -218,6 +219,7 @@ public class EventDetailActivity extends AppCompatActivity {
             //toolbar
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -227,6 +229,9 @@ public class EventDetailActivity extends AppCompatActivity {
 
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
+
+            //set navigation icon, this must be set after set navigation view
+            toolbar.setNavigationIcon(R.drawable.profile_pink);
 
             // Get the ViewPager and set it's PagerAdapter so that it can display items
             //tab view pager
@@ -244,40 +249,19 @@ public class EventDetailActivity extends AppCompatActivity {
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout){
                 @Override
                 public void onPageSelected(int position) {
+                    TextView toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
                     switch(position) {
                         case 0:
-                            //toolbar, set menu
-                            toolbar = (Toolbar) findViewById(R.id.toolbar);
-                            toolbar.setNavigationIcon(R.drawable.profile_pink);
-                            TextView toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
                             toolbarTitle.setText("CREATE");
-                            getSupportActionBar().setDisplayShowTitleEnabled(false);
                             break;
                         case 1:
-                            //toolbar, set menu
-                            toolbar = (Toolbar) findViewById(R.id.toolbar);
-                            toolbar.setNavigationIcon(R.drawable.profile_pink);
-                            toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
-                            toolbar.getMenu().clear();
                             toolbarTitle.setText("MY EVENTS");
-                            getSupportActionBar().setDisplayShowTitleEnabled(false);
                             break;
                         case 2:
-                            //toolbar, set menu
-                            toolbar = (Toolbar)findViewById(R.id.toolbar);
-                            toolbar.setNavigationIcon(R.drawable.profile_pink);
-                            toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
-                            toolbar.getMenu().clear();
                             toolbarTitle.setText("EXPLORE");
-                            getSupportActionBar().setDisplayShowTitleEnabled(false);
                             break;
                         case 3:
-                            toolbar = (Toolbar)findViewById(R.id.toolbar);
-                            toolbar.setNavigationIcon(R.drawable.profile_pink);
-                            toolbar.getMenu().clear();
-                            toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
                             toolbarTitle.setText("CHAT");
-                            getSupportActionBar().setDisplayShowTitleEnabled(false);
                             break;
                     }
                 }

@@ -15,11 +15,17 @@
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@mipmap/profile" android:id="@+id/imageView" />
 
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing" android:text="Juicy Meeting"
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:text="Juicy Meeting"
+        android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="juicymeeting@juicy.com" android:id="@+id/textView" />
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="juicymeeting@juicy.com"
+        android:textColor="@color/grey_extra_light"
+        android:id="@+id/textView" />
 </LinearLayout>

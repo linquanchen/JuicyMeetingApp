@@ -213,7 +213,7 @@ the background of switch button : event_detail_join_leave_switch_background
         android:layout_margin="24dp"
         android:elevation="4dp"
         android:tint="@color/white"
-        android:src="@drawable/plus_pure"
+        android:src="@drawable/plus"
         app:layout_anchor="@id/event_detail_wrapper"
         app:layout_anchorGravity="bottom|right|end"/>
 

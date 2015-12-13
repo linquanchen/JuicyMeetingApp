@@ -3,8 +3,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@drawable/tile_bg"
-              android:orientation="vertical" >
+              android:orientation="vertical">
 
 <ListView
     android:id="@+id/list_view_messages"
@@ -17,6 +16,11 @@
     android:stackFromBottom="true">
 </ListView>
 
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/sexy_pink"/>
+
 <LinearLayout
     android:id="@+id/llMsgCompose"
     android:layout_width="fill_parent"
@@ -24,6 +28,7 @@
     android:background="@color/white"
     android:orientation="horizontal"
     android:weightSum="3" >
+
 
     <EditText
         android:id="@+id/inputMsg"

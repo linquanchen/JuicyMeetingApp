@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,6 +28,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +37,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -148,27 +152,64 @@ public class PageFragment extends Fragment
         DatabaseConnector connector = DatabaseConnector.getInstance(getActivity());
         connector.deleteAllRecords(); // for testing
         mGroups = connector.getAllGroupsOrderByCreateTime();
+
+        //need option menu
+        setHasOptionsMenu(true);
     }
 
+    @Override
+    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
+        switch(mPage) {
+            case 0:
+                inflater.inflate(R.menu.menu_publish, menu);
+                break;
+            case 3:
+                inflater.inflate(R.menu.menu_plus, menu);
+                break;
+            default:
+                break;
+        }
 
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent i;
+        switch(item.getItemId()) {
+            case R.id.publish_menu:
+                publish();
+                return true;
+            case R.id.create:
+                i = new Intent(getActivity(), CreateJoinGroupActivity.class);
+                i.putExtra(ChatroomActivity.CHAT_ACTION, "create");
+                startActivity(i);
+                return true;
+            case R.id.join:
+                i = new Intent(getActivity(), CreateJoinGroupActivity.class);
+                i.putExtra(ChatroomActivity.CHAT_ACTION, "join");
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private boolean hasMenu = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = null;
+
+        //refresh menu
+        getActivity().invalidateOptionsMenu();
         switch(mPage) {
             //create event
             case 0:
-                Toolbar t = (Toolbar)(((AppCompatActivity)(getActivity())).findViewById(R.id.toolbar));
-                t.inflateMenu(R.menu.menu_publish);
-                t.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        publish();
-                        return true;
-                    }
-                });
                 view = inflater.inflate(R.layout.create_event, container, false);
                 verifyStoragePermissions(getActivity());
+
+//                (TabLayout)getActivity().findViewById(R.id.sliding_tabs)
 
                 name = (EditText)view.findViewById(R.id.create_event_name);
                 location = (EditText)view.findViewById(R.id.create_event_location);
@@ -262,42 +303,7 @@ public class PageFragment extends Fragment
                         android.R.color.holo_red_light);
                 break;
 
-            //chat room
-            case 3:
-                mGroupRecyclerListAdapter = new GroupRecyclerListAdapter(mGroups, getActivity());
-                view = inflater.inflate(R.layout.group_chat, container, false);
-                groupRecyclerView = (RecyclerView) view.findViewById(R.id.group_list);
 
-                // configure the recyclerView
-                groupRecyclerView.setHasFixedSize(true);
-                groupRecyclerView.setAdapter(mGroupRecyclerListAdapter);
-                groupRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-                // attach callbacks to recycler view for movement
-                ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mGroupRecyclerListAdapter);
-                mItemTouchHelper = new ItemTouchHelper(callback);
-                mItemTouchHelper.attachToRecyclerView(mRecyclerView);
-
-                // get create/join group button
-                LinearLayout createGroup = (LinearLayout) view.findViewById(R.id.group_create);
-                createGroup.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent i = new Intent(getActivity(), CreateJoinGroupActivity.class);
-                        i.putExtra(ChatroomActivity.CHAT_ACTION, "create");
-                        startActivity(i);
-                    }
-                });
-                LinearLayout joinGroup = (LinearLayout) view.findViewById(R.id.group_join);
-                joinGroup.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent i = new Intent(getActivity(), CreateJoinGroupActivity.class);
-                        i.putExtra(ChatroomActivity.CHAT_ACTION, "join");
-                        startActivity(i);
-                    }
-                });
-                break;
 
             //explore event
             case 2:
@@ -339,6 +345,22 @@ public class PageFragment extends Fragment
                         android.R.color.holo_red_light);
 
                 break;
+            //chat room
+            case 3:
+                view = inflater.inflate(R.layout.group_chat, container, false);
+                mGroupRecyclerListAdapter = new GroupRecyclerListAdapter(mGroups, getActivity());
+                groupRecyclerView = (RecyclerView) view.findViewById(R.id.group_list);
+
+                // configure the recyclerView
+                groupRecyclerView.setHasFixedSize(true);
+                groupRecyclerView.setAdapter(mGroupRecyclerListAdapter);
+                groupRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                // attach callbacks to recycler view for movement
+                ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mGroupRecyclerListAdapter);
+                mItemTouchHelper = new ItemTouchHelper(callback);
+                mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+                break;
             default:
                 break;
         }
@@ -359,6 +381,8 @@ public class PageFragment extends Fragment
         mGroups.addAll(connector.getAllGroupsOrderByCreateTime());
         if (mGroupRecyclerListAdapter != null)
             mGroupRecyclerListAdapter.notifyDataSetChanged();
+
+        Log.w("on", "resume");
     }
 
     @Override public void onRefresh() {
@@ -525,25 +549,6 @@ public class PageFragment extends Fragment
 
     @Override
     public void onConnected(Bundle bundle) {
-//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1)
-//            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-//                    == PackageManager.PERMISSION_GRANTED) {
-//                // GET the current location
-//                getLocation();
-//            } else {
-//                // Should we show an explanation?
-//                if (shouldShowRequestPermissionRationale(
-//                        Manifest.permission.ACCESS_FINE_LOCATION)) {
-//                    // Explain to the user why we need to read the contacts
-//                    Toast.makeText(getActivity(), R.string.permission_rationale, Toast.LENGTH_LONG).show();
-//                }
-//
-//                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-//                        REQUEST_ACCESS_FINE_LOCATION);
-//            }
-//        else {
-//            getLocation();
-//        }
         getLocation();
     }
 

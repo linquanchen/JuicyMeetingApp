@@ -270,7 +270,7 @@ public class EventDetailFragment extends Fragment implements
         if(isJoin)
             joinLeave.setImageDrawable(getResources().getDrawable(R.drawable.minus, getContext().getTheme()));
         else
-            joinLeave.setImageDrawable(getResources().getDrawable(R.drawable.plus_pure, getContext().getTheme()));
+            joinLeave.setImageDrawable(getResources().getDrawable(R.drawable.plus, getContext().getTheme()));
 //        AppCompatActivity activity = (AppCompatActivity)getActivity();
 //        DisplayMetrics dm = new DisplayMetrics();
 //        activity.getWindowManager().getDefaultDisplay().getMetrics( dm );

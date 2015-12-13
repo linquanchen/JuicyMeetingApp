@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -31,20 +32,40 @@ public class CreateJoinGroupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_group);
 
+        //set toolbar and menu
+        TextView tv = (TextView)findViewById(R.id.toolbar_title);
+        tv.setText("GROUP INFO");
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        //must set, otherwise menu is not shown
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         // find the group code view
         groupCodeEditText = (EditText) findViewById(R.id.join_group_password);
         // get whether user wants to create/join an group chat
         chatAction = getIntent().getExtras().getString(ChatroomActivity.CHAT_ACTION);
-        Log.e(TAG, "get chat action: " + chatAction);
     }
 
-    // invoked when cancel button clicked
-    public void cancel(View view) {
-        finish();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.w("inflate", "menu");
+        getMenuInflater().inflate(R.menu.menu_check, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.check_menu:
+                confirm();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     // invoke when ok button clicked
-    public void confirm(View view) {
+    public void confirm() {
         // pass group code and chat action to the chat room session
         Intent i = new Intent(this, ChatroomActivity.class);
         String groupCode = groupCodeEditText.getText().toString();
@@ -60,6 +81,9 @@ public class CreateJoinGroupActivity extends AppCompatActivity {
             isOldUser = "false";
         i.putExtra(ChatroomActivity.IS_OLD_USER, isOldUser);
         startActivity(i);
+
+        //finish this activity
+        finish();
     }
 
 
@@ -75,8 +99,6 @@ public class CreateJoinGroupActivity extends AppCompatActivity {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
-            toolbar.setNavigationIcon(R.drawable.profile_pink);
-            toolbar.getMenu().clear();
 
             //set title
             TextView title = (TextView)findViewById(R.id.toolbar_title);
@@ -90,6 +112,9 @@ public class CreateJoinGroupActivity extends AppCompatActivity {
 
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
+
+            //set navigation icon, this must be set after set navigation view
+            toolbar.setNavigationIcon(R.drawable.profile_pink);
         }
 
         @Override
@@ -100,28 +125,6 @@ public class CreateJoinGroupActivity extends AppCompatActivity {
             } else {
                 super.onBackPressed();
             }
-        }
-
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.main, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
-                return true;
-            }
-
-            return super.onOptionsItemSelected(item);
         }
 
         @SuppressWarnings("StatementWithEmptyBody")
