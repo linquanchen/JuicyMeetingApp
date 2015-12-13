@@ -242,38 +242,21 @@ public class EventDetailActivity extends AppCompatActivity {
             // Give the TabLayout the ViewPager
             final TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
             tabLayout.setupWithViewPager(viewPager);
-//            tabLayout.setTabTextColors(getResources().getColor(R.color.black, getTheme()),
-//                    getResources().getColor(R.color.sexy_pink, getTheme()));
             // Iterate over all tabs and set the custom view
             for (int i = 0; i < tabLayout.getTabCount(); i++) {
                 TabLayout.Tab tab = tabLayout.getTabAt(i);
                 tab.setCustomView(pagerAdapter.getNormalTabView(i));
             }
+            //set page change listener to change custom tab view programmtically
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout){
                 @Override
                 public void onPageSelected(int position) {
-                    TextView toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
-                    //set all tab to normal view
+                    //set all tab to normal view except the selected view to pink color
                     for(int i = 0; i < tabLayout.getTabCount(); i++) {
                         if(i != position)
                             pagerAdapter.setNormalTabView(tabLayout.getTabAt(i).getCustomView(), i);
                         else
                             pagerAdapter.setSelectedTabView(tabLayout.getTabAt(i).getCustomView(), i);
-                    }
-                    TabLayout.Tab tab = tabLayout.getTabAt(position);
-                    switch(position) {
-                        case 0:
-                            toolbarTitle.setText("CREATE");
-                            break;
-                        case 1:
-                            toolbarTitle.setText("MY EVENTS");
-                            break;
-                        case 2:
-                            toolbarTitle.setText("EXPLORE");
-                            break;
-                        case 3:
-                            toolbarTitle.setText("CHAT");
-                            break;
                     }
                 }
             });

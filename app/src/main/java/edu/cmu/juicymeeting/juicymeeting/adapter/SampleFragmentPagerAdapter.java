@@ -19,8 +19,10 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     private static final int PAGE_COUNT = 4;
     private Context context;
     private static String tabTitles[] = new String[]{"CREATE", "MY", "EXPLORE", "CHAT"};
-    private int[] imageResId = {R.drawable.create, R.drawable.star_outline, R.drawable.explore, R.drawable.chat};
-    private int[] imageSelectedResId = {R.drawable.create_pink, R.drawable.star_outline_pink, R.drawable.explore, R.drawable.chat};
+    private int[] imageResId = {R.drawable.create, R.drawable.star_outline,
+            R.drawable.explore, R.drawable.chat};
+    private int[] imageSelectedResId = {R.drawable.create_pink, R.drawable.star_outline_pink,
+            R.drawable.explore_pink, R.drawable.chat_pink};
 
     public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
