@@ -18,8 +18,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import edu.cmu.juicymeeting.database.chatDB.DatabaseConnector;
 import edu.cmu.juicymeeting.juicymeeting.R;
+import edu.cmu.juicymeeting.util.Data;
+import edu.cmu.juicymeeting.util.Utility;
+import edu.cmu.juicymeeting.ws.HttpPostTask;
+import edu.cmu.juicymeeting.ws.RESTfulAPI;
 
 public class CreateJoinGroupActivity extends AppCompatActivity {
     private static final String TAG = CreateJoinGroupActivity.class.getSimpleName();
@@ -81,6 +91,9 @@ public class CreateJoinGroupActivity extends AppCompatActivity {
             //set title
             TextView title = (TextView)findViewById(R.id.toolbar_title);
             title.setText("PROFILE");
+
+            TextView name = (TextView)findViewById(R.id.profile_name);
+            name.setText(Data.userName);
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -211,14 +224,27 @@ public class CreateJoinGroupActivity extends AppCompatActivity {
             String password = _passwordText.getText().toString();
 
             // TODO: Implement your own signup logic here.
+            JSONObject signJson = new JSONObject();
+            try {
+                signJson.put("name", name);
+                signJson.put("email", email);
+                signJson.put("password", Utility.MD5Hashing(password));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            new HttpPostTask(RESTfulAPI.signUp, signJson, "signUp").execute();
 
             new android.os.Handler().postDelayed(
                     new Runnable() {
                         public void run() {
                             // On complete call either onSignupSuccess or onSignupFailed
                             // depending on success
-                            onSignupSuccess();
-                            // onSignupFailed();
+                            if (Data.signUpStatus) {
+                                onSignupSuccess();
+                            }
+                            else {
+                                onSignupFailed();
+                            }
                             progressDialog.dismiss();
                         }
                     }, 3000);
@@ -226,6 +252,9 @@ public class CreateJoinGroupActivity extends AppCompatActivity {
 
 
         public void onSignupSuccess() {
+            Data.userEmail = _emailText.getText().toString();
+            Data.userName = _nameText.getText().toString();
+            System.out.println("userEmail: " + Data.userEmail + ", userName: " + Data.userName );
             _signupButton.setEnabled(true);
             setResult(RESULT_OK, null);
             finish();

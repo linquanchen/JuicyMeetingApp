@@ -41,10 +41,6 @@ public class HttpGetTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         Data.upcomingEvents = Utility.getAllEvents(result, context, Data.UPCOMING_EVENTS);
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-            Log.v("adapter", "update.........");
-        }
     }
 
     public static String GET(String url){

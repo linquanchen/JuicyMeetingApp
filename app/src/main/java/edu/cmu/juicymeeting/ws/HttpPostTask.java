@@ -1,5 +1,6 @@
 package edu.cmu.juicymeeting.ws;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -24,6 +26,7 @@ public class HttpPostTask extends AsyncTask<Void, Void, String> {
     private String URL;
     private JSONObject jsonObjSend;
     private String postType = null;
+    private Context context;
 
     public HttpPostTask(String URL, JSONObject jsonObjSend) {
         this.URL = URL;
@@ -34,6 +37,13 @@ public class HttpPostTask extends AsyncTask<Void, Void, String> {
         this.URL = URL;
         this.jsonObjSend = jsonObjSend;
         this.postType = postType;
+    }
+
+    public HttpPostTask(String URL, JSONObject jsonObjSend, String postType, Context context) {
+        this.URL = URL;
+        this.jsonObjSend = jsonObjSend;
+        this.postType = postType;
+        this.context = context;
     }
 
     @Override
@@ -75,8 +85,28 @@ public class HttpPostTask extends AsyncTask<Void, Void, String> {
     }
 
     protected void onPostExecute(String result) {
-        if (postType != null && postType.equals("explore")) {
-            Data.exploreEvents = result;
+        if (postType != null) {
+            switch (postType) {
+                case "explore":
+                    Data.exploreEvents = Utility.getAllEvents(result, context, Data.EXPLORE_EVENTS);
+                    break;
+                case "signUp":
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        Data.signUpStatus = jsonObject.getBoolean("status");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "login":
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        Data.loginStatus = jsonObject.getBoolean("status");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+            }
         }
     }
 

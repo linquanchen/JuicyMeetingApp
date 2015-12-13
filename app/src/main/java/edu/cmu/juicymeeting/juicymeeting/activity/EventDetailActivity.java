@@ -30,6 +30,7 @@ import edu.cmu.juicymeeting.juicymeeting.adapter.SampleFragmentPagerAdapter;
 import edu.cmu.juicymeeting.util.Constants;
 import edu.cmu.juicymeeting.util.Data;
 import edu.cmu.juicymeeting.util.JuicyFont;
+import edu.cmu.juicymeeting.util.Utility;
 import edu.cmu.juicymeeting.util.ZoomOutPageTransformer;
 import edu.cmu.juicymeeting.ws.HttpGetTask;
 import edu.cmu.juicymeeting.ws.HttpPostTask;
@@ -94,9 +95,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(LoginActivity.this, MainPageActivity.class);
-                    startActivity(intent);
-                    //login();
+                    login();
                 }
             });
 
@@ -131,13 +130,26 @@ public class EventDetailActivity extends AppCompatActivity {
             String password = _passwordText.getText().toString();
 
             // TODO: Implement your own authentication logic here.
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("email", email);
+                jsonObject.put("password", Utility.MD5Hashing(password));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            new HttpPostTask(RESTfulAPI.login, jsonObject, "login").execute();
 
             new android.os.Handler().postDelayed(
                     new Runnable() {
                         public void run() {
                             // On complete call either onLoginSuccess or onLoginFailed
-                            onLoginSuccess();
-                            // onLoginFailed();
+                            if (Data.loginStatus) {
+                                Data.userEmail = _emailText.getText().toString();
+                                onLoginSuccess();
+                            }
+                            else {
+                                onLoginFailed();
+                            }
                             progressDialog.dismiss();
                         }
                     }, 3000);
@@ -151,6 +163,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
                     // TODO: Implement successful signup logic here
                     // By default we just finish the Activity and log them in automatically
+                    onLoginSuccess();
                     this.finish();
                 }
             }
@@ -163,7 +176,10 @@ public class EventDetailActivity extends AppCompatActivity {
         }
 
         public void onLoginSuccess() {
+            //Data.userEmail = _emailText.getText().toString();
             _loginButton.setEnabled(true);
+            Intent intent = new Intent(LoginActivity.this, MainPageActivity.class);
+            startActivity(intent);
             finish();
         }
 
@@ -205,6 +221,11 @@ public class EventDetailActivity extends AppCompatActivity {
 
         private Toolbar toolbar;
 
+        private static TabLayout tabLayout = null;
+
+        public static TabLayout getTabLayout() {
+            return tabLayout;
+        }
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -234,7 +255,7 @@ public class EventDetailActivity extends AppCompatActivity {
             final SampleFragmentPagerAdapter pagerAdapter = new SampleFragmentPagerAdapter(getSupportFragmentManager(), MainPageActivity.this);
             viewPager.setAdapter(pagerAdapter);
             // Give the TabLayout the ViewPager
-            final TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+            tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
             tabLayout.setupWithViewPager(viewPager);
             // Iterate over all tabs and set the custom view
             for (int i = 0; i < tabLayout.getTabCount(); i++) {
@@ -295,7 +316,7 @@ public class EventDetailActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            new HttpPostTask(RESTfulAPI.exploreEventURL, eventObject, "explore").execute();
+            new HttpPostTask(RESTfulAPI.exploreEventURL, eventObject, "explore", this).execute();
 
         }
 

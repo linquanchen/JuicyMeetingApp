@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -309,9 +310,8 @@ public class PageFragment extends Fragment
                 exploreRecyclerView.setLayoutManager(exploreLayoutManager);
 
                 if (Data.exploreEvents != null) {
-                    final Event[] exploreEvents = Utility.getAllEvents(Data.exploreEvents, getContext(), Data.EXPLORE_EVENTS);
                     // specify an adapter (see also next example)
-                    exploreAdapter = new EventAdapter(exploreEvents, getContext());
+                    exploreAdapter = new EventAdapter(Data.exploreEvents, getContext());
                     exploreRecyclerView.setAdapter(exploreAdapter);
 
                     exploreAdapter.setmItemClickListener(new EventDetailActivity.OnItemClickListener() {
@@ -320,7 +320,7 @@ public class PageFragment extends Fragment
                         public void onItemClick(View view, int position) {
                             //create event detail page that can swipe to navigate
                             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-                            intent.putExtra(Constants.ALL_EVENTS, exploreEvents);
+                            intent.putExtra(Constants.ALL_EVENTS, Data.exploreEvents);
                             intent.putExtra(Constants.EVENT_INDEX, position);
                             startActivity(intent);
                         }
@@ -362,12 +362,19 @@ public class PageFragment extends Fragment
     }
 
     @Override public void onRefresh() {
-        (new Handler()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
+        switch(mPage) {
+            case 1:
                 new HttpGetTask(upcomingAdapter, getContext()).execute(RESTfulAPI.upcomingEventURL + Data.userEmail);
-
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        upcomingAdapter.clear();
+                        upcomingAdapter.addAll(Data.upcomingEvents);
+                        swipeContainer.setRefreshing(false);
+                    }
+                }, 5000);
+                break;
+            case 2:
                 JSONObject eventObject = new JSONObject();
                 try {
                     eventObject.put("lat", Data.lat);
@@ -376,10 +383,23 @@ public class PageFragment extends Fragment
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                new HttpPostTask(RESTfulAPI.exploreEventURL, eventObject, "explore").execute();
-                swipeContainer.setRefreshing(false);
-            }
-        }, 5000);
+                new HttpPostTask(RESTfulAPI.exploreEventURL, eventObject, "explore", getContext()).execute();
+
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        exploreAdapter.clear();
+                        exploreAdapter.addAll(Data.exploreEvents);
+                        swipeContainer.setRefreshing(false);
+                    }
+                }, 5000);
+                break;
+
+        }
+
+
+       // upcomingAdapter.setEventSet(Data.upcomingEvents);
+        //upcomingAdapter.notifyDataSetChanged();
     }
 
     //create event need check permission
@@ -474,6 +494,14 @@ public class PageFragment extends Fragment
             e.printStackTrace();
         }
         new HttpPostTask(RESTfulAPI.creatEventURL, eventObject).execute();
+        Toast.makeText(getContext(), "Create Event Sucessfully!!", Toast.LENGTH_SHORT);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        TabLayout.Tab tab = EventDetailActivity.MainPageActivity.getTabLayout().getTabAt(2);//second tab as default
+        tab.select();
     }
 
 

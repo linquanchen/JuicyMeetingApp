@@ -22,6 +22,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Locale;
 
@@ -55,43 +57,50 @@ public class Utility {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Event[] events = new Event[jsonObj.length()];
-        for (int i = 0; i < jsonObj.length(); i++) {
-            events[i] = new Event();
-            try {
-                JSONObject jsonEvent = jsonObj.getJSONObject(i);
 
-                events[i].setId(jsonEvent.getInt("id"));
-                events[i].setEventImage(RESTfulAPI.DNS + jsonEvent.getString("imgUrl"));
-                events[i].setEventName(jsonEvent.getString("name"));
-                events[i].setDescription(jsonEvent.getString("description"));
+        if (jsonObj != null) {
+            Event[] events = new Event[jsonObj.length()];
+            for (int i = 0; i < jsonObj.length(); i++) {
+                events[i] = new Event();
+                try {
+                    JSONObject jsonEvent = jsonObj.getJSONObject(i);
 
-                events[i].setCreatorImage(RESTfulAPI.DNS + jsonEvent.getJSONObject("creator").getString("imgStr"));
-                events[i].setCreatorName(jsonEvent.getJSONObject("creator").getString("name"));
+                    events[i].setId(jsonEvent.getInt("id"));
+                    events[i].setEventImage(RESTfulAPI.DNS + jsonEvent.getString("imgUrl"));
+                    events[i].setEventName(jsonEvent.getString("name"));
+                    events[i].setDescription(jsonEvent.getString("description"));
 
-                events[i].setFollowers(jsonEvent.getInt("followers"));
-                events[i].setLocation(getLocation(jsonEvent.getDouble("lat"),
-                        jsonEvent.getDouble("lon"), context));
-                events[i].setDate(jsonEvent.getString("eventDateTime"));
+                    events[i].setCreatorImage(RESTfulAPI.DNS + jsonEvent.getJSONObject("creator").getString("imgStr"));
+                    events[i].setCreatorName(jsonEvent.getJSONObject("creator").getString("name"));
 
-                events[i].setTitleContextColor(jsonEvent.getLong("titleContextColor"));
-                events[i].setImageContextColor(jsonEvent.getLong("imageContextColor"));
-                //events[i].setCreatorEmail();
+                    events[i].setFollowers(jsonEvent.getInt("followers"));
+                    events[i].setLocation(getLocation(jsonEvent.getDouble("lat"),
+                            jsonEvent.getDouble("lon"), context));
+                    events[i].setDate(jsonEvent.getString("eventDateTime"));
 
-                boolean status = Data.isJoinMap.containsKey(jsonEvent.getInt("id"));
-                boolean isjoin = status == true ? Data.isJoinMap.get(jsonEvent.getInt("id")) : false;
-                if (type.equals(Data.UPCOMING_EVENTS)) {
-                    Data.isJoinMap.put(jsonEvent.getInt("id"), true || isjoin);
+                    events[i].setTitleContextColor(jsonEvent.getLong("titleContextColor"));
+                    events[i].setImageContextColor(jsonEvent.getLong("imageContextColor"));
+                    //events[i].setCreatorEmail();
+
+                    boolean status = Data.isJoinMap.containsKey(jsonEvent.getInt("id"));
+                    boolean isjoin = status == true ? Data.isJoinMap.get(jsonEvent.getInt("id")) : false;
+                    if (type.equals(Data.UPCOMING_EVENTS)) {
+                        Data.isJoinMap.put(jsonEvent.getInt("id"), true || isjoin);
+                    }
+                    else if (type.equals(Data.EXPLORE_EVENTS)) {
+                        Data.isJoinMap.put(jsonEvent.getInt("id"), false || isjoin);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                else if (type.equals(Data.EXPLORE_EVENTS)) {
-                    Data.isJoinMap.put(jsonEvent.getInt("id"), false || isjoin);
-                }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
+            return events;
         }
-        return events;
+        else {
+            return new Event[0];
+        }
     }
 
 
@@ -151,5 +160,26 @@ public class Utility {
         String encodedString = Base64.encodeToString(bytes, Base64.DEFAULT);
 
         return encodedString;
+    }
+
+    public static String MD5Hashing(String password) {
+
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        md.update(password.getBytes());
+        byte byteData[] = md.digest();
+
+        //convert the byte to hex format method
+        StringBuffer hexString = new StringBuffer();
+        for (int i=0;i<byteData.length;i++) {
+            String hex=Integer.toHexString(0xff & byteData[i]);
+            if(hex.length()==1) hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 }

@@ -11,4 +11,7 @@ public class RESTfulAPI {
     public static String creatEventURL = DNS + "webapi/event/create";
     public static String joinEventURL = DNS + "webapi/event/join";
     public static String disjoinEventURL = DNS + "webapi/event/disjoin";
+
+    public static String signUp = DNS + "webapi/user/register";
+    public static String login = DNS + "webapi/user/login";
 }

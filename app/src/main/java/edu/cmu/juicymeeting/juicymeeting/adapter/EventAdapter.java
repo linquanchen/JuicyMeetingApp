@@ -26,6 +26,10 @@ import edu.cmu.juicymeeting.juicymeeting.activity.EventDetailActivity;
  */
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>  {
 
+    public void setEventSet(Event[] eventSet) {
+        this.eventSet = eventSet;
+    }
+
     public Event[] eventSet;
     public EventDetailActivity.OnItemClickListener mItemClickListener;
     private Context context;
@@ -87,6 +91,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return eventSet.length;
+    }
+
+    // Clean all elements of the recycler
+    public void clear() {
+        eventSet = new Event[0];
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items
+    public void addAll(Event[] events) {
+        eventSet = events;
+        notifyDataSetChanged();
     }
 
     // inner class to hold a reference to each item of RecyclerView
